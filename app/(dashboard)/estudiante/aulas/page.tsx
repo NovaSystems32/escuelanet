@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { useAppStore } from '@/store/useAppStore';
 import PageHeader from '@/components/PageHeader';
+import Link from 'next/link';
 
 const tipoColors: Record<string, { bg: string; color: string }> = {
   tarea: { bg: '#d6eaf8', color: '#1a5276' },
@@ -59,6 +60,13 @@ export default function AulasPage() {
                     <p className="text-sm font-medium" style={{ color: isActive ? '#1a5276' : '#3a3a3a' }}>{materia.nombre}</p>
                     <p className="text-xs mt-0.5" style={{ color: '#888888' }}>Prof. {docente?.apellido}</p>
                     <p className="text-xs mt-0.5" style={{ color: '#888888' }}>{cnt} actividades</p>
+                    <Link
+                      href={`/estudiante/aulas-virtuales/${materia.id}`}
+                      onClick={e => e.stopPropagation()}
+                      className="text-xs mt-1 inline-block text-[#c62828] hover:underline"
+                    >
+                      Ver publicaciones →
+                    </Link>
                   </button>
                 );
               })}

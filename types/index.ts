@@ -1,4 +1,4 @@
-export type Role = 'admin' | 'docente' | 'estudiante' | 'preceptor';
+export type Role = 'admin' | 'docente' | 'estudiante' | 'preceptor' | 'directivo' | 'tutor';
 
 export interface User {
   id: string;
@@ -19,6 +19,10 @@ export interface Estudiante {
   turno: 'mañana' | 'tarde';
   fechaNacimiento: string;
   activo: boolean;
+  photo?: string;
+  tutor?: string;
+  telefonoTutor?: string;
+  direccion?: string;
 }
 
 export interface Docente {
@@ -105,6 +109,29 @@ export interface Actividad {
   fechaEntrega?: string;
   fechaPublicacion: string;
   archivo?: string;
+}
+
+export interface Post {
+  id: string;
+  subjectId: string;
+  courseId: string;
+  teacherId: string;
+  title: string;
+  content: string;
+  images: string[];
+  attachments?: string[];
+  createdAt: string;
+  status: 'published' | 'draft' | 'archived';
+}
+
+export interface AppUser {
+  id: string;
+  username: string;
+  password: string;
+  role: Role;
+  linkedProfileId: string;
+  isActive: boolean;
+  createdAt: string;
 }
 
 export interface AulaVirtual {

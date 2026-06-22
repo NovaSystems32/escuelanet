@@ -4,10 +4,14 @@ import { useAppStore } from '@/store/useAppStore';
 import { Estudiante } from '@/types';
 import PageHeader from '@/components/PageHeader';
 import Modal from '@/components/Modal';
+import PhotoUpload from '@/components/PhotoUpload';
+import ImportStudents from '@/components/ImportStudents';
+import { exportStudentsToExcel, downloadTemplateExcel } from '@/lib/excel';
 
 const emptyForm: Omit<Estudiante, 'id'> = {
   nombre: '', apellido: '', dni: '', email: '', telefono: '',
   curso: 'c1', turno: 'mañana', fechaNacimiento: '', activo: true,
+  photo: undefined, tutor: '', telefonoTutor: '', direccion: '',
 };
 
 export default function EstudiantesPage() {
@@ -17,13 +21,23 @@ export default function EstudiantesPage() {
   const [form, setForm] = useState<Omit<Estudiante, 'id'>>(emptyForm);
   const [search, setSearch] = useState('');
   const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
+  const [importOpen, setImportOpen] = useState(false);
 
   const filtered = estudiantes.filter(e =>
     `${e.nombre} ${e.apellido} ${e.dni}`.toLowerCase().includes(search.toLowerCase())
   );
 
   const openNew = () => { setForm(emptyForm); setEditId(null); setIsOpen(true); };
-  const openEdit = (e: Estudiante) => { setForm({ nombre: e.nombre, apellido: e.apellido, dni: e.dni, email: e.email, telefono: e.telefono, curso: e.curso, turno: e.turno, fechaNacimiento: e.fechaNacimiento, activo: e.activo }); setEditId(e.id); setIsOpen(true); };
+  const openEdit = (e: Estudiante) => {
+    setForm({
+      nombre: e.nombre, apellido: e.apellido, dni: e.dni, email: e.email,
+      telefono: e.telefono, curso: e.curso, turno: e.turno, fechaNacimiento: e.fechaNacimiento,
+      activo: e.activo, photo: e.photo, tutor: e.tutor || '', telefonoTutor: e.telefonoTutor || '',
+      direccion: e.direccion || '',
+    });
+    setEditId(e.id);
+    setIsOpen(true);
+  };
 
   const handleSave = () => {
     if (!form.nombre || !form.apellido) return;
@@ -43,9 +57,20 @@ export default function EstudiantesPage() {
         title="Estudiantes"
         description={`${estudiantes.filter(e => e.activo).length} activos de ${estudiantes.length} total`}
         action={
-          <button onClick={openNew} className="bg-[#1a5276] text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-[#1a5276] transition-colors">
-            + Nuevo Estudiante
-          </button>
+          <div className="flex gap-2 flex-wrap">
+            <button onClick={() => downloadTemplateExcel()} className="px-3 py-2 rounded-lg text-sm font-medium text-[#888888] border border-[#e8e8ec] hover:bg-[#f4f4f6]">
+              📄 Plantilla
+            </button>
+            <button onClick={() => setImportOpen(true)} className="px-3 py-2 rounded-lg text-sm font-medium text-[#1a5276] border border-[#1a5276] hover:bg-[#d6eaf8]">
+              📥 Importar
+            </button>
+            <button onClick={() => exportStudentsToExcel(estudiantes)} className="px-3 py-2 rounded-lg text-sm font-medium text-white" style={{ backgroundColor: '#27ae60' }}>
+              📊 Exportar Excel
+            </button>
+            <button onClick={openNew} className="px-4 py-2 rounded-lg text-sm font-medium text-white" style={{ backgroundColor: '#1a5276' }}>
+              + Nuevo Estudiante
+            </button>
+          </div>
         }
       />
 
@@ -81,8 +106,14 @@ export default function EstudiantesPage() {
                   <tr key={e.id} className="hover:bg-[#f4f4f6]">
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-full bg-[#d6eaf8] text-[#1a5276] flex items-center justify-center text-sm font-semibold">
-                          {e.nombre.charAt(0)}
+                        <div className="w-8 h-8 rounded-full overflow-hidden flex-shrink-0 border border-[#e8e8ec]">
+                          {e.photo ? (
+                            <img src={e.photo} alt="" className="w-full h-full object-cover" />
+                          ) : (
+                            <div className="w-full h-full bg-[#d6eaf8] text-[#1a5276] flex items-center justify-center text-sm font-semibold">
+                              {e.nombre.charAt(0)}
+                            </div>
+                          )}
                         </div>
                         <div>
                           <p className="text-sm font-medium text-[#111111]">{e.apellido}, {e.nombre}</p>
@@ -115,6 +146,14 @@ export default function EstudiantesPage() {
 
       {/* Form Modal */}
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} title={editId ? 'Editar Estudiante' : 'Nuevo Estudiante'} size="lg">
+        <div className="flex justify-center mb-4">
+          <PhotoUpload
+            photo={form.photo}
+            onPhotoChange={(p) => setForm(f => ({ ...f, photo: p }))}
+            name={form.nombre}
+            size="lg"
+          />
+        </div>
         <div className="grid grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium text-[#111111] mb-1">Nombre *</label>
@@ -129,16 +168,16 @@ export default function EstudiantesPage() {
             <input className="w-full px-3 py-2 border border-[#e8e8ec] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#1a5276]" value={form.dni} onChange={e => setForm(f => ({ ...f, dni: e.target.value }))} />
           </div>
           <div>
+            <label className="block text-sm font-medium text-[#111111] mb-1">Fecha de Nacimiento</label>
+            <input type="date" className="w-full px-3 py-2 border border-[#e8e8ec] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#1a5276]" value={form.fechaNacimiento} onChange={e => setForm(f => ({ ...f, fechaNacimiento: e.target.value }))} />
+          </div>
+          <div>
             <label className="block text-sm font-medium text-[#111111] mb-1">Email</label>
             <input type="email" className="w-full px-3 py-2 border border-[#e8e8ec] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#1a5276]" value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} />
           </div>
           <div>
             <label className="block text-sm font-medium text-[#111111] mb-1">Teléfono</label>
             <input className="w-full px-3 py-2 border border-[#e8e8ec] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#1a5276]" value={form.telefono} onChange={e => setForm(f => ({ ...f, telefono: e.target.value }))} />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-[#111111] mb-1">Fecha de Nacimiento</label>
-            <input type="date" className="w-full px-3 py-2 border border-[#e8e8ec] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#1a5276]" value={form.fechaNacimiento} onChange={e => setForm(f => ({ ...f, fechaNacimiento: e.target.value }))} />
           </div>
           <div>
             <label className="block text-sm font-medium text-[#111111] mb-1">Curso</label>
@@ -153,6 +192,18 @@ export default function EstudiantesPage() {
               <option value="tarde">Tarde</option>
             </select>
           </div>
+          <div>
+            <label className="block text-sm font-medium text-[#111111] mb-1">Tutor</label>
+            <input className="w-full px-3 py-2 border border-[#e8e8ec] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#1a5276]" value={form.tutor || ''} onChange={e => setForm(f => ({ ...f, tutor: e.target.value }))} />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-[#111111] mb-1">Teléfono del Tutor</label>
+            <input className="w-full px-3 py-2 border border-[#e8e8ec] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#1a5276]" value={form.telefonoTutor || ''} onChange={e => setForm(f => ({ ...f, telefonoTutor: e.target.value }))} />
+          </div>
+          <div className="col-span-2">
+            <label className="block text-sm font-medium text-[#111111] mb-1">Dirección</label>
+            <input className="w-full px-3 py-2 border border-[#e8e8ec] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#1a5276]" value={form.direccion || ''} onChange={e => setForm(f => ({ ...f, direccion: e.target.value }))} />
+          </div>
           <div className="col-span-2">
             <label className="flex items-center gap-2 text-sm font-medium text-[#111111]">
               <input type="checkbox" checked={form.activo} onChange={e => setForm(f => ({ ...f, activo: e.target.checked }))} className="rounded" />
@@ -162,18 +213,21 @@ export default function EstudiantesPage() {
         </div>
         <div className="flex gap-3 mt-6 justify-end">
           <button onClick={() => setIsOpen(false)} className="px-4 py-2 rounded-lg border border-[#e8e8ec] text-sm text-[#111111] hover:bg-[#f4f4f6]">Cancelar</button>
-          <button onClick={handleSave} className="px-4 py-2 rounded-lg bg-[#1a5276] text-white text-sm hover:bg-[#1a5276]">Guardar</button>
+          <button onClick={handleSave} className="px-4 py-2 rounded-lg text-white text-sm" style={{ backgroundColor: '#1a5276' }}>Guardar</button>
         </div>
       </Modal>
 
       {/* Confirm delete modal */}
       <Modal isOpen={!!confirmDelete} onClose={() => setConfirmDelete(null)} title="Confirmar eliminación" size="sm">
-        <p className="text-sm text-[#888888] mb-4">¿Estás seguro de que querés eliminar este estudiante? Esta acción no se puede deshacer.</p>
+        <p className="text-sm text-[#888888] mb-4">¿Estás seguro de que querés eliminar este estudiante?</p>
         <div className="flex gap-3 justify-end">
           <button onClick={() => setConfirmDelete(null)} className="px-4 py-2 rounded-lg border border-[#e8e8ec] text-sm text-[#111111] hover:bg-[#f4f4f6]">Cancelar</button>
           <button onClick={() => confirmDelete && handleDelete(confirmDelete)} className="px-4 py-2 rounded-lg bg-[#c62828] text-white text-sm hover:bg-[#7a1515]">Eliminar</button>
         </div>
       </Modal>
+
+      {/* Import Modal */}
+      <ImportStudents isOpen={importOpen} onClose={() => setImportOpen(false)} />
     </div>
   );
 }

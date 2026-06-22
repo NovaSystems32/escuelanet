@@ -1,6 +1,6 @@
 import {
   Estudiante, Docente, Curso, Materia, Calificacion,
-  Asistencia, Disciplina, Evento, Actividad, User
+  Asistencia, Disciplina, Evento, Actividad, User, Post, AppUser
 } from '@/types';
 
 export const MOCK_USERS: User[] = [
@@ -96,6 +96,35 @@ export const MOCK_EVENTOS: Evento[] = [
   { id: 'ev5', titulo: 'Acto Escolar', descripcion: 'Acto por el aniversario de la escuela', fecha: '2024-07-20', tipo: 'actividad', color: '#f59e0b' },
   { id: 'ev6', titulo: 'Olimpíada de Matemática', descripcion: 'Participación en olimpíada zonal', fecha: '2024-07-25', tipo: 'actividad', color: '#8b5cf6' },
   { id: 'ev7', titulo: 'Parcial Historia', descripcion: 'Parcial de historia para 1er año', fecha: '2024-07-18', tipo: 'examen', cursoId: 'c1', color: '#ef4444' },
+];
+
+export const MOCK_POSTS: Post[] = [
+  { id: 'p1', subjectId: 'm1', courseId: 'c1', teacherId: 'd1', title: 'TP de Funciones', content: 'Resuelvan los ejercicios 1 al 10 de la página 45 del libro. Entregar la semana que viene en la clase.', images: [], createdAt: '2026-06-20', status: 'published' },
+  { id: 'p2', subjectId: 'm1', courseId: 'c1', teacherId: 'd1', title: 'Material: Derivadas e Integrales', content: 'Les comparto el apunte teórico sobre derivadas e integrales. Leer antes de la próxima clase para poder practicar ejercicios.', images: [], createdAt: '2026-06-18', status: 'published' },
+  { id: 'p3', subjectId: 'm1', courseId: 'c1', teacherId: 'd1', title: 'Borrador: Evaluación integradora', content: 'Evaluación integradora del primer trimestre. Temas: funciones, derivadas, límites.', images: [], createdAt: '2026-06-22', status: 'draft' },
+  { id: 'p4', subjectId: 'm2', courseId: 'c1', teacherId: 'd2', title: 'Análisis de "El Aleph"', content: 'Para la próxima clase: leer el cuento "El Aleph" de Borges y preparar un análisis sobre el símbolo del aleph como metáfora del universo.', images: [], createdAt: '2026-06-19', status: 'published' },
+  { id: 'p5', subjectId: 'm2', courseId: 'c1', teacherId: 'd2', title: 'Gramática: Los tiempos verbales', content: 'Repaso de los tiempos verbales en el modo subjuntivo. Ejercicios de práctica en la guía adjunta.', images: [], createdAt: '2026-06-17', status: 'published' },
+  { id: 'p6', subjectId: 'm3', courseId: 'c1', teacherId: 'd1', title: 'Revolución Francesa: Cronología', content: 'Hoy vimos la cronología de la Revolución Francesa. Les dejo un resumen de las etapas más importantes. Para el parcial: estudiar causas, etapas y consecuencias.', images: [], createdAt: '2026-06-15', status: 'published' },
+  { id: 'p7', subjectId: 'm3', courseId: 'c1', teacherId: 'd1', title: 'Fuentes primarias: Declaración de los Derechos del Hombre', content: 'Análisis de la Declaración de los Derechos del Hombre y del Ciudadano como fuente primaria histórica.', images: [], createdAt: '2026-06-12', status: 'published' },
+  { id: 'p8', subjectId: 'm4', courseId: 'c2', teacherId: 'd3', title: 'Mitosis y Meiosis: Resumen', content: 'Resumen de los procesos de división celular. Incluye diagramas de las fases de la mitosis y meiosis.', images: [], createdAt: '2026-06-20', status: 'published' },
+  { id: 'p9', subjectId: 'm4', courseId: 'c2', teacherId: 'd3', title: 'Trabajo Práctico: ADN y ARN', content: 'TP grupal sobre la estructura del ADN y ARN. Grupos de 3 personas. Entregar el viernes 26/06.', images: [], createdAt: '2026-06-18', status: 'published' },
+  { id: 'p10', subjectId: 'm5', courseId: 'c2', teacherId: 'd2', title: 'Unit 5: Present Perfect', content: 'Practice exercises for Present Perfect tense. Complete pages 45-48 in your textbook before next class.', images: [], createdAt: '2026-06-19', status: 'published' },
+  { id: 'p11', subjectId: 'm5', courseId: 'c2', teacherId: 'd2', title: 'Vocabulary Review: Technology', content: 'Review the vocabulary list from Unit 4 - Technology and Innovation. Quiz next Monday.', images: [], createdAt: '2026-06-16', status: 'published' },
+  { id: 'p12', subjectId: 'm6', courseId: 'c3', teacherId: 'd3', title: 'Leyes de Newton: Problemas', content: 'Resolución de problemas aplicando las tres leyes de Newton. Deben resolver los ejercicios del 1 al 15.', images: [], createdAt: '2026-06-20', status: 'published' },
+  { id: 'p13', subjectId: 'm6', courseId: 'c3', teacherId: 'd3', title: 'Termodinámica: Introducción', content: 'Comenzamos la unidad de termodinámica. Les comparto los conceptos fundamentales: temperatura, calor y trabajo.', images: [], createdAt: '2026-06-17', status: 'published' },
+  { id: 'p14', subjectId: 'm7', courseId: 'c3', teacherId: 'd4', title: 'Reacciones Químicas: Balance', content: 'Práctica de balance de ecuaciones químicas. Completar los ejercicios de la guía antes del jueves.', images: [], createdAt: '2026-06-19', status: 'published' },
+  { id: 'p15', subjectId: 'm7', courseId: 'c3', teacherId: 'd4', title: 'Química Orgánica: Hidrocarbonos', content: 'Clasificación y nomenclatura de los hidrocarburos. Tabla periódica y estructuras moleculares.', images: [], createdAt: '2026-06-14', status: 'published' },
+];
+
+export const MOCK_APP_USERS: AppUser[] = [
+  { id: 'user-admin', username: 'admin', password: 'admin123', role: 'admin', linkedProfileId: '', isActive: true, createdAt: '2026-01-01' },
+  { id: 'user-doc1', username: 'carlos.garcia', password: 'doc123', role: 'docente', linkedProfileId: 'd1', isActive: true, createdAt: '2026-01-01' },
+  { id: 'user-doc2', username: 'maria.gonzalez', password: 'doc123', role: 'docente', linkedProfileId: 'd2', isActive: true, createdAt: '2026-01-01' },
+  { id: 'user-doc3', username: 'roberto.silva', password: 'doc123', role: 'docente', linkedProfileId: 'd3', isActive: true, createdAt: '2026-01-01' },
+  { id: 'user-prec1', username: 'preceptor1', password: 'prec123', role: 'preceptor', linkedProfileId: 'u4', isActive: true, createdAt: '2026-01-01' },
+  { id: 'user-est1', username: 'lucas.rodriguez', password: 'est123', role: 'estudiante', linkedProfileId: 'e1', isActive: true, createdAt: '2026-01-01' },
+  { id: 'user-est2', username: 'valentina.lopez', password: 'est123', role: 'estudiante', linkedProfileId: 'e2', isActive: true, createdAt: '2026-01-01' },
+  { id: 'user-est3', username: 'sofia.gomez', password: 'est123', role: 'estudiante', linkedProfileId: 'e4', isActive: false, createdAt: '2026-01-01' },
 ];
 
 export const MOCK_ACTIVIDADES: Actividad[] = [

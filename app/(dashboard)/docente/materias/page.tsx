@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { useAppStore } from '@/store/useAppStore';
 import PageHeader from '@/components/PageHeader';
+import Link from 'next/link';
 
 export default function DocenteMateriasPage() {
   const { materias, cursos, calificaciones, actividades, estudiantes } = useAppStore();
@@ -28,14 +29,18 @@ export default function DocenteMateriasPage() {
           {misMaterias.map(m => {
             const c = cursos.find(c => c.id === m.cursoId);
             return (
-              <button
-                key={m.id}
-                onClick={() => setSelected(m.id)}
-                className={`w-full text-left p-4 border-b border-[#e8e8ec] last:border-0 transition-colors ${selected === m.id ? 'bg-[#d6eaf8]' : 'hover:bg-[#f4f4f6]'}`}
-              >
-                <p className={`text-sm font-medium ${selected === m.id ? 'text-[#1a5276]' : 'text-[#111111]'}`}>{m.nombre}</p>
-                <p className="text-xs text-[#888888]">{c ? `${c.nombre} ${c.division}` : ''}</p>
-              </button>
+              <div key={m.id} className={`border-b border-[#e8e8ec] last:border-0 ${selected === m.id ? 'bg-[#d6eaf8]' : ''}`}>
+                <button
+                  onClick={() => setSelected(m.id)}
+                  className={`w-full text-left p-4 transition-colors hover:bg-[#f4f4f6]`}
+                >
+                  <p className={`text-sm font-medium ${selected === m.id ? 'text-[#1a5276]' : 'text-[#111111]'}`}>{m.nombre}</p>
+                  <p className="text-xs text-[#888888]">{c ? `${c.nombre} ${c.division}` : ''}</p>
+                </button>
+                <div className="px-4 pb-2">
+                  <Link href={`/docente/materias/${m.id}`} className="text-xs text-[#c62828] hover:underline">Ver publicaciones →</Link>
+                </div>
+              </div>
             );
           })}
         </div>

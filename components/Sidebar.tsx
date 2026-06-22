@@ -11,6 +11,12 @@ interface NavItem {
 }
 
 const navItems: Record<Role, NavItem[]> = {
+  directivo: [
+    { href: '/admin', label: 'Dashboard', icon: '🏠' },
+  ],
+  tutor: [
+    { href: '/estudiante', label: 'Dashboard', icon: '🏠' },
+  ],
   estudiante: [
     { href: '/estudiante', label: 'Dashboard', icon: '🏠' },
     { href: '/estudiante/aulas', label: 'Aulas Virtuales', icon: '📚' },
@@ -29,6 +35,7 @@ const navItems: Record<Role, NavItem[]> = {
     { href: '/admin/asistencias', label: 'Asistencias', icon: '📅' },
     { href: '/admin/disciplina', label: 'Disciplina', icon: '⚖️' },
     { href: '/admin/eventos', label: 'Eventos', icon: '🗓️' },
+    { href: '/admin/usuarios', label: 'Usuarios', icon: '🔑' },
   ],
   docente: [
     { href: '/docente', label: 'Dashboard', icon: '🏠' },
@@ -38,6 +45,7 @@ const navItems: Record<Role, NavItem[]> = {
   ],
   preceptor: [
     { href: '/preceptor', label: 'Dashboard', icon: '🏠' },
+    { href: '/preceptor/estudiantes', label: 'Gestión de Estudiantes', icon: '👥' },
     { href: '/preceptor/asistencias', label: 'Asistencias', icon: '📅' },
     { href: '/preceptor/disciplina', label: 'Disciplina', icon: '⚖️' },
   ],
@@ -48,6 +56,8 @@ const roleLabels: Record<Role, string> = {
   docente: 'Docente',
   estudiante: 'Estudiante',
   preceptor: 'Preceptor',
+  directivo: 'Directivo',
+  tutor: 'Tutor',
 };
 
 export default function Sidebar() {
