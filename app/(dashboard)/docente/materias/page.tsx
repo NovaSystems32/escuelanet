@@ -18,13 +18,13 @@ export default function DocenteMateriasPage() {
 
   return (
     <div>
-      <PageHeader title="Mis Materias" description="Detalle de cada materia que dictás" />
+      <PageHeader title="Mis espacios curriculares" description="Detalle de cada espacio curricular que dictás" />
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         {/* Sidebar */}
         <div className="bg-white rounded-xl border border-[#e8e8ec] overflow-hidden h-fit">
           <div className="p-3 border-b border-[#e8e8ec]">
-            <p className="text-xs font-semibold text-[#888888] uppercase">Materias</p>
+            <p className="text-xs font-semibold text-[#888888] uppercase">Espacios curriculares</p>
           </div>
           {misMaterias.map(m => {
             const c = cursos.find(c => c.id === m.cursoId);
@@ -38,7 +38,7 @@ export default function DocenteMateriasPage() {
                   <p className="text-xs text-[#888888]">{c ? `${c.nombre} ${c.division}` : ''}</p>
                 </button>
                 <div className="px-4 pb-2">
-                  <Link href={`/docente/materias/${m.id}`} className="text-xs text-[#c62828] hover:underline">Ver publicaciones →</Link>
+                  <Link href={`/docente/materias/${m.id}`} className="text-xs text-[#c62828] hover:underline">Ver comunicados →</Link>
                 </div>
               </div>
             );
@@ -55,13 +55,13 @@ export default function DocenteMateriasPage() {
                 <div className="flex gap-4 mt-3 text-sm text-blue-200">
                   <span>📚 {materiaSeleccionada.horasSemanal}h/sem</span>
                   <span>👥 {estudiantesCurso.length} estudiantes</span>
-                  <span>📊 {calsMateria.length} calificaciones</span>
+                  <span>📊 {calsMateria.length} calificaciones registradas</span>
                 </div>
               </div>
 
               {/* Students */}
               <div className="bg-white rounded-xl border border-[#e8e8ec] p-5">
-                <h3 className="font-semibold text-[#111111] mb-3">Estudiantes del Curso</h3>
+                <h3 className="font-semibold text-[#111111] mb-3">Estudiantes del curso y división</h3>
                 <div className="space-y-2">
                   {estudiantesCurso.map(est => {
                     const cals = calsMateria.filter(c => c.estudianteId === est.id);
@@ -85,9 +85,9 @@ export default function DocenteMateriasPage() {
 
               {/* Actividades */}
               <div className="bg-white rounded-xl border border-[#e8e8ec] p-5">
-                <h3 className="font-semibold text-[#111111] mb-3">Actividades y Materiales</h3>
+                <h3 className="font-semibold text-[#111111] mb-3">Actividades y entregas</h3>
                 {actsMateria.length === 0 ? (
-                  <p className="text-sm text-[#888888]">Sin actividades publicadas</p>
+                  <p className="text-sm text-[#888888]">Sin actividades ni entregas publicadas</p>
                 ) : (
                   <div className="space-y-2">
                     {actsMateria.map(a => (

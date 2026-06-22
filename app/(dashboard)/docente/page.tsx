@@ -37,20 +37,20 @@ export default function DocenteDashboard() {
           </p>
         </div>
         <h1 className="text-3xl font-bold" style={{ fontFamily: "'Barlow Condensed', sans-serif" }}>Buenos días, {user?.nombre}</h1>
-        <p className="text-white/70 text-sm mt-1">Panel docente — Gestión de materias y alumnos</p>
+        <p className="text-white/70 text-sm mt-1">Panel del docente — Gestión de espacios curriculares</p>
       </div>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-        <StatCard title="Mis Materias" value={misMaterias.length} icon="📖" color="bg-[#d6eaf8] text-[#1a5276]" />
+        <StatCard title="Mis espacios curriculares" value={misMaterias.length} icon="📖" color="bg-[#d6eaf8] text-[#1a5276]" />
         <StatCard title="Estudiantes" value={estudiantesSet.size} icon="👥" color="bg-[#d4edda] text-[#155724]" />
-        <StatCard title="Calificaciones" value={misCalificaciones.length} icon="📊" color="bg-[#fde8e8] text-[#c62828]" subtitle="Cargadas" />
-        <StatCard title="Actividades" value={misActividades.length} icon="📝" color="bg-[#fef3c7] text-[#856404]" subtitle="Publicadas" />
+        <StatCard title="Calificaciones" value={misCalificaciones.length} icon="📊" color="bg-[#fde8e8] text-[#c62828]" subtitle="Registradas" />
+        <StatCard title="Actividades y entregas" value={misActividades.length} icon="📝" color="bg-[#fef3c7] text-[#856404]" subtitle="Publicadas" />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Mis materias */}
         <div className="bg-white rounded-xl p-5 shadow-sm" style={{ border: '1px solid #e8e8ec' }}>
-          <h2 className="font-semibold mb-4" style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: '1.2rem', color: '#111111' }}>Mis Materias</h2>
+          <h2 className="font-semibold mb-4" style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: '1.2rem', color: '#111111' }}>Mis espacios curriculares</h2>
           <div className="space-y-2">
             {misMaterias.map(materia => {
               const curso = cursos.find(c => c.id === materia.cursoId);
@@ -67,7 +67,7 @@ export default function DocenteDashboard() {
                       <p className="text-xs mt-0.5" style={{ color: '#888888' }}>{curso ? `${curso.nombre} ${curso.division}` : ''} · {materia.horasSemanal}h/sem</p>
                     </div>
                     <div className="text-right">
-                      <p className="text-xs" style={{ color: '#888888' }}>{cals.length} notas</p>
+                      <p className="text-xs" style={{ color: '#888888' }}>{cals.length} calificaciones</p>
                       <p className="text-xs" style={{ color: '#888888' }}>{acts.length} actividades</p>
                     </div>
                   </div>
@@ -75,12 +75,12 @@ export default function DocenteDashboard() {
               );
             })}
           </div>
-          <Link href="/docente/materias" className="mt-4 text-sm font-medium hover:underline block" style={{ color: '#c62828' }}>Ver detalle →</Link>
+          <Link href="/docente/materias" className="mt-4 text-sm font-medium hover:underline block" style={{ color: '#c62828' }}>Ver detalle de espacios curriculares →</Link>
         </div>
 
         {/* Últimas actividades */}
         <div className="bg-white rounded-xl p-5 shadow-sm" style={{ border: '1px solid #e8e8ec' }}>
-          <h2 className="font-semibold mb-4" style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: '1.2rem', color: '#111111' }}>Últimas Actividades Publicadas</h2>
+          <h2 className="font-semibold mb-4" style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: '1.2rem', color: '#111111' }}>Últimas actividades y entregas publicadas</h2>
           <div className="space-y-2">
             {misActividades.slice(0, 4).map(act => {
               const materia = misMaterias.find(m => m.id === act.materiaId);
@@ -96,18 +96,18 @@ export default function DocenteDashboard() {
               );
             })}
           </div>
-          <Link href="/docente/actividades" className="mt-4 text-sm font-medium hover:underline block" style={{ color: '#c62828' }}>Gestionar actividades →</Link>
+          <Link href="/docente/actividades" className="mt-4 text-sm font-medium hover:underline block" style={{ color: '#c62828' }}>Gestionar actividades y entregas →</Link>
         </div>
 
         {/* Calificaciones recientes */}
         <div className="bg-white rounded-xl p-5 shadow-sm lg:col-span-2" style={{ border: '1px solid #e8e8ec' }}>
-          <h2 className="font-semibold mb-4" style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: '1.2rem', color: '#111111' }}>Últimas Calificaciones Cargadas</h2>
+          <h2 className="font-semibold mb-4" style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: '1.2rem', color: '#111111' }}>Últimas calificaciones registradas</h2>
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
                 <tr style={{ backgroundColor: '#f4f4f6' }}>
                   <th className="text-left px-3 py-2.5 text-xs font-semibold uppercase tracking-wide" style={{ color: '#888888' }}>Estudiante</th>
-                  <th className="text-left px-3 py-2.5 text-xs font-semibold uppercase tracking-wide" style={{ color: '#888888' }}>Materia</th>
+                  <th className="text-left px-3 py-2.5 text-xs font-semibold uppercase tracking-wide" style={{ color: '#888888' }}>Espacio curricular</th>
                   <th className="text-left px-3 py-2.5 text-xs font-semibold uppercase tracking-wide" style={{ color: '#888888' }}>Descripción</th>
                   <th className="text-left px-3 py-2.5 text-xs font-semibold uppercase tracking-wide" style={{ color: '#888888' }}>Nota</th>
                 </tr>

@@ -72,7 +72,7 @@ export default function ImportStudents({ isOpen, onClose, courseFilter }: Import
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={handleClose} title="Importar Estudiantes desde Excel" size="lg">
+    <Modal isOpen={isOpen} onClose={handleClose} title="Importar nómina de estudiantes desde Excel" size="lg">
       <div className="space-y-4">
         {!imported && (
           <div>

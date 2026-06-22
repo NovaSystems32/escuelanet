@@ -53,8 +53,8 @@ export default function PreceptorDisciplinaPage() {
   return (
     <div>
       <PageHeader
-        title="Disciplina"
-        description="Registro y gestión de conducta estudiantil"
+        title="Observaciones e intervenciones"
+        description="Registro y seguimiento de observaciones e intervenciones estudiantiles"
         action={
           <button onClick={openNew} className="bg-[#1a5276] text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-[#1a5276]">
             + Nuevo Registro
@@ -119,7 +119,7 @@ export default function PreceptorDisciplinaPage() {
         )}
       </div>
 
-      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} title={editId ? 'Editar Registro' : 'Nuevo Registro de Disciplina'}>
+      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} title={editId ? 'Editar registro' : 'Nueva observación o intervención'}>
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-[#111111] mb-1">Estudiante</label>

@@ -11,9 +11,9 @@ const tipoColors: Record<string, { bg: string; color: string }> = {
 };
 
 const tipoLabels: Record<string, string> = {
-  tarea: 'Tarea',
-  material: 'Material',
-  actividad: 'Actividad',
+  tarea: 'Actividad y entrega',
+  material: 'Material de clase',
+  actividad: 'Actividad áulica',
 };
 
 export default function AulasPage() {
@@ -30,14 +30,14 @@ export default function AulasPage() {
 
   return (
     <div>
-      <PageHeader title="Aulas Virtuales" description="Accedé a tus materias, tareas y materiales" />
+      <PageHeader title="Mis espacios curriculares" description="Accedé a tus espacios curriculares, actividades y materiales" />
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         {/* Sidebar materias */}
         <div className="lg:col-span-1">
           <div className="bg-white rounded-xl overflow-hidden" style={{ border: '1px solid #e8e8ec' }}>
             <div className="p-4 border-b" style={{ borderColor: '#e8e8ec' }}>
-              <h2 className="font-semibold text-sm" style={{ fontFamily: "'Barlow Condensed', sans-serif", color: '#111111' }}>Mis Materias</h2>
+              <h2 className="font-semibold text-sm" style={{ fontFamily: "'Barlow Condensed', sans-serif", color: '#111111' }}>Mis espacios curriculares</h2>
             </div>
             <div>
               {misMaterias.map((materia, idx) => {
@@ -65,7 +65,7 @@ export default function AulasPage() {
                       onClick={e => e.stopPropagation()}
                       className="text-xs mt-1 inline-block text-[#c62828] hover:underline"
                     >
-                      Ver publicaciones →
+                      Ver comunicados →
                     </Link>
                   </button>
                 );
@@ -86,7 +86,7 @@ export default function AulasPage() {
 
               {actividadesMateria.length === 0 ? (
                 <div className="bg-white rounded-xl p-8 text-center" style={{ border: '1px solid #e8e8ec', color: '#888888' }}>
-                  No hay actividades publicadas para esta materia
+                  No hay actividades ni entregas publicadas para este espacio curricular.
                 </div>
               ) : (
                 <div className="space-y-3">

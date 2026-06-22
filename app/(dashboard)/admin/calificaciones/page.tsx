@@ -6,10 +6,10 @@ import PageHeader from '@/components/PageHeader';
 import Modal from '@/components/Modal';
 
 const tipoOpts = [
-  { value: 'parcial', label: 'Parcial' },
-  { value: 'trabajo_practico', label: 'Trabajo Práctico' },
-  { value: 'examen_final', label: 'Examen Final' },
-  { value: 'oral', label: 'Oral' },
+  { value: 'parcial', label: 'Evaluación escrita' },
+  { value: 'trabajo_practico', label: 'Trabajo práctico' },
+  { value: 'examen_final', label: 'Examen final' },
+  { value: 'oral', label: 'Evaluación oral' },
 ];
 
 const emptyForm: Omit<Calificacion, 'id'> = {
@@ -59,7 +59,7 @@ export default function CalificacionesAdminPage() {
         description={`${calificaciones.length} registros`}
         action={
           <button onClick={openNew} className="bg-[#1a5276] text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-[#1a5276]">
-            + Nueva Calificación
+            + Nueva calificación
           </button>
         }
       />
@@ -70,7 +70,7 @@ export default function CalificacionesAdminPage() {
           {estudiantes.map(e => <option key={e.id} value={e.id}>{e.apellido}, {e.nombre}</option>)}
         </select>
         <select value={filterMateria} onChange={e => setFilterMateria(e.target.value)} className="px-3 py-2 border border-[#e8e8ec] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#1a5276]">
-          <option value="">Todas las materias</option>
+          <option value="">Todos los espacios curriculares</option>
           {materias.map(m => <option key={m.id} value={m.id}>{m.nombre}</option>)}
         </select>
       </div>
@@ -81,10 +81,10 @@ export default function CalificacionesAdminPage() {
             <thead>
               <tr className="bg-[#f4f4f6] border-b border-[#e8e8ec]">
                 <th className="text-left px-4 py-3 text-xs font-semibold text-[#888888] uppercase">Estudiante</th>
-                <th className="text-left px-4 py-3 text-xs font-semibold text-[#888888] uppercase">Materia</th>
+                <th className="text-left px-4 py-3 text-xs font-semibold text-[#888888] uppercase">Espacio curricular</th>
                 <th className="text-left px-4 py-3 text-xs font-semibold text-[#888888] uppercase">Descripción</th>
                 <th className="text-left px-4 py-3 text-xs font-semibold text-[#888888] uppercase">Tipo</th>
-                <th className="text-left px-4 py-3 text-xs font-semibold text-[#888888] uppercase">Trimestre</th>
+                <th className="text-left px-4 py-3 text-xs font-semibold text-[#888888] uppercase">Período</th>
                 <th className="text-left px-4 py-3 text-xs font-semibold text-[#888888] uppercase">Fecha</th>
                 <th className="text-left px-4 py-3 text-xs font-semibold text-[#888888] uppercase">Nota</th>
                 <th className="text-right px-4 py-3 text-xs font-semibold text-[#888888] uppercase">Acciones</th>
@@ -117,7 +117,7 @@ export default function CalificacionesAdminPage() {
         </div>
       </div>
 
-      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} title={editId ? 'Editar Calificación' : 'Nueva Calificación'} size="lg">
+      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} title={editId ? 'Editar calificación' : 'Nueva calificación'} size="lg">
         <div className="grid grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium text-[#111111] mb-1">Estudiante</label>
@@ -142,11 +142,11 @@ export default function CalificacionesAdminPage() {
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-[#111111] mb-1">Trimestre</label>
+            <label className="block text-sm font-medium text-[#111111] mb-1">Período</label>
             <select className="w-full px-3 py-2 border border-[#e8e8ec] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#1a5276]" value={form.trimestre} onChange={e => setForm(f => ({ ...f, trimestre: Number(e.target.value) as 1|2|3 }))}>
-              <option value={1}>1° Trimestre</option>
-              <option value={2}>2° Trimestre</option>
-              <option value={3}>3° Trimestre</option>
+              <option value={1}>1° Cuatrimestre</option>
+              <option value={2}>2° Cuatrimestre</option>
+              <option value={3}>Instancia de recuperación / Cierre</option>
             </select>
           </div>
           <div>

@@ -20,7 +20,7 @@ export default function InasistenciasPage() {
 
   return (
     <div>
-      <PageHeader title="Inasistencias" description="Registro de asistencias y ausencias" />
+      <PageHeader title="Mis inasistencias y justificaciones" description="Registro de inasistencias en el ciclo lectivo actual" />
 
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">

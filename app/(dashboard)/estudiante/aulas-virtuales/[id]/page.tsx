@@ -73,12 +73,12 @@ export default function EstudianteAulaVirtualPage() {
 
       {/* Posts */}
       <h2 className="text-lg font-semibold text-[#111111] mb-4" style={{ fontFamily: "'Barlow Condensed', sans-serif" }}>
-        Publicaciones ({publishedPosts.length})
+        Comunicados ({publishedPosts.length})
       </h2>
 
       {publishedPosts.length === 0 ? (
         <div className="bg-white rounded-xl border border-[#e8e8ec] p-10 text-center">
-          <p className="text-[#888888]">El docente aún no ha publicado contenido para esta materia.</p>
+          <p className="text-[#888888]">No hay comunicados cargados para este espacio curricular.</p>
         </div>
       ) : (
         <div className="space-y-4">

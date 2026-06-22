@@ -81,18 +81,18 @@ export default function PreceptorEstudiantesPage() {
   return (
     <div>
       <PageHeader
-        title="Gestión de Estudiantes"
+        title="Nómina de estudiantes"
         description={`${estudiantes.filter(e => e.activo).length} activos de ${estudiantes.length} total`}
         action={
           <div className="flex gap-2 flex-wrap">
             <button onClick={() => downloadTemplateExcel()} className="px-3 py-2 rounded-lg text-sm font-medium text-[#888888] border border-[#e8e8ec] hover:bg-[#f4f4f6]">
-              📄 Plantilla
+              📄 Descargar plantilla de carga
             </button>
             <button onClick={() => setImportOpen(true)} className="px-3 py-2 rounded-lg text-sm font-medium text-[#1a5276] border border-[#1a5276] hover:bg-[#d6eaf8]">
-              📥 Importar
+              📥 Importar desde Excel
             </button>
             <button onClick={() => exportStudentsToExcel(filtered)} className="px-3 py-2 rounded-lg text-sm font-medium text-white" style={{ backgroundColor: '#27ae60' }}>
-              📊 Exportar Excel
+              📊 Exportar nómina
             </button>
             <button onClick={openNew} className="px-4 py-2 rounded-lg text-sm font-medium text-white" style={{ backgroundColor: '#1a5276' }}>
               + Nuevo Estudiante
@@ -160,14 +160,14 @@ export default function PreceptorEstudiantesPage() {
                     <td className="px-4 py-3 text-sm text-[#888888]">{e.tutor || '-'}</td>
                     <td className="px-4 py-3">
                       <span className={`text-xs px-2 py-1 rounded-full font-medium ${e.activo ? 'bg-[#d4edda] text-[#155724]' : 'bg-red-100 text-[#c62828]'}`}>
-                        {e.activo ? 'Activo' : 'Inactivo'}
+                        {e.activo ? 'Habilitado' : 'Deshabilitado'}
                       </span>
                     </td>
                     <td className="px-4 py-3 text-right">
                       <button onClick={() => { setSelectedId(e.id); setModal('legajo'); }} className="text-xs text-[#888888] hover:underline mr-2">Legajo</button>
                       <button onClick={() => openEdit(e)} className="text-xs text-[#1a5276] hover:underline mr-2">Editar</button>
-                      <button onClick={() => { setSelectedId(e.id); setAsistForm({ fecha: new Date().toISOString().split('T')[0], presente: true, justificada: false, observacion: '' }); setModal('asistencia'); }} className="text-xs text-[#c9a227] hover:underline mr-2">Asistencia</button>
-                      <button onClick={() => { setSelectedId(e.id); setDiscForm({ tipo: 'observacion', descripcion: '', fecha: new Date().toISOString().split('T')[0] }); setModal('disciplina'); }} className="text-xs text-[#c62828] hover:underline mr-2">Disciplina</button>
+                      <button onClick={() => { setSelectedId(e.id); setAsistForm({ fecha: new Date().toISOString().split('T')[0], presente: true, justificada: false, observacion: '' }); setModal('asistencia'); }} className="text-xs text-[#c9a227] hover:underline mr-2">Inasistencia</button>
+                      <button onClick={() => { setSelectedId(e.id); setDiscForm({ tipo: 'observacion', descripcion: '', fecha: new Date().toISOString().split('T')[0] }); setModal('disciplina'); }} className="text-xs text-[#c62828] hover:underline mr-2">Observación/Intervención</button>
                       <button onClick={() => { setSelectedId(e.id); setModal('delete'); }} className="text-xs text-[#c62828] hover:underline">Eliminar</button>
                     </td>
                   </tr>
@@ -250,7 +250,7 @@ export default function PreceptorEstudiantesPage() {
       </Modal>
 
       {/* Asistencia Modal */}
-      <Modal isOpen={modal === 'asistencia'} onClose={() => setModal('none')} title={`Registrar Asistencia — ${selected ? `${selected.nombre} ${selected.apellido}` : ''}`} size="sm">
+      <Modal isOpen={modal === 'asistencia'} onClose={() => setModal('none')} title={`Registrar inasistencia — ${selected ? `${selected.nombre} ${selected.apellido}` : ''}`} size="sm">
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-[#111111] mb-1">Fecha</label>
@@ -279,7 +279,7 @@ export default function PreceptorEstudiantesPage() {
       </Modal>
 
       {/* Disciplina Modal */}
-      <Modal isOpen={modal === 'disciplina'} onClose={() => setModal('none')} title={`Registro de Disciplina — ${selected ? `${selected.nombre} ${selected.apellido}` : ''}`} size="sm">
+      <Modal isOpen={modal === 'disciplina'} onClose={() => setModal('none')} title={`Observación / Intervención — ${selected ? `${selected.nombre} ${selected.apellido}` : ''}`} size="sm">
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-[#111111] mb-1">Tipo</label>
@@ -346,7 +346,7 @@ export default function PreceptorEstudiantesPage() {
               </div>
             </div>
             <div>
-              <h4 className="font-semibold text-[#111111] text-sm mb-2">Disciplina</h4>
+              <h4 className="font-semibold text-[#111111] text-sm mb-2">Observaciones e intervenciones</h4>
               <div className="space-y-1 max-h-32 overflow-y-auto">
                 {disciplina.filter(d => d.estudianteId === selected.id).map(d => (
                   <div key={d.id} className="text-xs bg-[#f4f4f6] rounded px-2 py-1">
@@ -355,7 +355,7 @@ export default function PreceptorEstudiantesPage() {
                   </div>
                 ))}
                 {disciplina.filter(d => d.estudianteId === selected.id).length === 0 && (
-                  <p className="text-xs text-[#888888]">Sin registros de disciplina</p>
+                  <p className="text-xs text-[#888888]">Sin observaciones o intervenciones registradas</p>
                 )}
               </div>
             </div>

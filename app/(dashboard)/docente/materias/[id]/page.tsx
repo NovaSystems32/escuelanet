@@ -124,7 +124,7 @@ export default function DocenteMateriaDetailPage() {
             onClick={() => setTab(t)}
             className={`px-4 py-2.5 text-sm font-medium capitalize transition-colors border-b-2 -mb-px ${tab === t ? 'border-[#1a5276] text-[#1a5276]' : 'border-transparent text-[#888888] hover:text-[#111111]'}`}
           >
-            {t === 'publicaciones' ? 'Publicaciones' : t === 'estudiantes' ? 'Estudiantes' : 'Actividades'}
+            {t === 'publicaciones' ? 'Comunicados' : t === 'estudiantes' ? 'Estudiantes' : 'Actividades y entregas'}
           </button>
         ))}
       </div>
@@ -149,13 +149,13 @@ export default function DocenteMateriaDetailPage() {
               className="px-4 py-2 rounded-lg text-sm font-medium text-white"
               style={{ backgroundColor: '#c62828' }}
             >
-              + Nueva publicación
+              + Nuevo comunicado
             </button>
           </div>
 
           {filteredPosts.length === 0 ? (
             <div className="bg-white rounded-xl border border-[#e8e8ec] p-10 text-center">
-              <p className="text-[#888888] text-sm">No hay publicaciones con este filtro.</p>
+              <p className="text-[#888888] text-sm">No hay comunicados cargados para este espacio curricular.</p>
             </div>
           ) : (
             <div className="space-y-4">
@@ -235,7 +235,7 @@ export default function DocenteMateriaDetailPage() {
         <div className="space-y-3">
           {actsMateria.length === 0 ? (
             <div className="bg-white rounded-xl border border-[#e8e8ec] p-10 text-center">
-              <p className="text-[#888888] text-sm">No hay actividades para esta materia.</p>
+              <p className="text-[#888888] text-sm">No hay actividades ni entregas para este espacio curricular.</p>
             </div>
           ) : (
             actsMateria.map(a => (
@@ -250,7 +250,7 @@ export default function DocenteMateriaDetailPage() {
       )}
 
       {/* Post Form Modal */}
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title={editId ? 'Editar Publicación' : 'Nueva Publicación'} size="lg">
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title={editId ? 'Editar comunicado' : 'Nuevo comunicado'} size="lg">
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-[#111111] mb-1">Título *</label>
@@ -258,7 +258,7 @@ export default function DocenteMateriaDetailPage() {
               className="w-full px-3 py-2 border border-[#e8e8ec] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#1a5276]"
               value={form.title}
               onChange={e => setForm(f => ({ ...f, title: e.target.value }))}
-              placeholder="Título de la publicación"
+              placeholder="Título del comunicado"
             />
           </div>
           <div>
@@ -268,7 +268,7 @@ export default function DocenteMateriaDetailPage() {
               rows={4}
               value={form.content}
               onChange={e => setForm(f => ({ ...f, content: e.target.value }))}
-              placeholder="Escribí el contenido de la publicación..."
+              placeholder="Escribí el contenido del comunicado..."
             />
           </div>
           <div>
@@ -320,8 +320,8 @@ export default function DocenteMateriaDetailPage() {
       </Modal>
 
       {/* Confirm delete */}
-      <Modal isOpen={!!confirmDelete} onClose={() => setConfirmDelete(null)} title="Eliminar publicación" size="sm">
-        <p className="text-sm text-[#888888] mb-4">¿Estás seguro de que querés eliminar esta publicación?</p>
+      <Modal isOpen={!!confirmDelete} onClose={() => setConfirmDelete(null)} title="Eliminar comunicado" size="sm">
+        <p className="text-sm text-[#888888] mb-4">¿Estás seguro de que querés eliminar este comunicado?</p>
         <div className="flex gap-3 justify-end">
           <button onClick={() => setConfirmDelete(null)} className="px-4 py-2 rounded-lg border border-[#e8e8ec] text-sm">Cancelar</button>
           <button onClick={() => { confirmDelete && deletePost(confirmDelete); setConfirmDelete(null); }} className="px-4 py-2 rounded-lg bg-[#c62828] text-white text-sm">Eliminar</button>

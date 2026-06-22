@@ -35,20 +35,20 @@ export default function PreceptorDashboard() {
           </p>
         </div>
         <h1 className="text-3xl font-bold" style={{ fontFamily: "'Barlow Condensed', sans-serif" }}>Buenos días, {user?.nombre}</h1>
-        <p className="text-white/70 text-sm mt-1">Panel de Preceptoría</p>
+        <p className="text-white/70 text-sm mt-1">Inicio del preceptor</p>
       </div>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         <StatCard title="Estudiantes" value={estudiantes.filter(e => e.activo).length} icon="👥" color="bg-[#d6eaf8] text-[#1a5276]" />
-        <StatCard title="Inasistencias" value={inasistencias} icon="📅" color="bg-[#fef3c7] text-[#856404]" subtitle={`${injustificadas} injustificadas`} />
-        <StatCard title="Sanciones pendientes" value={sancionesPendientes} icon="⚠️" color="bg-[#fde8e8] text-[#c62828]" />
-        <StatCard title="Cursos" value={cursos.length} icon="🏫" color="bg-[#d4edda] text-[#155724]" />
+        <StatCard title="Inasistencias" value={inasistencias} icon="📅" color="bg-[#fef3c7] text-[#856404]" subtitle={`${injustificadas} sin justificar`} />
+        <StatCard title="Observaciones pendientes" value={sancionesPendientes} icon="⚠️" color="bg-[#fde8e8] text-[#c62828]" />
+        <StatCard title="Cursos y divisiones" value={cursos.length} icon="🏫" color="bg-[#d4edda] text-[#155724]" />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Estudiantes con más inasistencias */}
         <div className="bg-white rounded-xl p-5 shadow-sm" style={{ border: '1px solid #e8e8ec' }}>
-          <h2 className="font-semibold mb-4" style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: '1.2rem', color: '#111111' }}>Estudiantes con Inasistencias</h2>
+          <h2 className="font-semibold mb-4" style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: '1.2rem', color: '#111111' }}>Estudiantes con inasistencias registradas</h2>
           <div className="space-y-2">
             {estudiantesConInasistencias.map(eId => {
               const est = estudiantes.find(e => e.id === eId);
@@ -68,7 +68,7 @@ export default function PreceptorDashboard() {
                     <span className="text-sm" style={{ color: '#3a3a3a' }}>{est.apellido}, {est.nombre}</span>
                   </div>
                   <div className="text-right">
-                    <span className="text-sm font-bold" style={{ color: '#c9a227' }}>{ausencias} ausencias</span>
+                    <span className="text-sm font-bold" style={{ color: '#c9a227' }}>{ausencias} inasistencias</span>
                     <p className="text-xs" style={{ color: '#888888' }}>{pct}% del tiempo</p>
                   </div>
                 </div>
@@ -82,9 +82,9 @@ export default function PreceptorDashboard() {
 
         {/* Sanciones sin resolver */}
         <div className="bg-white rounded-xl p-5 shadow-sm" style={{ border: '1px solid #e8e8ec' }}>
-          <h2 className="font-semibold mb-4" style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: '1.2rem', color: '#111111' }}>Sanciones Pendientes de Resolución</h2>
+          <h2 className="font-semibold mb-4" style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: '1.2rem', color: '#111111' }}>Observaciones e intervenciones pendientes</h2>
           {sancionesPendientes === 0 ? (
-            <p className="text-sm" style={{ color: '#888888' }}>No hay sanciones pendientes</p>
+            <p className="text-sm" style={{ color: '#888888' }}>No hay observaciones o intervenciones pendientes</p>
           ) : (
             <div className="space-y-2">
               {disciplina.filter(d => d.tipo !== 'felicitacion' && !d.resuelto).map(d => {
@@ -101,7 +101,7 @@ export default function PreceptorDashboard() {
             </div>
           )}
           <Link href="/preceptor/disciplina" className="mt-4 text-sm font-medium hover:underline block" style={{ color: '#c62828' }}>
-            Gestionar disciplina →
+            Gestionar observaciones e intervenciones →
           </Link>
         </div>
       </div>

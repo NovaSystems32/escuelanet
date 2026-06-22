@@ -45,11 +45,11 @@ export default function AsistenciasAdminPage() {
   return (
     <div>
       <PageHeader
-        title="Asistencias"
+        title="Registro de inasistencias"
         description={`${asistencias.length} registros totales`}
         action={
           <button onClick={openNew} className="bg-[#1a5276] text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-[#1a5276]">
-            + Registrar Asistencia
+            + Registrar inasistencia
           </button>
         }
       />
@@ -126,7 +126,7 @@ export default function AsistenciasAdminPage() {
         </div>
       </div>
 
-      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} title={editId ? 'Editar Asistencia' : 'Registrar Asistencia'}>
+      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} title={editId ? 'Editar registro de inasistencia' : 'Registrar inasistencia'}>
         <div className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div>

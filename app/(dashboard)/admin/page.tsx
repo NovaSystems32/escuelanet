@@ -12,12 +12,12 @@ export default function AdminDashboard() {
   const sanciones = disciplina.filter(d => d.tipo !== 'felicitacion' && !d.resuelto).length;
 
   const quickLinks = [
-    { href: '/admin/estudiantes', label: 'Gestionar Estudiantes', icon: '👥', bg: '#d6eaf8', hoverBg: '#a9cce3' },
-    { href: '/admin/docentes', label: 'Gestionar Docentes', icon: '👨‍🏫', bg: '#fde8e8', hoverBg: '#f5c6cb' },
-    { href: '/admin/cursos', label: 'Gestionar Cursos', icon: '🏫', bg: '#d4edda', hoverBg: '#b8ddc0' },
-    { href: '/admin/calificaciones', label: 'Ver Calificaciones', icon: '📊', bg: '#fef9c3', hoverBg: '#fde68a' },
-    { href: '/admin/asistencias', label: 'Control Asistencias', icon: '📅', bg: '#d6eaf8', hoverBg: '#a9cce3' },
-    { href: '/admin/eventos', label: 'Gestionar Eventos', icon: '🗓️', bg: '#f4f4f6', hoverBg: '#e8e8ec' },
+    { href: '/admin/estudiantes', label: 'Gestión de estudiantes', icon: '👥', bg: '#d6eaf8', hoverBg: '#a9cce3' },
+    { href: '/admin/docentes', label: 'Gestión de docentes', icon: '👨‍🏫', bg: '#fde8e8', hoverBg: '#f5c6cb' },
+    { href: '/admin/cursos', label: 'Cursos y divisiones', icon: '🏫', bg: '#d4edda', hoverBg: '#b8ddc0' },
+    { href: '/admin/calificaciones', label: 'Ver calificaciones', icon: '📊', bg: '#fef9c3', hoverBg: '#fde68a' },
+    { href: '/admin/asistencias', label: 'Registro de inasistencias', icon: '📅', bg: '#d6eaf8', hoverBg: '#a9cce3' },
+    { href: '/admin/eventos', label: 'Calendario institucional', icon: '🗓️', bg: '#f4f4f6', hoverBg: '#e8e8ec' },
   ];
 
   return (
@@ -34,7 +34,7 @@ export default function AdminDashboard() {
             Instituto Santiago Ramón y Cajal
           </p>
         </div>
-        <h1 className="text-3xl font-bold" style={{ fontFamily: "'Barlow Condensed', sans-serif" }}>Panel Administrativo</h1>
+        <h1 className="text-3xl font-bold" style={{ fontFamily: "'Barlow Condensed', sans-serif" }}>Inicio institucional — Instituto Santiago Ramón y Cajal</h1>
         <p className="text-white/70 text-sm mt-1">Resumen general del sistema escolar</p>
       </div>
 
@@ -64,7 +64,7 @@ export default function AdminDashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Cursos overview */}
         <div className="bg-white rounded-xl p-5 shadow-sm" style={{ border: '1px solid #e8e8ec' }}>
-          <h2 className="font-semibold mb-4" style={{ fontFamily: "'Barlow Condensed', sans-serif", color: '#111111', fontSize: '1.2rem' }}>Cursos</h2>
+          <h2 className="font-semibold mb-4" style={{ fontFamily: "'Barlow Condensed', sans-serif", color: '#111111', fontSize: '1.2rem' }}>Cursos y divisiones</h2>
           <div className="space-y-2">
             {cursos.map(curso => {
               const docenteCurso = docentes.find(d => d.id === curso.docenteId);
@@ -87,7 +87,7 @@ export default function AdminDashboard() {
 
         {/* Materias overview */}
         <div className="bg-white rounded-xl p-5 shadow-sm" style={{ border: '1px solid #e8e8ec' }}>
-          <h2 className="font-semibold mb-4" style={{ fontFamily: "'Barlow Condensed', sans-serif", color: '#111111', fontSize: '1.2rem' }}>Materias ({materias.length})</h2>
+          <h2 className="font-semibold mb-4" style={{ fontFamily: "'Barlow Condensed', sans-serif", color: '#111111', fontSize: '1.2rem' }}>Espacios curriculares ({materias.length})</h2>
           <div className="space-y-1">
             {materias.map((materia, idx) => {
               const docenteM = docentes.find(d => d.id === materia.docenteId);

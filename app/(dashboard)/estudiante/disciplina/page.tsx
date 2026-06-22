@@ -22,7 +22,7 @@ export default function DisciplinaPage() {
 
   return (
     <div>
-      <PageHeader title="Disciplina" description="Registro de observaciones, apercibimientos y felicitaciones" />
+      <PageHeader title="Observaciones e intervenciones" description="Registro de observaciones, intervenciones y reconocimientos del ciclo lectivo" />
 
       {/* Stats */}
       <div className="grid grid-cols-3 gap-4 mb-6">
@@ -43,7 +43,7 @@ export default function DisciplinaPage() {
       {/* Registros */}
       {misDisciplina.length === 0 ? (
         <div className="bg-white rounded-xl p-8 text-center shadow-sm" style={{ border: '1px solid #e8e8ec', color: '#888888' }}>
-          No hay registros disciplinarios
+          No hay observaciones o intervenciones registradas.
         </div>
       ) : (
         <div className="space-y-3">

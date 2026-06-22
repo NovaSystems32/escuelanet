@@ -4,10 +4,10 @@ import { useAppStore } from '@/store/useAppStore';
 import PageHeader from '@/components/PageHeader';
 
 const tipoLabels: Record<string, string> = {
-  parcial: 'Parcial',
-  trabajo_practico: 'Trabajo Práctico',
-  examen_final: 'Examen Final',
-  oral: 'Oral',
+  parcial: 'Evaluación escrita',
+  trabajo_practico: 'Trabajo práctico',
+  examen_final: 'Examen final',
+  oral: 'Evaluación oral',
 };
 
 const tipoBadge: Record<string, { bg: string; color: string }> = {
@@ -38,7 +38,7 @@ export default function CalificacionesPage() {
 
   return (
     <div>
-      <PageHeader title="Mis Calificaciones" description="Historial de notas por materia" />
+      <PageHeader title="Mis calificaciones" description="Historial de calificaciones por espacio curricular" />
 
       {/* Summary */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
@@ -52,7 +52,7 @@ export default function CalificacionesPage() {
           const promNum = cals.length > 0 ? cals.reduce((s, c) => s + c.nota, 0) / cals.length : null;
           return (
             <div key={t} className="bg-white rounded-xl p-4 shadow-sm" style={{ border: '1px solid #e8e8ec' }}>
-              <p className="text-xs mb-1 font-medium" style={{ color: '#888888' }}>{t}° Trimestre</p>
+              <p className="text-xs mb-1 font-medium" style={{ color: '#888888' }}>{t === 3 ? 'Recuperación' : `${t}° Cuatrimestre`}</p>
               <p className="text-2xl font-bold" style={{ fontFamily: "'Barlow Condensed', sans-serif", color: promNum !== null ? (promNum >= 7 ? '#27ae60' : promNum >= 4 ? '#c9a227' : '#c62828') : '#111111' }}>{prom}</p>
             </div>
           );
@@ -71,7 +71,7 @@ export default function CalificacionesPage() {
               : { backgroundColor: '#ffffff', border: '1px solid #e8e8ec', color: '#888888' }
             }
           >
-            {t === 'todos' ? 'Todos' : `${t}° Trimestre`}
+            {t === 'todos' ? 'Todos los períodos' : t === 3 ? 'Instancia de recuperación' : `${t}° Cuatrimestre`}
           </button>
         ))}
       </div>
@@ -93,7 +93,7 @@ export default function CalificacionesPage() {
                 </div>
               </div>
               {cals.length === 0 ? (
-                <p className="text-sm p-4" style={{ color: '#888888' }}>Sin calificaciones registradas</p>
+                <p className="text-sm p-4" style={{ color: '#888888' }}>Aún no se registraron calificaciones para este período.</p>
               ) : (
                 <div className="divide-y" style={{ borderColor: '#e8e8ec' }}>
                   {cals.map((cal, idx) => (
@@ -104,7 +104,7 @@ export default function CalificacionesPage() {
                           <span className="text-xs px-2 py-0.5 rounded-full font-medium" style={{ backgroundColor: tipoBadge[cal.tipo]?.bg || '#f4f4f6', color: tipoBadge[cal.tipo]?.color || '#888888' }}>
                             {tipoLabels[cal.tipo]}
                           </span>
-                          <span className="text-xs" style={{ color: '#888888' }}>{new Date(cal.fecha).toLocaleDateString('es-AR')} · {cal.trimestre}° trimestre</span>
+                          <span className="text-xs" style={{ color: '#888888' }}>{new Date(cal.fecha).toLocaleDateString('es-AR')} · {cal.trimestre === 3 ? 'Instancia de recuperación' : `${cal.trimestre}° Cuatrimestre`}</span>
                         </div>
                       </div>
                       <span className="text-sm font-bold px-2.5 py-1 rounded-lg" style={{ backgroundColor: getNotaBg(cal.nota), color: getNotaColor(cal.nota) }}>

@@ -41,8 +41,8 @@ export default function PreceptorAsistenciasPage() {
   return (
     <div>
       <PageHeader
-        title="Control de Asistencias"
-        description="Gestión de inasistencias y justificaciones"
+        title="Registro de inasistencias"
+        description="Gestión de inasistencias y justificaciones del ciclo lectivo"
         action={
           <button onClick={openNew} className="bg-[#1a5276] text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-[#1a5276]">
             + Registrar

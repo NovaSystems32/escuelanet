@@ -73,7 +73,7 @@ export default function EstudianteDashboard() {
           <p className="text-xs mt-1" style={{ color: '#888888' }}>Este mes</p>
         </div>
         <div className="bg-white rounded-xl p-5 shadow-sm" style={{ border: '1px solid #e8e8ec', borderLeft: '4px solid #27ae60' }}>
-          <p className="text-xs font-medium uppercase tracking-wide mb-2" style={{ color: '#888888', fontFamily: "'Inter', sans-serif" }}>Materias</p>
+          <p className="text-xs font-medium uppercase tracking-wide mb-2" style={{ color: '#888888', fontFamily: "'Inter', sans-serif" }}>Espacios curriculares</p>
           <p className="text-3xl font-bold" style={{ color: '#27ae60', fontFamily: "'Barlow Condensed', sans-serif" }}>{misMaterias.length}</p>
           <p className="text-xs mt-1" style={{ color: '#888888' }}>1er Año A</p>
         </div>
@@ -82,7 +82,7 @@ export default function EstudianteDashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Mis materias */}
         <div className="bg-white rounded-xl p-5 shadow-sm" style={{ border: '1px solid #e8e8ec' }}>
-          <h2 className="font-semibold mb-4" style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: '1.2rem', color: '#111111' }}>Mis Materias</h2>
+          <h2 className="font-semibold mb-4" style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: '1.2rem', color: '#111111' }}>Mis espacios curriculares</h2>
           <div className="space-y-2">
             {misMaterias.map(materia => {
               const cals = misCalificaciones.filter(c => c.materiaId === materia.id);
@@ -105,13 +105,13 @@ export default function EstudianteDashboard() {
             })}
           </div>
           <Link href="/estudiante/calificaciones" className="mt-4 text-sm font-medium hover:underline block" style={{ color: '#c62828' }}>
-            Ver todas las calificaciones →
+            Ver todas las calificaciones del período →
           </Link>
         </div>
 
         {/* Próximos eventos */}
         <div className="bg-white rounded-xl p-5 shadow-sm" style={{ border: '1px solid #e8e8ec' }}>
-          <h2 className="font-semibold mb-4" style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: '1.2rem', color: '#111111' }}>Próximos Eventos</h2>
+          <h2 className="font-semibold mb-4" style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: '1.2rem', color: '#111111' }}>Próximos eventos institucionales</h2>
           <div className="space-y-2">
             {proximosEventos.map(evento => (
               <div key={evento.id} className="flex items-start gap-3 p-3 rounded-lg" style={{ backgroundColor: '#f4f4f6' }}>
@@ -124,13 +124,13 @@ export default function EstudianteDashboard() {
             ))}
           </div>
           <Link href="/estudiante/calendario" className="mt-4 text-sm font-medium hover:underline block" style={{ color: '#c62828' }}>
-            Ver calendario completo →
+            Ver calendario institucional completo →
           </Link>
         </div>
 
         {/* Últimas calificaciones */}
         <div className="bg-white rounded-xl p-5 shadow-sm" style={{ border: '1px solid #e8e8ec' }}>
-          <h2 className="font-semibold mb-4" style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: '1.2rem', color: '#111111' }}>Últimas Calificaciones</h2>
+          <h2 className="font-semibold mb-4" style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: '1.2rem', color: '#111111' }}>Últimas calificaciones registradas</h2>
           <div className="space-y-1">
             {misCalificaciones.slice(-4).reverse().map(cal => {
               const materia = misMaterias.find(m => m.id === cal.materiaId);
@@ -151,7 +151,7 @@ export default function EstudianteDashboard() {
 
         {/* Asistencia */}
         <div className="bg-white rounded-xl p-5 shadow-sm" style={{ border: '1px solid #e8e8ec' }}>
-          <h2 className="font-semibold mb-4" style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: '1.2rem', color: '#111111' }}>Resumen de Asistencia</h2>
+          <h2 className="font-semibold mb-4" style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: '1.2rem', color: '#111111' }}>Resumen de inasistencias</h2>
           <div className="mb-4">
             <div className="flex items-center justify-between mb-2">
               <span className="text-sm" style={{ color: '#888888' }}>Porcentaje de asistencia</span>
@@ -175,7 +175,7 @@ export default function EstudianteDashboard() {
             </div>
           </div>
           <Link href="/estudiante/inasistencias" className="mt-4 text-sm font-medium hover:underline block" style={{ color: '#c62828' }}>
-            Ver detalle de inasistencias →
+            Ver registro completo de inasistencias →
           </Link>
         </div>
       </div>

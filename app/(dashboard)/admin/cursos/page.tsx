@@ -31,11 +31,11 @@ export default function CursosPage() {
   return (
     <div>
       <PageHeader
-        title="Cursos"
+        title="Cursos y divisiones"
         description={`${cursos.length} cursos registrados`}
         action={
           <button onClick={openNew} className="bg-[#1a5276] text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-[#1a5276]">
-            + Nuevo Curso
+            + Nuevo curso
           </button>
         }
       />
@@ -79,7 +79,7 @@ export default function CursosPage() {
         })}
       </div>
 
-      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} title={editId ? 'Editar Curso' : 'Nuevo Curso'}>
+      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} title={editId ? 'Editar curso y división' : 'Nuevo curso y división'}>
         <div className="grid grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium text-[#111111] mb-1">Nombre *</label>

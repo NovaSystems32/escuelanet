@@ -6,9 +6,9 @@ import PageHeader from '@/components/PageHeader';
 import Modal from '@/components/Modal';
 
 const tipoConfig: Record<string, { label: string; icon: string; color: string }> = {
-  tarea: { label: 'Tarea', icon: '📋', color: 'bg-[#d6eaf8] text-[#1a5276]' },
-  material: { label: 'Material', icon: '📄', color: 'bg-[#d4edda] text-[#155724]' },
-  actividad: { label: 'Actividad', icon: '✏️', color: 'bg-purple-100 text-purple-700' },
+  tarea: { label: 'Actividad y entrega', icon: '📋', color: 'bg-[#d6eaf8] text-[#1a5276]' },
+  material: { label: 'Material de clase', icon: '📄', color: 'bg-[#d4edda] text-[#155724]' },
+  actividad: { label: 'Actividad áulica', icon: '✏️', color: 'bg-purple-100 text-purple-700' },
 };
 
 export default function ActividadesPage() {
@@ -50,18 +50,18 @@ export default function ActividadesPage() {
   return (
     <div>
       <PageHeader
-        title="Actividades y Materiales"
+        title="Actividades y entregas"
         description={`${misActividades.length} publicaciones`}
         action={
           <button onClick={openNew} className="bg-[#1a5276] text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-[#1a5276]">
-            + Nueva Publicación
+            + Nueva actividad
           </button>
         }
       />
 
       <div className="flex gap-3 mb-6 flex-wrap">
         <select value={filterMateria} onChange={e => setFilterMateria(e.target.value)} className="px-3 py-2 border border-[#e8e8ec] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#1a5276]">
-          <option value="">Todas las materias</option>
+          <option value="">Todos los espacios curriculares</option>
           {misMaterias.map(m => <option key={m.id} value={m.id}>{m.nombre}</option>)}
         </select>
         <select value={filterTipo} onChange={e => setFilterTipo(e.target.value)} className="px-3 py-2 border border-[#e8e8ec] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#1a5276]">
@@ -72,7 +72,7 @@ export default function ActividadesPage() {
 
       {filtered.length === 0 ? (
         <div className="bg-white rounded-xl border border-[#e8e8ec] p-8 text-center text-[#888888]">
-          No hay actividades publicadas
+          No hay actividades ni entregas publicadas para este espacio curricular.
         </div>
       ) : (
         <div className="space-y-3">
@@ -112,7 +112,7 @@ export default function ActividadesPage() {
         </div>
       )}
 
-      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} title={editId ? 'Editar Publicación' : 'Nueva Publicación'} size="lg">
+      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} title={editId ? 'Editar actividad' : 'Nueva actividad o entrega'} size="lg">
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-[#111111] mb-1">Título *</label>
@@ -124,7 +124,7 @@ export default function ActividadesPage() {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-[#111111] mb-1">Materia</label>
+              <label className="block text-sm font-medium text-[#111111] mb-1">Espacio curricular</label>
               <select className="w-full px-3 py-2 border border-[#e8e8ec] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#1a5276]" value={form.materiaId} onChange={e => setForm(f => ({ ...f, materiaId: e.target.value }))}>
                 {misMaterias.map(m => <option key={m.id} value={m.id}>{m.nombre}</option>)}
               </select>

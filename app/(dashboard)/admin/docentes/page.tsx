@@ -60,7 +60,7 @@ export default function DocentesPage() {
               <tr className="bg-[#f4f4f6] border-b border-[#e8e8ec]">
                 <th className="text-left px-4 py-3 text-xs font-semibold text-[#888888] uppercase">Nombre</th>
                 <th className="text-left px-4 py-3 text-xs font-semibold text-[#888888] uppercase">DNI</th>
-                <th className="text-left px-4 py-3 text-xs font-semibold text-[#888888] uppercase">Materias</th>
+                <th className="text-left px-4 py-3 text-xs font-semibold text-[#888888] uppercase">Espacios curriculares</th>
                 <th className="text-left px-4 py-3 text-xs font-semibold text-[#888888] uppercase">Estado</th>
                 <th className="text-right px-4 py-3 text-xs font-semibold text-[#888888] uppercase">Acciones</th>
               </tr>
@@ -91,7 +91,7 @@ export default function DocentesPage() {
                     </td>
                     <td className="px-4 py-3">
                       <span className={`text-xs px-2 py-1 rounded-full font-medium ${d.activo ? 'bg-[#d4edda] text-[#155724]' : 'bg-red-100 text-[#c62828]'}`}>
-                        {d.activo ? 'Activo' : 'Inactivo'}
+                        {d.activo ? 'Habilitado' : 'Deshabilitado'}
                       </span>
                     </td>
                     <td className="px-4 py-3 text-right">

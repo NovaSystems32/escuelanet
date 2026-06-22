@@ -31,11 +31,11 @@ export default function MateriasPage() {
   return (
     <div>
       <PageHeader
-        title="Materias"
-        description={`${materias.length} materias registradas`}
+        title="Espacios curriculares"
+        description={`${materias.length} espacios curriculares registrados`}
         action={
           <button onClick={openNew} className="bg-[#1a5276] text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-[#1a5276]">
-            + Nueva Materia
+            + Nuevo espacio curricular
           </button>
         }
       />
@@ -45,8 +45,8 @@ export default function MateriasPage() {
           <table className="w-full">
             <thead>
               <tr className="bg-[#f4f4f6] border-b border-[#e8e8ec]">
-                <th className="text-left px-4 py-3 text-xs font-semibold text-[#888888] uppercase">Materia</th>
-                <th className="text-left px-4 py-3 text-xs font-semibold text-[#888888] uppercase">Curso</th>
+                <th className="text-left px-4 py-3 text-xs font-semibold text-[#888888] uppercase">Espacio curricular</th>
+                <th className="text-left px-4 py-3 text-xs font-semibold text-[#888888] uppercase">Curso y división</th>
                 <th className="text-left px-4 py-3 text-xs font-semibold text-[#888888] uppercase">Docente</th>
                 <th className="text-left px-4 py-3 text-xs font-semibold text-[#888888] uppercase">Horas/sem</th>
                 <th className="text-right px-4 py-3 text-xs font-semibold text-[#888888] uppercase">Acciones</th>
@@ -77,7 +77,7 @@ export default function MateriasPage() {
         </div>
       </div>
 
-      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} title={editId ? 'Editar Materia' : 'Nueva Materia'}>
+      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} title={editId ? 'Editar espacio curricular' : 'Nuevo espacio curricular'}>
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-[#111111] mb-1">Nombre *</label>
@@ -85,7 +85,7 @@ export default function MateriasPage() {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-[#111111] mb-1">Curso</label>
+              <label className="block text-sm font-medium text-[#111111] mb-1">Curso y división</label>
               <select className="w-full px-3 py-2 border border-[#e8e8ec] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#1a5276]" value={form.cursoId} onChange={e => setForm(f => ({ ...f, cursoId: e.target.value }))}>
                 {cursos.map(c => <option key={c.id} value={c.id}>{c.nombre} {c.division}</option>)}
               </select>

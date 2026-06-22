@@ -20,7 +20,7 @@ const roleLabels: Record<string, string> = {
   preceptor: 'Preceptor',
   estudiante: 'Estudiante',
   directivo: 'Directivo',
-  tutor: 'Tutor',
+  tutor: 'Tutor / Responsable familiar',
 };
 
 const emptyForm = {
@@ -91,11 +91,11 @@ export default function UsuariosPage() {
   return (
     <div>
       <PageHeader
-        title="Gestión de Usuarios"
-        description={`${appUsers.filter(u => u.isActive).length} activos de ${appUsers.length} total`}
+        title="Accesos al sistema"
+        description={`${appUsers.filter(u => u.isActive).length} habilitados de ${appUsers.length} total`}
         action={
           <button onClick={openNew} className="px-4 py-2 rounded-lg text-sm font-medium text-white" style={{ backgroundColor: '#1a5276' }}>
-            + Nuevo Usuario
+            + Crear acceso al sistema
           </button>
         }
       />
@@ -115,10 +115,10 @@ export default function UsuariosPage() {
           <table className="w-full">
             <thead>
               <tr className="bg-[#f4f4f6] border-b border-[#e8e8ec]">
-                <th className="text-left px-4 py-3 text-xs font-semibold text-[#888888] uppercase">Usuario</th>
+                <th className="text-left px-4 py-3 text-xs font-semibold text-[#888888] uppercase">Nombre de usuario</th>
                 <th className="text-left px-4 py-3 text-xs font-semibold text-[#888888] uppercase">Rol</th>
-                <th className="text-left px-4 py-3 text-xs font-semibold text-[#888888] uppercase">Perfil Vinculado</th>
-                <th className="text-left px-4 py-3 text-xs font-semibold text-[#888888] uppercase">Estado</th>
+                <th className="text-left px-4 py-3 text-xs font-semibold text-[#888888] uppercase">Perfil institucional vinculado</th>
+                <th className="text-left px-4 py-3 text-xs font-semibold text-[#888888] uppercase">Estado del acceso</th>
                 <th className="text-right px-4 py-3 text-xs font-semibold text-[#888888] uppercase">Acciones</th>
               </tr>
             </thead>
@@ -147,7 +147,7 @@ export default function UsuariosPage() {
                       onClick={() => updateAppUser(u.id, { isActive: !u.isActive })}
                       className={`text-xs px-2 py-1 rounded-full font-medium transition-colors ${u.isActive ? 'bg-[#d4edda] text-[#155724] hover:bg-green-200' : 'bg-red-100 text-[#c62828] hover:bg-red-200'}`}
                     >
-                      {u.isActive ? 'Activo' : 'Inactivo'}
+                      {u.isActive ? 'Habilitado' : 'Deshabilitado'}
                     </button>
                   </td>
                   <td className="px-4 py-3 text-right">
@@ -158,7 +158,7 @@ export default function UsuariosPage() {
                 </tr>
               ))}
               {filtered.length === 0 && (
-                <tr><td colSpan={5} className="px-4 py-8 text-center text-sm text-[#888888]">No se encontraron usuarios</td></tr>
+                <tr><td colSpan={5} className="px-4 py-8 text-center text-sm text-[#888888]">No se encontraron accesos al sistema</td></tr>
               )}
             </tbody>
           </table>
@@ -166,7 +166,7 @@ export default function UsuariosPage() {
       </div>
 
       {/* Form Modal */}
-      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} title={editId ? 'Editar Usuario' : 'Nuevo Usuario'} size="md">
+      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} title={editId ? 'Editar acceso al sistema' : 'Crear acceso al sistema'} size="md">
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-[#111111] mb-1">Nombre de usuario *</label>
@@ -174,7 +174,7 @@ export default function UsuariosPage() {
           </div>
           {!editId && (
             <div>
-              <label className="block text-sm font-medium text-[#111111] mb-1">Contraseña *</label>
+              <label className="block text-sm font-medium text-[#111111] mb-1">Contraseña provisoria *</label>
               <input type="password" className="w-full px-3 py-2 border border-[#e8e8ec] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#1a5276]" value={form.password} onChange={e => setForm(f => ({ ...f, password: e.target.value }))} />
             </div>
           )}
@@ -197,7 +197,7 @@ export default function UsuariosPage() {
           )}
           <label className="flex items-center gap-2 text-sm font-medium text-[#111111]">
             <input type="checkbox" checked={form.isActive} onChange={e => setForm(f => ({ ...f, isActive: e.target.checked }))} className="rounded" />
-            Usuario activo
+            Acceso habilitado
           </label>
         </div>
         <div className="flex gap-3 mt-6 justify-end">
@@ -207,10 +207,10 @@ export default function UsuariosPage() {
       </Modal>
 
       {/* Change Password Modal */}
-      <Modal isOpen={!!changePwdId} onClose={() => setChangePwdId(null)} title="Cambiar Contraseña" size="sm">
+      <Modal isOpen={!!changePwdId} onClose={() => setChangePwdId(null)} title="Cambiar contraseña provisoria" size="sm">
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-[#111111] mb-1">Nueva contraseña</label>
+            <label className="block text-sm font-medium text-[#111111] mb-1">Nueva contraseña provisoria</label>
             <input type="password" className="w-full px-3 py-2 border border-[#e8e8ec] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#1a5276]" value={newPassword} onChange={e => setNewPassword(e.target.value)} />
           </div>
           <div className="flex gap-3 justify-end">
@@ -222,7 +222,7 @@ export default function UsuariosPage() {
 
       {/* Confirm Delete */}
       <Modal isOpen={!!confirmDelete} onClose={() => setConfirmDelete(null)} title="Confirmar eliminación" size="sm">
-        <p className="text-sm text-[#888888] mb-4">¿Estás seguro de que querés eliminar este usuario?</p>
+        <p className="text-sm text-[#888888] mb-4">¿Estás seguro de que querés eliminar este acceso al sistema?</p>
         <div className="flex gap-3 justify-end">
           <button onClick={() => setConfirmDelete(null)} className="px-4 py-2 rounded-lg border border-[#e8e8ec] text-sm">Cancelar</button>
           <button onClick={() => { confirmDelete && deleteAppUser(confirmDelete); setConfirmDelete(null); }} className="px-4 py-2 rounded-lg bg-[#c62828] text-white text-sm">Eliminar</button>

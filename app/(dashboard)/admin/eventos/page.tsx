@@ -47,11 +47,11 @@ export default function EventosAdminPage() {
   return (
     <div>
       <PageHeader
-        title="Eventos"
+        title="Calendario institucional"
         description={`${eventos.length} eventos registrados`}
         action={
           <button onClick={openNew} className="bg-[#1a5276] text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-[#1a5276]">
-            + Nuevo Evento
+            + Nuevo evento
           </button>
         }
       />
@@ -100,7 +100,7 @@ export default function EventosAdminPage() {
         </div>
       </div>
 
-      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} title={editId ? 'Editar Evento' : 'Nuevo Evento'} size="lg">
+      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} title={editId ? 'Editar evento' : 'Nuevo evento del calendario institucional'} size="lg">
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-[#111111] mb-1">Título *</label>

@@ -42,7 +42,7 @@ export default function DisciplinaAdminPage() {
   return (
     <div>
       <PageHeader
-        title="Disciplina"
+        title="Observaciones e intervenciones"
         description={`${disciplina.length} registros`}
         action={
           <button onClick={openNew} className="bg-[#1a5276] text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-[#1a5276]">

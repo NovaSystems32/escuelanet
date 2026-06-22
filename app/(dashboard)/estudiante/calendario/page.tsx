@@ -57,7 +57,7 @@ export default function CalendarioPage() {
 
   return (
     <div>
-      <PageHeader title="Calendario" description="Eventos, exámenes y actividades escolares" />
+      <PageHeader title="Mi calendario institucional" description="Evaluaciones, actividades y fechas importantes del ciclo lectivo" />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Calendar */}
@@ -161,7 +161,7 @@ export default function CalendarioPage() {
               {[
                 { color: '#1a5276', label: 'Evaluación' },
                 { color: '#c62828', label: 'Entrega' },
-                { color: '#c9a227', label: 'Acto' },
+                { color: '#c9a227', label: 'Acto escolar' },
                 { color: '#27ae60', label: 'Reunión' },
                 { color: '#888888', label: 'Feriado' },
               ].map(item => (

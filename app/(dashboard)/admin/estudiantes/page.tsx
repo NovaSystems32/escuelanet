@@ -54,18 +54,18 @@ export default function EstudiantesPage() {
   return (
     <div>
       <PageHeader
-        title="Estudiantes"
+        title="Nómina de estudiantes"
         description={`${estudiantes.filter(e => e.activo).length} activos de ${estudiantes.length} total`}
         action={
           <div className="flex gap-2 flex-wrap">
             <button onClick={() => downloadTemplateExcel()} className="px-3 py-2 rounded-lg text-sm font-medium text-[#888888] border border-[#e8e8ec] hover:bg-[#f4f4f6]">
-              📄 Plantilla
+              📄 Descargar plantilla de carga
             </button>
             <button onClick={() => setImportOpen(true)} className="px-3 py-2 rounded-lg text-sm font-medium text-[#1a5276] border border-[#1a5276] hover:bg-[#d6eaf8]">
-              📥 Importar
+              📥 Importar desde Excel
             </button>
             <button onClick={() => exportStudentsToExcel(estudiantes)} className="px-3 py-2 rounded-lg text-sm font-medium text-white" style={{ backgroundColor: '#27ae60' }}>
-              📊 Exportar Excel
+              📊 Exportar nómina
             </button>
             <button onClick={openNew} className="px-4 py-2 rounded-lg text-sm font-medium text-white" style={{ backgroundColor: '#1a5276' }}>
               + Nuevo Estudiante
@@ -126,7 +126,7 @@ export default function EstudiantesPage() {
                     <td className="px-4 py-3 text-sm text-[#888888] capitalize">{e.turno}</td>
                     <td className="px-4 py-3">
                       <span className={`text-xs px-2 py-1 rounded-full font-medium ${e.activo ? 'bg-[#d4edda] text-[#155724]' : 'bg-red-100 text-[#c62828]'}`}>
-                        {e.activo ? 'Activo' : 'Inactivo'}
+                        {e.activo ? 'Habilitado' : 'Deshabilitado'}
                       </span>
                     </td>
                     <td className="px-4 py-3 text-right">
