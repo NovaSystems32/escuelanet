@@ -25,7 +25,7 @@ export default function InasistenciasPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         <div className="bg-white rounded-xl p-4 shadow-sm" style={{ border: '1px solid #e8e8ec' }}>
-          <p className="text-xs mb-1 font-medium" style={{ color: '#888888' }}>Total días</p>
+          <p className="text-xs mb-1 font-medium" style={{ color: '#888888' }}>Total de inasistencias</p>
           <p className="text-2xl font-bold" style={{ color: '#111111', fontFamily: "'Barlow Condensed', sans-serif" }}>{misAsistencias.length}</p>
         </div>
         <div className="rounded-xl p-4" style={{ backgroundColor: '#d4edda', border: '1px solid #b8ddc0' }}>
@@ -37,7 +37,7 @@ export default function InasistenciasPage() {
           <p className="text-2xl font-bold" style={{ color: '#1a5276', fontFamily: "'Barlow Condensed', sans-serif" }}>{justificadas}</p>
         </div>
         <div className="rounded-xl p-4" style={{ backgroundColor: '#fde8e8', border: '1px solid #f5c6cb' }}>
-          <p className="text-xs mb-1 font-medium" style={{ color: '#c62828' }}>Injustificadas</p>
+          <p className="text-xs mb-1 font-medium" style={{ color: '#c62828' }}>Sin justificar</p>
           <p className="text-2xl font-bold" style={{ color: '#c62828', fontFamily: "'Barlow Condensed', sans-serif" }}>{injustificadas}</p>
         </div>
       </div>
@@ -45,7 +45,7 @@ export default function InasistenciasPage() {
       {/* Progress */}
       <div className="bg-white rounded-xl p-5 mb-6 shadow-sm" style={{ border: '1px solid #e8e8ec' }}>
         <div className="flex items-center justify-between mb-3">
-          <h2 className="font-semibold" style={{ fontFamily: "'Barlow Condensed', sans-serif", color: '#111111' }}>Porcentaje de Asistencia</h2>
+          <h2 className="font-semibold" style={{ fontFamily: "'Barlow Condensed', sans-serif", color: '#111111' }}>Porcentaje de asistencia</h2>
           <span className="text-2xl font-bold" style={{ color: barColor, fontFamily: "'Barlow Condensed', sans-serif" }}>{pct}%</span>
         </div>
         <div className="w-full rounded-full h-3 mb-2" style={{ backgroundColor: '#e8e8ec' }}>

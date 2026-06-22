@@ -36,7 +36,7 @@ export default function DocenteDashboard() {
             Instituto Santiago Ramón y Cajal
           </p>
         </div>
-        <h1 className="text-3xl font-bold" style={{ fontFamily: "'Barlow Condensed', sans-serif" }}>Buenos días, {user?.nombre}</h1>
+        <h1 className="text-3xl font-bold" style={{ fontFamily: "'Barlow Condensed', sans-serif" }}>Inicio del docente — {user?.nombre}</h1>
         <p className="text-white/70 text-sm mt-1">Panel del docente — Gestión de espacios curriculares</p>
       </div>
 

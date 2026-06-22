@@ -51,7 +51,7 @@ export default function EventosAdminPage() {
         description={`${eventos.length} eventos registrados`}
         action={
           <button onClick={openNew} className="bg-[#1a5276] text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-[#1a5276]">
-            + Nuevo evento
+            + Nuevo evento institucional
           </button>
         }
       />

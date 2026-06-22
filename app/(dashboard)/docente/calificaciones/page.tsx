@@ -110,7 +110,7 @@ export default function DocenteCalificacionesPage() {
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} title={editId ? 'Editar calificación' : 'Nueva calificación'} size="lg">
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-[#111111] mb-1">Materia</label>
+            <label className="block text-sm font-medium text-[#111111] mb-1">Espacio curricular</label>
             <select className="w-full px-3 py-2 border border-[#e8e8ec] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#1a5276]" value={form.materiaId} onChange={e => setForm(f => ({ ...f, materiaId: e.target.value, estudianteId: '' }))}>
               {misMaterias.map(m => <option key={m.id} value={m.id}>{m.nombre}</option>)}
             </select>

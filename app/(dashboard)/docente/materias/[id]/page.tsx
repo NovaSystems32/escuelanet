@@ -98,9 +98,9 @@ export default function DocenteMateriaDetailPage() {
 
   const statusBadge = (status: Post['status']) => {
     const map = {
-      published: { label: 'Publicada', cls: 'bg-green-100 text-green-700' },
+      published: { label: 'Publicado', cls: 'bg-green-100 text-green-700' },
       draft: { label: 'Borrador', cls: 'bg-yellow-100 text-yellow-700' },
-      archived: { label: 'Archivada', cls: 'bg-[#f4f4f6] text-[#888888]' },
+      archived: { label: 'Archivado', cls: 'bg-[#f4f4f6] text-[#888888]' },
     };
     const s = map[status];
     return <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${s.cls}`}>{s.label}</span>;
@@ -140,7 +140,7 @@ export default function DocenteMateriaDetailPage() {
                   onClick={() => setStatusFilter(s)}
                   className={`text-xs px-3 py-1.5 rounded-full font-medium transition-colors ${statusFilter === s ? 'bg-[#1a5276] text-white' : 'bg-[#f4f4f6] text-[#888888] hover:bg-[#e8e8ec]'}`}
                 >
-                  {s === 'all' ? 'Todas' : s === 'published' ? 'Publicadas' : s === 'draft' ? 'Borradores' : 'Archivadas'}
+                  {s === 'all' ? 'Todos' : s === 'published' ? 'Publicados' : s === 'draft' ? 'Borradores' : 'Archivados'}
                 </button>
               ))}
             </div>
@@ -155,7 +155,7 @@ export default function DocenteMateriaDetailPage() {
 
           {filteredPosts.length === 0 ? (
             <div className="bg-white rounded-xl border border-[#e8e8ec] p-10 text-center">
-              <p className="text-[#888888] text-sm">No hay comunicados cargados para este espacio curricular.</p>
+              <p className="text-[#888888] text-sm">No hay comunicados publicados en este espacio curricular.</p>
             </div>
           ) : (
             <div className="space-y-4">
@@ -305,9 +305,9 @@ export default function DocenteMateriaDetailPage() {
               value={form.status}
               onChange={e => setForm(f => ({ ...f, status: e.target.value as Post['status'] }))}
             >
-              <option value="published">Publicada</option>
+              <option value="published">Publicado</option>
               <option value="draft">Borrador</option>
-              <option value="archived">Archivada</option>
+              <option value="archived">Archivado</option>
             </select>
           </div>
           <div className="flex gap-3 justify-end pt-2">

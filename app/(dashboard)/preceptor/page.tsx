@@ -34,8 +34,8 @@ export default function PreceptorDashboard() {
             Instituto Santiago Ramón y Cajal
           </p>
         </div>
-        <h1 className="text-3xl font-bold" style={{ fontFamily: "'Barlow Condensed', sans-serif" }}>Buenos días, {user?.nombre}</h1>
-        <p className="text-white/70 text-sm mt-1">Inicio del preceptor</p>
+        <h1 className="text-3xl font-bold" style={{ fontFamily: "'Barlow Condensed', sans-serif" }}>Inicio del preceptor — {user?.nombre}</h1>
+        <p className="text-white/70 text-sm mt-1">Gestión de estudiantes, inasistencias y observaciones e intervenciones</p>
       </div>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
