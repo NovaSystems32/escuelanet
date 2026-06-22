@@ -51,12 +51,16 @@ export default function LoginPage() {
       {/* Left panel — institutional branding */}
       <div
         className="hidden lg:flex lg:w-3/5 flex-col items-center justify-center p-12 relative overflow-hidden"
-        style={{ backgroundColor: '#1a5276' }}
+        style={{
+          backgroundImage: "url('/imagen1.png')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          backgroundColor: '#1a5276',
+        }}
       >
-        {/* Decorative circles */}
-        <div className="absolute top-0 right-0 w-96 h-96 rounded-full -translate-y-1/2 translate-x-1/2 opacity-20" style={{ backgroundColor: '#c62828' }} />
-        <div className="absolute bottom-0 left-0 w-64 h-64 rounded-full translate-y-1/2 -translate-x-1/2 opacity-15" style={{ backgroundColor: '#c9a227' }} />
-        <div className="absolute top-1/3 left-1/4 w-32 h-32 rounded-full opacity-10" style={{ backgroundColor: '#c9a227' }} />
+        {/* Overlay for readability */}
+        <div className="absolute inset-0" style={{ backgroundColor: 'rgba(26, 82, 118, 0.78)' }} />
 
         <div className="relative z-10 text-center max-w-md">
           <img
@@ -66,8 +70,8 @@ export default function LoginPage() {
             style={{ border: '4px solid #c9a227' }}
           />
           <h1
-            className="text-4xl font-bold text-white mb-3 leading-tight"
-            style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 800 }}
+            className="text-4xl font-bold mb-3 leading-tight"
+            style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 800, color: '#C9252D' }}
           >
             Instituto Santiago Ramón y Cajal
           </h1>
@@ -78,18 +82,13 @@ export default function LoginPage() {
             Escuela Precursora 2026
           </div>
 
-          <div className="space-y-4 text-left">
-            {[
-              { icon: '📚', text: 'Gestión completa de aulas virtuales' },
-              { icon: '📊', text: 'Calificaciones y seguimiento académico' },
-              { icon: '👥', text: 'Panel multi-rol para toda la comunidad' },
-              { icon: '🗓️', text: 'Calendario de eventos y actividades' },
-            ].map(item => (
-              <div key={item.text} className="flex items-center gap-4 rounded-xl px-4 py-3" style={{ backgroundColor: 'rgba(255,255,255,0.07)' }}>
-                <span className="text-2xl">{item.icon}</span>
-                <span className="text-sm" style={{ color: 'rgba(255,255,255,0.80)' }}>{item.text}</span>
-              </div>
-            ))}
+          <div className="mt-2">
+            <p className="text-2xl font-bold text-white leading-snug mb-3" style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 700 }}>
+              Toda la vida escolar, en un solo lugar.
+            </p>
+            <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.80)' }}>
+              Una plataforma simple, moderna y segura para conectar estudiantes, docentes y familias.
+            </p>
           </div>
         </div>
 
