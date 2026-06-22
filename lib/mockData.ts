@@ -1,6 +1,7 @@
 import {
   Estudiante, Docente, Curso, Materia, Calificacion,
-  Asistencia, Disciplina, Evento, Actividad, User, Post, AppUser
+  Asistencia, Disciplina, Evento, Actividad, User, Post, AppUser,
+  LearningCore, Evaluation, EvaluationGrade
 } from '@/types';
 
 export const MOCK_USERS: User[] = [
@@ -53,16 +54,16 @@ export const MOCK_MATERIAS: Materia[] = [
 ];
 
 export const MOCK_CALIFICACIONES: Calificacion[] = [
-  { id: 'cal1', estudianteId: 'e1', materiaId: 'm1', nota: 8, tipo: 'parcial', fecha: '2024-04-10', trimestre: 1, descripcion: '1er Parcial', docenteId: 'd1' },
-  { id: 'cal2', estudianteId: 'e1', materiaId: 'm1', nota: 7, tipo: 'trabajo_practico', fecha: '2024-04-25', trimestre: 1, descripcion: 'TP Álgebra', docenteId: 'd1' },
-  { id: 'cal3', estudianteId: 'e1', materiaId: 'm2', nota: 9, tipo: 'parcial', fecha: '2024-04-12', trimestre: 1, descripcion: '1er Parcial Lengua', docenteId: 'd2' },
-  { id: 'cal4', estudianteId: 'e1', materiaId: 'm3', nota: 6, tipo: 'oral', fecha: '2024-05-03', trimestre: 1, descripcion: 'Oral Historia', docenteId: 'd1' },
-  { id: 'cal5', estudianteId: 'e1', materiaId: 'm1', nota: 9, tipo: 'parcial', fecha: '2024-06-15', trimestre: 2, descripcion: '2do Parcial', docenteId: 'd1' },
-  { id: 'cal6', estudianteId: 'e1', materiaId: 'm2', nota: 8, tipo: 'trabajo_practico', fecha: '2024-06-20', trimestre: 2, descripcion: 'TP Redacción', docenteId: 'd2' },
-  { id: 'cal7', estudianteId: 'e2', materiaId: 'm1', nota: 10, tipo: 'parcial', fecha: '2024-04-10', trimestre: 1, descripcion: '1er Parcial', docenteId: 'd1' },
-  { id: 'cal8', estudianteId: 'e2', materiaId: 'm2', nota: 8, tipo: 'parcial', fecha: '2024-04-12', trimestre: 1, descripcion: '1er Parcial Lengua', docenteId: 'd2' },
-  { id: 'cal9', estudianteId: 'e3', materiaId: 'm1', nota: 5, tipo: 'parcial', fecha: '2024-04-10', trimestre: 1, descripcion: '1er Parcial', docenteId: 'd1' },
-  { id: 'cal10', estudianteId: 'e3', materiaId: 'm2', nota: 7, tipo: 'parcial', fecha: '2024-04-12', trimestre: 1, descripcion: '1er Parcial Lengua', docenteId: 'd2' },
+  { id: 'cal1', estudianteId: 'e1', materiaId: 'm1', nota: 8, tipo: 'Evaluación', fecha: '2024-04-10', trimestre: 1, descripcion: 'Evaluación - Núcleo 1', docenteId: 'd1' },
+  { id: 'cal2', estudianteId: 'e1', materiaId: 'm1', nota: 7, tipo: 'Trabajo práctico', fecha: '2024-04-25', trimestre: 1, descripcion: 'TP Álgebra', docenteId: 'd1' },
+  { id: 'cal3', estudianteId: 'e1', materiaId: 'm2', nota: 9, tipo: 'Evaluación', fecha: '2024-04-12', trimestre: 1, descripcion: 'Evaluación - Núcleo 1 Lengua', docenteId: 'd2' },
+  { id: 'cal4', estudianteId: 'e1', materiaId: 'm3', nota: 6, tipo: 'Evaluación oral', fecha: '2024-05-03', trimestre: 1, descripcion: 'Coloquio Historia', docenteId: 'd1' },
+  { id: 'cal5', estudianteId: 'e1', materiaId: 'm1', nota: 9, tipo: 'Evaluación', fecha: '2024-06-15', trimestre: 2, descripcion: 'Evaluación - Núcleo 2', docenteId: 'd1' },
+  { id: 'cal6', estudianteId: 'e1', materiaId: 'm2', nota: 8, tipo: 'Trabajo práctico', fecha: '2024-06-20', trimestre: 2, descripcion: 'TP Redacción', docenteId: 'd2' },
+  { id: 'cal7', estudianteId: 'e2', materiaId: 'm1', nota: 10, tipo: 'Evaluación', fecha: '2024-04-10', trimestre: 1, descripcion: 'Evaluación - Núcleo 1', docenteId: 'd1' },
+  { id: 'cal8', estudianteId: 'e2', materiaId: 'm2', nota: 8, tipo: 'Evaluación', fecha: '2024-04-12', trimestre: 1, descripcion: 'Evaluación - Núcleo 1 Lengua', docenteId: 'd2' },
+  { id: 'cal9', estudianteId: 'e3', materiaId: 'm1', nota: 5, tipo: 'Evaluación', fecha: '2024-04-10', trimestre: 1, descripcion: 'Evaluación - Núcleo 1', docenteId: 'd1' },
+  { id: 'cal10', estudianteId: 'e3', materiaId: 'm2', nota: 7, tipo: 'Evaluación', fecha: '2024-04-12', trimestre: 1, descripcion: 'Evaluación - Núcleo 1 Lengua', docenteId: 'd2' },
 ];
 
 export const MOCK_ASISTENCIAS: Asistencia[] = [
@@ -89,13 +90,13 @@ export const MOCK_DISCIPLINA: Disciplina[] = [
 ];
 
 export const MOCK_EVENTOS: Evento[] = [
-  { id: 'ev1', titulo: 'Parcial Matemática 1A', descripcion: 'Primer parcial de matemática para 1er Año A', fecha: '2024-07-10', tipo: 'examen', cursoId: 'c1', color: '#ef4444' },
+  { id: 'ev1', titulo: 'Evaluación Matemática 1A', descripcion: 'Evaluación de Matemática para 1er Año A - Núcleo 1', fecha: '2024-07-10', tipo: 'examen', cursoId: 'c1', color: '#ef4444' },
   { id: 'ev2', titulo: 'Reunión de Padres', descripcion: 'Reunión general de padres y tutores', fecha: '2024-07-15', tipo: 'reunion', color: '#3b82f6' },
   { id: 'ev3', titulo: 'Feriado Nacional', descripcion: 'Día de la Independencia', fecha: '2024-07-09', tipo: 'feriado', color: '#6b7280' },
   { id: 'ev4', titulo: 'Entrega TP Biología', descripcion: 'Entrega de trabajo práctico de biología', fecha: '2024-07-08', tipo: 'entrega', cursoId: 'c2', color: '#10b981' },
   { id: 'ev5', titulo: 'Acto Escolar', descripcion: 'Acto por el aniversario de la escuela', fecha: '2024-07-20', tipo: 'actividad', color: '#f59e0b' },
   { id: 'ev6', titulo: 'Olimpíada de Matemática', descripcion: 'Participación en olimpíada zonal', fecha: '2024-07-25', tipo: 'actividad', color: '#8b5cf6' },
-  { id: 'ev7', titulo: 'Parcial Historia', descripcion: 'Parcial de historia para 1er año', fecha: '2024-07-18', tipo: 'examen', cursoId: 'c1', color: '#ef4444' },
+  { id: 'ev7', titulo: 'Evaluación Historia', descripcion: 'Evaluación de Historia para 1er año - Núcleo 1', fecha: '2024-07-18', tipo: 'examen', cursoId: 'c1', color: '#ef4444' },
 ];
 
 export const MOCK_POSTS: Post[] = [
@@ -104,7 +105,7 @@ export const MOCK_POSTS: Post[] = [
   { id: 'p3', subjectId: 'm1', courseId: 'c1', teacherId: 'd1', title: 'Borrador: Evaluación integradora', content: 'Evaluación integradora del primer trimestre. Temas: funciones, derivadas, límites.', images: [], createdAt: '2026-06-22', status: 'draft' },
   { id: 'p4', subjectId: 'm2', courseId: 'c1', teacherId: 'd2', title: 'Análisis de "El Aleph"', content: 'Para la próxima clase: leer el cuento "El Aleph" de Borges y preparar un análisis sobre el símbolo del aleph como metáfora del universo.', images: [], createdAt: '2026-06-19', status: 'published' },
   { id: 'p5', subjectId: 'm2', courseId: 'c1', teacherId: 'd2', title: 'Gramática: Los tiempos verbales', content: 'Repaso de los tiempos verbales en el modo subjuntivo. Ejercicios de práctica en la guía adjunta.', images: [], createdAt: '2026-06-17', status: 'published' },
-  { id: 'p6', subjectId: 'm3', courseId: 'c1', teacherId: 'd1', title: 'Revolución Francesa: Cronología', content: 'Hoy vimos la cronología de la Revolución Francesa. Les dejo un resumen de las etapas más importantes. Para el parcial: estudiar causas, etapas y consecuencias.', images: [], createdAt: '2026-06-15', status: 'published' },
+  { id: 'p6', subjectId: 'm3', courseId: 'c1', teacherId: 'd1', title: 'Revolución Francesa: Cronología', content: 'Hoy vimos la cronología de la Revolución Francesa. Les dejo un resumen de las etapas más importantes. Para la evaluación: estudiar causas, etapas y consecuencias.', images: [], createdAt: '2026-06-15', status: 'published' },
   { id: 'p7', subjectId: 'm3', courseId: 'c1', teacherId: 'd1', title: 'Fuentes primarias: Declaración de los Derechos del Hombre', content: 'Análisis de la Declaración de los Derechos del Hombre y del Ciudadano como fuente primaria histórica.', images: [], createdAt: '2026-06-12', status: 'published' },
   { id: 'p8', subjectId: 'm4', courseId: 'c2', teacherId: 'd3', title: 'Mitosis y Meiosis: Resumen', content: 'Resumen de los procesos de división celular. Incluye diagramas de las fases de la mitosis y meiosis.', images: [], createdAt: '2026-06-20', status: 'published' },
   { id: 'p9', subjectId: 'm4', courseId: 'c2', teacherId: 'd3', title: 'Trabajo Práctico: ADN y ARN', content: 'TP grupal sobre la estructura del ADN y ARN. Grupos de 3 personas. Entregar el viernes 26/06.', images: [], createdAt: '2026-06-18', status: 'published' },
@@ -125,6 +126,41 @@ export const MOCK_APP_USERS: AppUser[] = [
   { id: 'user-est1', username: 'lucas.rodriguez', password: 'est123', role: 'estudiante', linkedProfileId: 'e1', isActive: true, createdAt: '2026-01-01' },
   { id: 'user-est2', username: 'valentina.lopez', password: 'est123', role: 'estudiante', linkedProfileId: 'e2', isActive: true, createdAt: '2026-01-01' },
   { id: 'user-est3', username: 'sofia.gomez', password: 'est123', role: 'estudiante', linkedProfileId: 'e4', isActive: false, createdAt: '2026-01-01' },
+];
+
+export const MOCK_LEARNING_CORES: LearningCore[] = [
+  // Matemática (m1, c1, d1)
+  { id: 'nc-m1-1', subjectId: 'm1', courseId: 'c1', teacherId: 'd1', title: 'Núcleo 1: Números reales', description: 'Conjuntos numéricos, operaciones y propiedades.', period: 'Primer cuatrimestre', order: 1, isActive: true },
+  { id: 'nc-m1-2', subjectId: 'm1', courseId: 'c1', teacherId: 'd1', title: 'Núcleo 2: Funciones', description: 'Función lineal y cuadrática, análisis gráfico.', period: 'Primer cuatrimestre', order: 2, isActive: true },
+  { id: 'nc-m1-3', subjectId: 'm1', courseId: 'c1', teacherId: 'd1', title: 'Núcleo 3: Geometría', description: 'Geometría analítica y trigonometría básica.', period: 'Segundo cuatrimestre', order: 3, isActive: true },
+  // Lengua (m2, c1, d2)
+  { id: 'nc-m2-1', subjectId: 'm2', courseId: 'c1', teacherId: 'd2', title: 'Núcleo 1: Comprensión lectora', description: 'Análisis de textos narrativos y expositivos.', period: 'Primer cuatrimestre', order: 1, isActive: true },
+  { id: 'nc-m2-2', subjectId: 'm2', courseId: 'c1', teacherId: 'd2', title: 'Núcleo 2: Producción escrita', description: 'Redacción, coherencia y cohesión textual.', period: 'Segundo cuatrimestre', order: 2, isActive: true },
+  // Historia (m3, c1, d1)
+  { id: 'nc-m3-1', subjectId: 'm3', courseId: 'c1', teacherId: 'd1', title: 'Núcleo 1: Historia Moderna', description: 'Revolución Francesa y sus consecuencias.', period: 'Primer cuatrimestre', order: 1, isActive: true },
+  { id: 'nc-m3-2', subjectId: 'm3', courseId: 'c1', teacherId: 'd1', title: 'Núcleo 2: Historia Argentina', description: 'Formación del Estado nacional argentino.', period: 'Segundo cuatrimestre', order: 2, isActive: true },
+  // Biología (m4, c2, d3)
+  { id: 'nc-m4-1', subjectId: 'm4', courseId: 'c2', teacherId: 'd3', title: 'Núcleo 1: Célula y División', description: 'Estructura celular, mitosis y meiosis.', period: 'Primer cuatrimestre', order: 1, isActive: true },
+  { id: 'nc-m4-2', subjectId: 'm4', courseId: 'c2', teacherId: 'd3', title: 'Núcleo 2: Genética', description: 'ADN, ARN, herencia y variabilidad genética.', period: 'Segundo cuatrimestre', order: 2, isActive: true },
+];
+
+export const MOCK_EVALUATIONS: Evaluation[] = [
+  { id: 'ev-nc-m1-1', learningCoreId: 'nc-m1-1', subjectId: 'm1', courseId: 'c1', teacherId: 'd1', title: 'Evaluación - Núcleo 1', description: 'Números reales y operaciones.', date: '2026-07-10', type: 'Evaluación', status: 'Programada' },
+  { id: 'ev-nc-m1-1-r1', learningCoreId: 'nc-m1-1', subjectId: 'm1', courseId: 'c1', teacherId: 'd1', title: 'Recuperatorio 1 - Núcleo 1', description: 'Primera instancia de recuperación.', date: '2026-07-17', type: 'Recuperatorio 1', status: 'Programada' },
+  { id: 'ev-nc-m1-2', learningCoreId: 'nc-m1-2', subjectId: 'm1', courseId: 'c1', teacherId: 'd1', title: 'Evaluación - Núcleo 2', description: 'Funciones lineal y cuadrática.', date: '2026-07-24', type: 'Evaluación', status: 'Programada' },
+  { id: 'ev-nc-m2-1', learningCoreId: 'nc-m2-1', subjectId: 'm2', courseId: 'c1', teacherId: 'd2', title: 'Evaluación - Núcleo 1', description: 'Comprensión de texto narrativo.', date: '2026-07-08', type: 'Evaluación', status: 'Realizada' },
+  { id: 'ev-nc-m2-1-r1', learningCoreId: 'nc-m2-1', subjectId: 'm2', courseId: 'c1', teacherId: 'd2', title: 'Recuperatorio 1 - Núcleo 1', description: 'Primera instancia de recuperación.', date: '2026-07-15', type: 'Recuperatorio 1', status: 'Programada' },
+  { id: 'ev-nc-m3-1', learningCoreId: 'nc-m3-1', subjectId: 'm3', courseId: 'c1', teacherId: 'd1', title: 'Evaluación - Núcleo 1', description: 'Revolución Francesa: causas, etapas y consecuencias.', date: '2026-07-12', type: 'Evaluación', status: 'Realizada' },
+  { id: 'ev-nc-m4-1', learningCoreId: 'nc-m4-1', subjectId: 'm4', courseId: 'c2', teacherId: 'd3', title: 'Evaluación - Núcleo 1', description: 'Estructura celular y división celular.', date: '2026-07-09', type: 'Evaluación', status: 'Realizada' },
+];
+
+export const MOCK_EVALUATION_GRADES: EvaluationGrade[] = [
+  { id: 'eg-1', studentId: 'e1', subjectId: 'm2', courseId: 'c1', learningCoreId: 'nc-m2-1', evaluationId: 'ev-nc-m2-1', instanceType: 'evaluacion_principal', grade: 5, date: '2026-07-08', observation: 'Necesita mejorar comprensión inferencial.', teacherId: 'd2', visibleForStudent: true },
+  { id: 'eg-2', studentId: 'e1', subjectId: 'm1', courseId: 'c1', learningCoreId: 'nc-m1-1', evaluationId: 'ev-nc-m1-1', instanceType: 'evaluacion_principal', grade: 8, date: '2026-07-10', observation: 'Buen desempeño en operaciones.', teacherId: 'd1', visibleForStudent: true },
+  { id: 'eg-3', studentId: 'e1', subjectId: 'm3', courseId: 'c1', learningCoreId: 'nc-m3-1', evaluationId: 'ev-nc-m3-1', instanceType: 'evaluacion_principal', grade: 7, date: '2026-07-12', observation: 'Buena comprensión del período histórico.', teacherId: 'd1', visibleForStudent: true },
+  { id: 'eg-4', studentId: 'e2', subjectId: 'm2', courseId: 'c1', learningCoreId: 'nc-m2-1', evaluationId: 'ev-nc-m2-1', instanceType: 'evaluacion_principal', grade: 9, date: '2026-07-08', observation: 'Excelente análisis textual.', teacherId: 'd2', visibleForStudent: true },
+  { id: 'eg-5', studentId: 'e3', subjectId: 'm2', courseId: 'c1', learningCoreId: 'nc-m2-1', evaluationId: 'ev-nc-m2-1', instanceType: 'evaluacion_principal', grade: 4, date: '2026-07-08', observation: 'Debe recuperar el núcleo.', teacherId: 'd2', visibleForStudent: true },
+  { id: 'eg-6', studentId: 'e4', subjectId: 'm4', courseId: 'c2', learningCoreId: 'nc-m4-1', evaluationId: 'ev-nc-m4-1', instanceType: 'evaluacion_principal', grade: 6, date: '2026-07-09', observation: 'Aprobado con conocimientos suficientes.', teacherId: 'd3', visibleForStudent: true },
 ];
 
 export const MOCK_ACTIVIDADES: Actividad[] = [

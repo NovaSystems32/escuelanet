@@ -60,12 +60,58 @@ export interface Calificacion {
   estudianteId: string;
   materiaId: string;
   nota: number;
-  tipo: 'parcial' | 'trabajo_practico' | 'examen_final' | 'oral';
+  tipo: 'Evaluación' | 'Evaluación oral' | 'Trabajo práctico' | 'Actividad áulica' | 'Proyecto' | 'Participación' | 'Instancia de recuperación' | 'Coloquio';
   fecha: string;
   trimestre: 1 | 2 | 3;
   descripcion?: string;
   docenteId: string;
 }
+
+// Núcleo de aprendizaje
+export interface LearningCore {
+  id: string;
+  subjectId: string;
+  courseId: string;
+  teacherId: string;
+  title: string;
+  description: string;
+  period: 'Primer cuatrimestre' | 'Segundo cuatrimestre' | 'Anual';
+  order: number;
+  isActive: boolean;
+}
+
+// Evaluación de un núcleo
+export interface Evaluation {
+  id: string;
+  learningCoreId: string;
+  subjectId: string;
+  courseId: string;
+  teacherId: string;
+  title: string;
+  description: string;
+  date: string;
+  type: 'Evaluación' | 'Recuperatorio 1' | 'Recuperatorio 2';
+  status: 'Programada' | 'Realizada' | 'Cancelada';
+}
+
+// Calificación por instancia evaluativa
+export interface EvaluationGrade {
+  id: string;
+  studentId: string;
+  subjectId: string;
+  courseId: string;
+  learningCoreId: string;
+  evaluationId: string;
+  instanceType: 'evaluacion_principal' | 'recuperatorio_1' | 'recuperatorio_2';
+  grade: number;
+  date: string;
+  observation: string;
+  teacherId: string;
+  visibleForStudent: boolean;
+}
+
+// Estado del núcleo para un estudiante
+export type CoreStatus = 'Aprobado' | 'En proceso' | 'Debe recuperar' | 'Recuperatorio 1 pendiente' | 'Recuperatorio 2 pendiente' | 'No aprobado';
 
 export interface Asistencia {
   id: string;

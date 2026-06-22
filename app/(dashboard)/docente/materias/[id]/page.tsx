@@ -8,7 +8,7 @@ import Modal from '@/components/Modal';
 
 const TEACHER_ID = 'd1';
 
-type Tab = 'publicaciones' | 'estudiantes' | 'actividades';
+type Tab = 'publicaciones' | 'estudiantes' | 'actividades' | 'nucleos';
 
 export default function DocenteMateriaDetailPage() {
   const params = useParams();
@@ -118,13 +118,13 @@ export default function DocenteMateriaDetailPage() {
 
       {/* Tabs */}
       <div className="flex gap-1 mb-6 border-b border-[#e8e8ec]">
-        {(['publicaciones', 'estudiantes', 'actividades'] as Tab[]).map(t => (
+        {(['publicaciones', 'estudiantes', 'actividades', 'nucleos'] as Tab[]).map(t => (
           <button
             key={t}
-            onClick={() => setTab(t)}
+            onClick={() => { if (t === 'nucleos') { router.push(`/docente/materias/${id}/nucleos`); } else setTab(t); }}
             className={`px-4 py-2.5 text-sm font-medium capitalize transition-colors border-b-2 -mb-px ${tab === t ? 'border-[#1a5276] text-[#1a5276]' : 'border-transparent text-[#888888] hover:text-[#111111]'}`}
           >
-            {t === 'publicaciones' ? 'Comunicados' : t === 'estudiantes' ? 'Estudiantes' : 'Actividades y entregas'}
+            {t === 'publicaciones' ? 'Comunicados' : t === 'estudiantes' ? 'Estudiantes' : t === 'actividades' ? 'Actividades y entregas' : 'Núcleos de aprendizaje'}
           </button>
         ))}
       </div>

@@ -6,14 +6,18 @@ import PageHeader from '@/components/PageHeader';
 import Modal from '@/components/Modal';
 
 const tipoOpts = [
-  { value: 'parcial', label: 'Evaluación escrita' },
-  { value: 'trabajo_practico', label: 'Trabajo práctico' },
-  { value: 'examen_final', label: 'Examen final' },
-  { value: 'oral', label: 'Evaluación oral' },
+  { value: 'Evaluación', label: 'Evaluación' },
+  { value: 'Evaluación oral', label: 'Evaluación oral' },
+  { value: 'Trabajo práctico', label: 'Trabajo práctico' },
+  { value: 'Actividad áulica', label: 'Actividad áulica' },
+  { value: 'Proyecto', label: 'Proyecto' },
+  { value: 'Participación', label: 'Participación' },
+  { value: 'Instancia de recuperación', label: 'Instancia de recuperación' },
+  { value: 'Coloquio', label: 'Coloquio' },
 ];
 
 const emptyForm: Omit<Calificacion, 'id'> = {
-  estudianteId: 'e1', materiaId: 'm1', nota: 7, tipo: 'parcial',
+  estudianteId: 'e1', materiaId: 'm1', nota: 7, tipo: 'Evaluación',
   fecha: new Date().toISOString().split('T')[0], trimestre: 1, descripcion: '', docenteId: 'd1',
 };
 
@@ -155,7 +159,7 @@ export default function CalificacionesAdminPage() {
           </div>
           <div className="col-span-2">
             <label className="block text-sm font-medium text-[#111111] mb-1">Descripción</label>
-            <input className="w-full px-3 py-2 border border-[#e8e8ec] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#1a5276]" value={form.descripcion ?? ''} onChange={e => setForm(f => ({ ...f, descripcion: e.target.value }))} placeholder="ej: 1er Parcial" />
+            <input className="w-full px-3 py-2 border border-[#e8e8ec] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#1a5276]" value={form.descripcion ?? ''} onChange={e => setForm(f => ({ ...f, descripcion: e.target.value }))} placeholder="ej: Evaluación - Núcleo 1" />
           </div>
         </div>
         <div className="flex gap-3 mt-6 justify-end">

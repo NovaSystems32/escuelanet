@@ -4,17 +4,25 @@ import { useAppStore } from '@/store/useAppStore';
 import PageHeader from '@/components/PageHeader';
 
 const tipoLabels: Record<string, string> = {
-  parcial: 'Evaluación escrita',
-  trabajo_practico: 'Trabajo práctico',
-  examen_final: 'Examen final',
-  oral: 'Evaluación oral',
+  'Evaluación': 'Evaluación',
+  'Evaluación oral': 'Evaluación oral',
+  'Trabajo práctico': 'Trabajo práctico',
+  'Actividad áulica': 'Actividad áulica',
+  'Proyecto': 'Proyecto',
+  'Participación': 'Participación',
+  'Instancia de recuperación': 'Instancia de recuperación',
+  'Coloquio': 'Coloquio',
 };
 
 const tipoBadge: Record<string, { bg: string; color: string }> = {
-  parcial: { bg: '#d6eaf8', color: '#1a5276' },
-  trabajo_practico: { bg: '#d4edda', color: '#155724' },
-  oral: { bg: '#fef9c3', color: '#856404' },
-  examen_final: { bg: '#cce5ff', color: '#0d47a1' },
+  'Evaluación': { bg: '#d6eaf8', color: '#1a5276' },
+  'Evaluación oral': { bg: '#fef9c3', color: '#856404' },
+  'Trabajo práctico': { bg: '#d4edda', color: '#155724' },
+  'Actividad áulica': { bg: '#e8e8ec', color: '#555555' },
+  'Proyecto': { bg: '#e8d5f5', color: '#6a1b9a' },
+  'Participación': { bg: '#d5f5e3', color: '#1a5276' },
+  'Instancia de recuperación': { bg: '#fde8e8', color: '#c62828' },
+  'Coloquio': { bg: '#cce5ff', color: '#0d47a1' },
 };
 
 export default function CalificacionesPage() {

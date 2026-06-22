@@ -2,12 +2,14 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import {
   Estudiante, Docente, Curso, Materia, Calificacion,
-  Asistencia, Disciplina, Evento, Actividad, Post, AppUser
+  Asistencia, Disciplina, Evento, Actividad, Post, AppUser,
+  LearningCore, Evaluation, EvaluationGrade, CoreStatus
 } from '@/types';
 import {
   MOCK_ESTUDIANTES, MOCK_DOCENTES, MOCK_CURSOS, MOCK_MATERIAS,
   MOCK_CALIFICACIONES, MOCK_ASISTENCIAS, MOCK_DISCIPLINA,
-  MOCK_EVENTOS, MOCK_ACTIVIDADES, MOCK_POSTS, MOCK_APP_USERS
+  MOCK_EVENTOS, MOCK_ACTIVIDADES, MOCK_POSTS, MOCK_APP_USERS,
+  MOCK_LEARNING_CORES, MOCK_EVALUATIONS, MOCK_EVALUATION_GRADES
 } from '@/lib/mockData';
 
 interface AppState {
@@ -22,6 +24,9 @@ interface AppState {
   actividades: Actividad[];
   posts: Post[];
   appUsers: AppUser[];
+  learningCores: LearningCore[];
+  evaluations: Evaluation[];
+  evaluationGrades: EvaluationGrade[];
 
   // Estudiantes CRUD
   addEstudiante: (e: Omit<Estudiante, 'id'>) => void;
@@ -77,6 +82,20 @@ interface AppState {
   updateAppUser: (id: string, u: Partial<AppUser>) => void;
   deleteAppUser: (id: string) => void;
 
+  // LearningCores CRUD
+  addLearningCore: (lc: Omit<LearningCore, 'id'>) => void;
+  updateLearningCore: (id: string, lc: Partial<LearningCore>) => void;
+  deleteLearningCore: (id: string) => void;
+
+  // Evaluations CRUD
+  addEvaluation: (ev: Omit<Evaluation, 'id'>) => void;
+  updateEvaluation: (id: string, ev: Partial<Evaluation>) => void;
+  deleteEvaluation: (id: string) => void;
+
+  // EvaluationGrades CRUD
+  addEvaluationGrade: (eg: Omit<EvaluationGrade, 'id'>) => void;
+  updateEvaluationGrade: (id: string, eg: Partial<EvaluationGrade>) => void;
+
   // Selector helpers
   getStudentPosts: (studentId: string) => Post[];
   getStudentGrades: (studentId: string) => Calificacion[];
@@ -84,6 +103,7 @@ interface AppState {
   getTeacherSubjects: (teacherId: string) => Materia[];
   getTeacherPosts: (teacherId: string) => Post[];
   getPreceptorStudents: (preceptorId: string) => Estudiante[];
+  getCoreStatus: (studentId: string, coreId: string) => CoreStatus;
 }
 
 const genId = () => Math.random().toString(36).substr(2, 9);
@@ -102,6 +122,9 @@ export const useAppStore = create<AppState>()(
       actividades: MOCK_ACTIVIDADES,
       posts: MOCK_POSTS,
       appUsers: MOCK_APP_USERS,
+      learningCores: MOCK_LEARNING_CORES,
+      evaluations: MOCK_EVALUATIONS,
+      evaluationGrades: MOCK_EVALUATION_GRADES,
 
       addEstudiante: (e) => set((s) => ({ estudiantes: [...s.estudiantes, { ...e, id: genId() }] })),
       updateEstudiante: (id, e) => set((s) => ({ estudiantes: s.estudiantes.map(x => x.id === id ? { ...x, ...e } : x) })),
@@ -146,6 +169,17 @@ export const useAppStore = create<AppState>()(
       updateAppUser: (id, u) => set((s) => ({ appUsers: s.appUsers.map(x => x.id === id ? { ...x, ...u } : x) })),
       deleteAppUser: (id) => set((s) => ({ appUsers: s.appUsers.filter(x => x.id !== id) })),
 
+      addLearningCore: (lc) => set((s) => ({ learningCores: [...s.learningCores, { ...lc, id: genId() }] })),
+      updateLearningCore: (id, lc) => set((s) => ({ learningCores: s.learningCores.map(x => x.id === id ? { ...x, ...lc } : x) })),
+      deleteLearningCore: (id) => set((s) => ({ learningCores: s.learningCores.filter(x => x.id !== id) })),
+
+      addEvaluation: (ev) => set((s) => ({ evaluations: [...s.evaluations, { ...ev, id: genId() }] })),
+      updateEvaluation: (id, ev) => set((s) => ({ evaluations: s.evaluations.map(x => x.id === id ? { ...x, ...ev } : x) })),
+      deleteEvaluation: (id) => set((s) => ({ evaluations: s.evaluations.filter(x => x.id !== id) })),
+
+      addEvaluationGrade: (eg) => set((s) => ({ evaluationGrades: [...s.evaluationGrades, { ...eg, id: genId() }] })),
+      updateEvaluationGrade: (id, eg) => set((s) => ({ evaluationGrades: s.evaluationGrades.map(x => x.id === id ? { ...x, ...eg } : x) })),
+
       // Selectors
       getStudentPosts: (studentId: string) => {
         const { posts, estudiantes, materias } = get();
@@ -175,6 +209,21 @@ export const useAppStore = create<AppState>()(
         // For now all preceptors see all students; can be filtered by assigned courses
         const { estudiantes } = get();
         return estudiantes;
+      },
+      getCoreStatus: (studentId: string, coreId: string): CoreStatus => {
+        const { evaluationGrades } = get();
+        const grades = evaluationGrades.filter(g => g.studentId === studentId && g.learningCoreId === coreId);
+        const main = grades.find(g => g.instanceType === 'evaluacion_principal');
+        const r1 = grades.find(g => g.instanceType === 'recuperatorio_1');
+        const r2 = grades.find(g => g.instanceType === 'recuperatorio_2');
+
+        if (main && main.grade >= 6) return 'Aprobado';
+        if (r1 && r1.grade >= 6) return 'Aprobado';
+        if (r2 && r2.grade >= 6) return 'Aprobado';
+        if (r2 && r2.grade < 6) return 'No aprobado';
+        if (r1 && r1.grade < 6) return 'Recuperatorio 2 pendiente';
+        if (main && main.grade < 6) return 'Debe recuperar';
+        return 'En proceso';
       },
     }),
     {
