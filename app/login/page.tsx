@@ -54,7 +54,7 @@ export default function LoginPage() {
         style={{
           backgroundImage: "url('/imagen1.png')",
           backgroundSize: 'cover',
-          backgroundPosition: '18% center',
+          backgroundPosition: '12% center',
           backgroundRepeat: 'no-repeat',
           backgroundColor: '#1a5276',
         }}
@@ -69,32 +69,38 @@ export default function LoginPage() {
             className="w-24 h-24 rounded-full object-cover mx-auto mb-6 shadow-2xl"
             style={{ border: '4px solid #c9a227' }}
           />
-          <h1
-            className="text-4xl font-bold mb-3 leading-tight px-5 py-2 rounded-2xl"
-            style={{
-              fontFamily: "'Barlow Condensed', sans-serif",
-              fontWeight: 800,
-              color: '#B8202A',
-              textShadow: '0 2px 8px rgba(255,255,255,0.45)',
-              letterSpacing: '-0.5px',
-              background: 'rgba(255,255,255,0.16)',
-              backdropFilter: 'blur(6px)',
-            }}
-          >
-            Instituto Santiago Ramón y Cajal
-          </h1>
-          <p className="text-xl italic mb-4" style={{ color: '#c9a227', fontFamily: "'Inter', sans-serif" }}>
+          {/* Título con caja translúcida sutil */}
+          <div className="inline-block mb-3" style={{ background: 'rgba(255,255,255,0.18)', borderRadius: '18px', padding: '12px 22px', backdropFilter: 'blur(8px)', boxShadow: '0 12px 30px rgba(0,0,0,0.12)' }}>
+            <h1
+              style={{
+                fontFamily: "'Barlow Condensed', sans-serif",
+                fontWeight: 800,
+                color: '#B8202A',
+                textShadow: '0 2px 8px rgba(255,255,255,0.35)',
+                letterSpacing: '-0.4px',
+                lineHeight: 1.15,
+                fontSize: 'clamp(26px, 3vw, 40px)',
+                margin: 0,
+              }}
+            >
+              Instituto Santiago Ramón y Cajal
+            </h1>
+          </div>
+
+          {/* Slogan institucional — blanco elegante con sombra */}
+          <p className="text-lg italic mb-4" style={{ color: '#ffffff', fontWeight: 500, fontFamily: "'Inter', sans-serif", textShadow: '0 2px 8px rgba(0,0,0,0.35)' }}>
             &ldquo;Educamos hoy, formamos el mañana&rdquo;
           </p>
-          <div className="inline-block px-4 py-1.5 rounded-full text-sm font-semibold text-white mb-10" style={{ backgroundColor: 'rgba(255,255,255,0.2)' }}>
+          <div className="inline-block px-4 py-1.5 rounded-full text-sm font-semibold text-white mb-8" style={{ backgroundColor: 'rgba(255,255,255,0.2)' }}>
             Escuela Precursora 2026
           </div>
 
-          <div className="mt-2">
-            <p className="text-2xl font-bold text-white leading-snug mb-3" style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 700 }}>
+          {/* Slogan de la app con caja translúcida suave */}
+          <div style={{ background: 'rgba(0,55,95,0.18)', borderRadius: '18px', padding: '18px 24px', backdropFilter: 'blur(4px)' }}>
+            <p className="text-2xl font-bold leading-snug mb-2" style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 800, color: '#ffffff', textShadow: '0 2px 8px rgba(0,0,0,0.30)' }}>
               Toda la vida escolar, en un solo lugar.
             </p>
-            <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.80)' }}>
+            <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.92)', textShadow: '0 2px 6px rgba(0,0,0,0.25)' }}>
               Una plataforma simple, moderna y segura para conectar estudiantes, docentes y familias.
             </p>
           </div>
