@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "EscuelaNet — Plataforma Educativa Digital",
-  description: "Sistema de gestión escolar integral",
+  title: "Instituto Santiago Ramón y Cajal — EscuelaNet",
+  description: "Plataforma Educativa Digital · Educamos hoy, formamos el mañana",
 };
 
 export default function RootLayout({

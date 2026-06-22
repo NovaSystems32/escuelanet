@@ -16,8 +16,7 @@ export default function InasistenciasPage() {
   const injustificadas = misAsistencias.filter(a => !a.presente && !a.justificada).length;
   const pct = misAsistencias.length > 0 ? Math.round((presentes / misAsistencias.length) * 100) : 100;
 
-  const statusColor = pct >= 75 ? 'text-[#34a853]' : pct >= 60 ? 'text-[#f59e0b]' : 'text-[#e53935]';
-  const barColor = pct >= 75 ? 'bg-[#34a853]' : pct >= 60 ? 'bg-[#f59e0b]' : 'bg-[#e53935]';
+  const barColor = pct >= 75 ? '#27ae60' : pct >= 60 ? '#c9a227' : '#c62828';
 
   return (
     <div>
@@ -25,78 +24,78 @@ export default function InasistenciasPage() {
 
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-        <div className="bg-white rounded-xl border border-[#d8e0ee] p-4 shadow-sm">
-          <p className="text-xs text-[#5a6a8a] mb-1 font-medium">Total días</p>
-          <p className="text-2xl font-bold text-[#1a2444]">{misAsistencias.length}</p>
+        <div className="bg-white rounded-xl p-4 shadow-sm" style={{ border: '1px solid #e8e8ec' }}>
+          <p className="text-xs mb-1 font-medium" style={{ color: '#888888' }}>Total días</p>
+          <p className="text-2xl font-bold" style={{ color: '#111111', fontFamily: "'Barlow Condensed', sans-serif" }}>{misAsistencias.length}</p>
         </div>
-        <div className="bg-[#dcfce7] rounded-xl border border-green-200 p-4">
-          <p className="text-xs text-[#34a853] mb-1 font-medium">Presentes</p>
-          <p className="text-2xl font-bold text-[#15803d]">{presentes}</p>
+        <div className="rounded-xl p-4" style={{ backgroundColor: '#d4edda', border: '1px solid #b8ddc0' }}>
+          <p className="text-xs mb-1 font-medium" style={{ color: '#27ae60' }}>Presentes</p>
+          <p className="text-2xl font-bold" style={{ color: '#155724', fontFamily: "'Barlow Condensed', sans-serif" }}>{presentes}</p>
         </div>
-        <div className="bg-[#e8f0fb] rounded-xl border border-[#d8e0ee] p-4">
-          <p className="text-xs text-[#2d4a8a] mb-1 font-medium">Justificadas</p>
-          <p className="text-2xl font-bold text-[#2d4a8a]">{justificadas}</p>
+        <div className="rounded-xl p-4" style={{ backgroundColor: '#d6eaf8', border: '1px solid #a9cce3' }}>
+          <p className="text-xs mb-1 font-medium" style={{ color: '#1a5276' }}>Justificadas</p>
+          <p className="text-2xl font-bold" style={{ color: '#1a5276', fontFamily: "'Barlow Condensed', sans-serif" }}>{justificadas}</p>
         </div>
-        <div className="bg-red-50 rounded-xl border border-red-200 p-4">
-          <p className="text-xs text-[#e53935] mb-1 font-medium">Injustificadas</p>
-          <p className="text-2xl font-bold text-[#e53935]">{injustificadas}</p>
+        <div className="rounded-xl p-4" style={{ backgroundColor: '#fde8e8', border: '1px solid #f5c6cb' }}>
+          <p className="text-xs mb-1 font-medium" style={{ color: '#c62828' }}>Injustificadas</p>
+          <p className="text-2xl font-bold" style={{ color: '#c62828', fontFamily: "'Barlow Condensed', sans-serif" }}>{injustificadas}</p>
         </div>
       </div>
 
       {/* Progress */}
-      <div className="bg-white rounded-xl border border-[#d8e0ee] p-5 mb-6 shadow-sm">
+      <div className="bg-white rounded-xl p-5 mb-6 shadow-sm" style={{ border: '1px solid #e8e8ec' }}>
         <div className="flex items-center justify-between mb-3">
-          <h2 className="font-semibold text-[#1a2444]">Porcentaje de Asistencia</h2>
-          <span className={`text-2xl font-bold ${statusColor}`}>{pct}%</span>
+          <h2 className="font-semibold" style={{ fontFamily: "'Barlow Condensed', sans-serif", color: '#111111' }}>Porcentaje de Asistencia</h2>
+          <span className="text-2xl font-bold" style={{ color: barColor, fontFamily: "'Barlow Condensed', sans-serif" }}>{pct}%</span>
         </div>
-        <div className="w-full bg-[#eef1f8] rounded-full h-3 mb-2">
-          <div className={`h-3 rounded-full transition-all ${barColor}`} style={{ width: `${pct}%` }} />
+        <div className="w-full rounded-full h-3 mb-2" style={{ backgroundColor: '#e8e8ec' }}>
+          <div className="h-3 rounded-full transition-all" style={{ width: `${pct}%`, backgroundColor: barColor }} />
         </div>
-        <p className="text-xs text-[#5a6a8a]">
+        <p className="text-xs" style={{ color: '#888888' }}>
           {pct >= 75
-            ? '✅ Buen nivel de asistencia. Seguí así.'
+            ? 'Buen nivel de asistencia. Seguí así.'
             : pct >= 60
-            ? '⚠️ Atención: Tu asistencia está por debajo del promedio ideal.'
-            : '🚨 Tu asistencia está en riesgo. Mínimo requerido: 75%'}
+            ? 'Atención: Tu asistencia está por debajo del promedio ideal.'
+            : 'Tu asistencia está en riesgo. Mínimo requerido: 75%'}
         </p>
       </div>
 
       {/* Tabla */}
-      <div className="bg-white rounded-xl border border-[#d8e0ee] overflow-hidden shadow-sm">
-        <div className="p-4 border-b border-[#eef1f8] bg-[#f8f9fc]">
-          <h2 className="font-semibold text-[#1a2444]">Historial Detallado</h2>
+      <div className="bg-white rounded-xl overflow-hidden shadow-sm" style={{ border: '1px solid #e8e8ec' }}>
+        <div className="p-4 border-b" style={{ borderColor: '#e8e8ec', backgroundColor: '#f4f4f6' }}>
+          <h2 className="font-semibold" style={{ fontFamily: "'Barlow Condensed', sans-serif", color: '#111111' }}>Historial Detallado</h2>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="bg-[#f8f9fc]">
-                <th className="text-left px-4 py-3 text-xs font-semibold text-[#5a6a8a] uppercase tracking-wide">Fecha</th>
-                <th className="text-left px-4 py-3 text-xs font-semibold text-[#5a6a8a] uppercase tracking-wide">Estado</th>
-                <th className="text-left px-4 py-3 text-xs font-semibold text-[#5a6a8a] uppercase tracking-wide">Observación</th>
+              <tr style={{ backgroundColor: '#f4f4f6' }}>
+                <th className="text-left px-4 py-3 text-xs font-semibold uppercase tracking-wide" style={{ color: '#888888' }}>Fecha</th>
+                <th className="text-left px-4 py-3 text-xs font-semibold uppercase tracking-wide" style={{ color: '#888888' }}>Estado</th>
+                <th className="text-left px-4 py-3 text-xs font-semibold uppercase tracking-wide" style={{ color: '#888888' }}>Observación</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#eef1f8]">
+            <tbody>
               {misAsistencias.map((a, idx) => (
-                <tr key={a.id} className={`hover:bg-[#e8f0fb] transition-colors ${idx % 2 === 0 ? '' : 'bg-[#f8f9fc]'}`}>
-                  <td className="px-4 py-3 text-sm text-[#1a2444] capitalize">
+                <tr key={a.id} className="transition-colors" style={{ backgroundColor: idx % 2 !== 0 ? '#f4f4f6' : '#ffffff', borderBottom: '1px solid #e8e8ec' }}>
+                  <td className="px-4 py-3 text-sm capitalize" style={{ color: '#3a3a3a' }}>
                     {new Date(a.fecha).toLocaleDateString('es-AR', { weekday: 'long', day: 'numeric', month: 'long' })}
                   </td>
                   <td className="px-4 py-3">
                     {a.presente ? (
-                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-[#dcfce7] text-[#15803d]">
+                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold" style={{ backgroundColor: '#d4edda', color: '#155724' }}>
                         ✓ Presente
                       </span>
                     ) : a.justificada ? (
-                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-[#e8f0fb] text-[#2d4a8a]">
+                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold" style={{ backgroundColor: '#d6eaf8', color: '#1a5276' }}>
                         ~ Justificada
                       </span>
                     ) : (
-                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-red-100 text-[#e53935]">
+                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold" style={{ backgroundColor: '#fde8e8', color: '#c62828' }}>
                         ✗ Ausente
                       </span>
                     )}
                   </td>
-                  <td className="px-4 py-3 text-sm text-[#5a6a8a]">{a.observacion || '-'}</td>
+                  <td className="px-4 py-3 text-sm" style={{ color: '#888888' }}>{a.observacion || '-'}</td>
                 </tr>
               ))}
             </tbody>

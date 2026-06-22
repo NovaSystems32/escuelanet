@@ -11,6 +11,14 @@ const tipoLabels: Record<string, string> = {
   entrega: 'Entrega',
 };
 
+const eventColors: Record<string, string> = {
+  examen: '#1a5276',
+  entrega: '#c62828',
+  actividad: '#c9a227',
+  reunion: '#27ae60',
+  feriado: '#888888',
+};
+
 const MONTHS = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 const DAYS = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
 
@@ -53,15 +61,29 @@ export default function CalendarioPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Calendar */}
-        <div className="lg:col-span-2 bg-white rounded-xl border border-[#d8e0ee] p-5 shadow-sm">
+        <div className="lg:col-span-2 bg-white rounded-xl p-5 shadow-sm" style={{ border: '1px solid #e8e8ec' }}>
           <div className="flex items-center justify-between mb-4">
-            <button onClick={prevMonth} className="p-2 hover:bg-[#e8f0fb] rounded-lg text-[#2d4a8a] transition-colors">◀</button>
-            <h2 className="font-semibold text-[#1a2444]">{MONTHS[currentMonth]} {currentYear}</h2>
-            <button onClick={nextMonth} className="p-2 hover:bg-[#e8f0fb] rounded-lg text-[#2d4a8a] transition-colors">▶</button>
+            <button
+              onClick={prevMonth}
+              className="p-2 rounded-lg transition-colors"
+              style={{ color: '#1a5276' }}
+              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.backgroundColor = '#d6eaf8'; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.backgroundColor = ''; }}
+            >◀</button>
+            <h2 className="font-semibold" style={{ fontFamily: "'Barlow Condensed', sans-serif", color: '#111111', fontSize: '1.1rem' }}>
+              {MONTHS[currentMonth]} {currentYear}
+            </h2>
+            <button
+              onClick={nextMonth}
+              className="p-2 rounded-lg transition-colors"
+              style={{ color: '#1a5276' }}
+              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.backgroundColor = '#d6eaf8'; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.backgroundColor = ''; }}
+            >▶</button>
           </div>
           <div className="grid grid-cols-7 mb-2">
             {DAYS.map(d => (
-              <div key={d} className="text-center text-xs font-semibold text-[#5a6a8a] py-2 uppercase tracking-wide">{d}</div>
+              <div key={d} className="text-center text-xs font-semibold py-2 uppercase tracking-wide" style={{ color: '#888888' }}>{d}</div>
             ))}
           </div>
           <div className="grid grid-cols-7 gap-1">
@@ -70,8 +92,20 @@ export default function CalendarioPage() {
               const dayEvents = getEventosForDay(day);
               const isToday = day === now.getDate() && currentMonth === now.getMonth() && currentYear === now.getFullYear();
               return (
-                <div key={idx} className={`min-h-[60px] p-1 rounded-lg border transition-colors ${isToday ? 'border-[#2d4a8a] bg-[#e8f0fb]' : 'border-transparent hover:border-[#d8e0ee] hover:bg-[#f8f9fc]'}`}>
-                  <div className={`text-xs font-medium mb-1 w-6 h-6 flex items-center justify-center rounded-full ${isToday ? 'bg-[#2d4a8a] text-white' : 'text-[#1a2444]'}`}>
+                <div
+                  key={idx}
+                  className="min-h-[60px] p-1 rounded-lg border transition-colors"
+                  style={{
+                    borderColor: isToday ? '#c62828' : 'transparent',
+                    backgroundColor: isToday ? '#fde8e8' : undefined,
+                  }}
+                  onMouseEnter={e => { if (!isToday) { (e.currentTarget as HTMLElement).style.borderColor = '#e8e8ec'; (e.currentTarget as HTMLElement).style.backgroundColor = '#f4f4f6'; } }}
+                  onMouseLeave={e => { if (!isToday) { (e.currentTarget as HTMLElement).style.borderColor = 'transparent'; (e.currentTarget as HTMLElement).style.backgroundColor = ''; } }}
+                >
+                  <div
+                    className="text-xs font-medium mb-1 w-6 h-6 flex items-center justify-center rounded-full"
+                    style={isToday ? { backgroundColor: '#c62828', color: '#ffffff' } : { color: '#3a3a3a' }}
+                  >
                     {day}
                   </div>
                   <div className="space-y-0.5">
@@ -79,7 +113,7 @@ export default function CalendarioPage() {
                       <div
                         key={e.id}
                         className="text-xs px-1 py-0.5 rounded truncate text-white font-medium"
-                        style={{ backgroundColor: e.color }}
+                        style={{ backgroundColor: eventColors[e.tipo] || e.color }}
                         title={e.titulo}
                       >
                         {e.titulo}
@@ -94,19 +128,25 @@ export default function CalendarioPage() {
 
         {/* Upcoming events */}
         <div>
-          <div className="bg-white rounded-xl border border-[#d8e0ee] p-5 mb-4 shadow-sm">
-            <h2 className="font-semibold text-[#1a2444] mb-4">Próximos Eventos</h2>
+          <div className="bg-white rounded-xl p-5 mb-4 shadow-sm" style={{ border: '1px solid #e8e8ec' }}>
+            <h2 className="font-semibold mb-4" style={{ fontFamily: "'Barlow Condensed', sans-serif", color: '#111111', fontSize: '1.1rem' }}>Próximos Eventos</h2>
             {upcomingEvents.length === 0 ? (
-              <p className="text-sm text-[#5a6a8a]">No hay eventos próximos</p>
+              <p className="text-sm" style={{ color: '#888888' }}>No hay eventos próximos</p>
             ) : (
               <div className="space-y-3">
                 {upcomingEvents.map(e => (
-                  <div key={e.id} className="flex gap-3 items-start p-3 rounded-lg bg-[#f8f9fc] hover:bg-[#e8f0fb] transition-colors">
-                    <div className="w-3 h-3 rounded-full mt-1.5 flex-shrink-0" style={{ backgroundColor: e.color }} />
+                  <div
+                    key={e.id}
+                    className="flex gap-3 items-start p-3 rounded-lg transition-colors"
+                    style={{ backgroundColor: '#f4f4f6' }}
+                    onMouseEnter={ev => { (ev.currentTarget as HTMLElement).style.backgroundColor = '#d6eaf8'; }}
+                    onMouseLeave={ev => { (ev.currentTarget as HTMLElement).style.backgroundColor = '#f4f4f6'; }}
+                  >
+                    <div className="w-3 h-3 rounded-full mt-1.5 flex-shrink-0" style={{ backgroundColor: eventColors[e.tipo] || e.color }} />
                     <div>
-                      <p className="text-sm font-medium text-[#1a2444]">{e.titulo}</p>
-                      <p className="text-xs text-[#5a6a8a]">{new Date(e.fecha).toLocaleDateString('es-AR', { day: 'numeric', month: 'long' })}</p>
-                      <p className="text-xs text-[#5a6a8a]/60">{tipoLabels[e.tipo]}</p>
+                      <p className="text-sm font-medium" style={{ color: '#3a3a3a' }}>{e.titulo}</p>
+                      <p className="text-xs" style={{ color: '#888888' }}>{new Date(e.fecha).toLocaleDateString('es-AR', { day: 'numeric', month: 'long' })}</p>
+                      <p className="text-xs" style={{ color: '#aaaaaa' }}>{tipoLabels[e.tipo]}</p>
                     </div>
                   </div>
                 ))}
@@ -115,19 +155,19 @@ export default function CalendarioPage() {
           </div>
 
           {/* Legend */}
-          <div className="bg-white rounded-xl border border-[#d8e0ee] p-5 shadow-sm">
-            <h2 className="font-semibold text-[#1a2444] mb-3">Leyenda</h2>
+          <div className="bg-white rounded-xl p-5 shadow-sm" style={{ border: '1px solid #e8e8ec' }}>
+            <h2 className="font-semibold mb-3" style={{ fontFamily: "'Barlow Condensed', sans-serif", color: '#111111', fontSize: '1.1rem' }}>Leyenda</h2>
             <div className="space-y-2">
               {[
-                { color: '#4a90d9', label: 'Evaluación' },
-                { color: '#f59e0b', label: 'Entrega' },
-                { color: '#f0a500', label: 'Acto' },
-                { color: '#0f766e', label: 'Reunión' },
-                { color: '#9ca3af', label: 'Feriado' },
+                { color: '#1a5276', label: 'Evaluación' },
+                { color: '#c62828', label: 'Entrega' },
+                { color: '#c9a227', label: 'Acto' },
+                { color: '#27ae60', label: 'Reunión' },
+                { color: '#888888', label: 'Feriado' },
               ].map(item => (
                 <div key={item.label} className="flex items-center gap-2">
                   <div className="w-3 h-3 rounded-full flex-shrink-0" style={{ backgroundColor: item.color }} />
-                  <span className="text-sm text-[#5a6a8a]">{item.label}</span>
+                  <span className="text-sm" style={{ color: '#888888' }}>{item.label}</span>
                 </div>
               ))}
             </div>

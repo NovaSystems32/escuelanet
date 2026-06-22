@@ -8,7 +8,6 @@ export default function EstudianteDashboard() {
   const { user } = useAuthStore();
   const { calificaciones, asistencias, disciplina, eventos, materias, cursos } = useAppStore();
 
-  // Student ID from mock data (estudiante user is e1)
   const estudianteId = 'e1';
   const cursoId = 'c1';
 
@@ -35,79 +34,115 @@ export default function EstudianteDashboard() {
   return (
     <div>
       {/* Welcome header */}
-      <div className="mb-6 bg-gradient-to-r from-[#1a2f5e] to-[#2d4a8a] rounded-2xl p-6 text-white shadow-md">
+      <div className="mb-6 rounded-2xl p-6 text-white shadow-md" style={{ background: 'linear-gradient(135deg, #1a5276 0%, #1a3f5e 100%)' }}>
+        {/* Institutional strip */}
+        <div className="flex items-center gap-3 mb-4">
+          <img
+            src="https://novasystems32.github.io/Cajal-Web/logo.jpeg"
+            alt="Instituto Cajal"
+            className="w-10 h-10 rounded-full object-cover"
+            style={{ border: '2px solid #c9a227' }}
+          />
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-widest" style={{ color: '#c9a227', fontFamily: "'Barlow Condensed', sans-serif" }}>
+              Instituto Santiago Ramón y Cajal
+            </p>
+            <p className="text-xs" style={{ color: 'rgba(255,255,255,0.5)' }}>Educamos hoy, formamos el mañana</p>
+          </div>
+        </div>
         <p className="text-white/60 text-sm mb-1">{todayCapitalized}</p>
-        <h1 className="text-2xl font-bold">Buenos días, {user?.nombre} 👋</h1>
+        <h1 className="text-3xl font-bold" style={{ fontFamily: "'Barlow Condensed', sans-serif" }}>Buenos días, {user?.nombre}</h1>
         <p className="text-white/70 text-sm mt-1">Aquí está el resumen de tu actividad académica</p>
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-        <StatCard title="Promedio General" value={promedio} icon="📊" color="bg-[#e8f0fb] text-[#2d4a8a]" subtitle="Todas las materias" />
-        <StatCard title="Inasistencias" value={inasistencias} icon="📅" color="bg-red-50 text-[#e53935]" subtitle={`${pctAsistencia}% de asistencia`} />
-        <StatCard title="Próx. Evaluaciones" value={proximosEventos.length} icon="⭐" color="bg-[#fef9c3] text-[#a16207]" subtitle="Este mes" />
-        <StatCard title="Materias" value={misMaterias.length} icon="📚" color="bg-[#dcfce7] text-[#15803d]" subtitle="1er Año A" />
+        <div className="bg-white rounded-xl p-5 shadow-sm border-l-4" style={{ borderColor: '#1a5276', border: '1px solid #e8e8ec', borderLeft: '4px solid #1a5276' }}>
+          <p className="text-xs font-medium uppercase tracking-wide mb-2" style={{ color: '#888888', fontFamily: "'Inter', sans-serif" }}>Promedio General</p>
+          <p className="text-3xl font-bold" style={{ color: '#1a5276', fontFamily: "'Barlow Condensed', sans-serif" }}>{promedio}</p>
+          <p className="text-xs mt-1" style={{ color: '#888888' }}>Todas las materias</p>
+        </div>
+        <div className="bg-white rounded-xl p-5 shadow-sm" style={{ border: '1px solid #e8e8ec', borderLeft: '4px solid #c62828' }}>
+          <p className="text-xs font-medium uppercase tracking-wide mb-2" style={{ color: '#888888', fontFamily: "'Inter', sans-serif" }}>Inasistencias</p>
+          <p className="text-3xl font-bold" style={{ color: '#c62828', fontFamily: "'Barlow Condensed', sans-serif" }}>{inasistencias}</p>
+          <p className="text-xs mt-1" style={{ color: '#888888' }}>{pctAsistencia}% de asistencia</p>
+        </div>
+        <div className="bg-white rounded-xl p-5 shadow-sm" style={{ border: '1px solid #e8e8ec', borderLeft: '4px solid #c9a227' }}>
+          <p className="text-xs font-medium uppercase tracking-wide mb-2" style={{ color: '#888888', fontFamily: "'Inter', sans-serif" }}>Próx. Evaluaciones</p>
+          <p className="text-3xl font-bold" style={{ color: '#c9a227', fontFamily: "'Barlow Condensed', sans-serif" }}>{proximosEventos.length}</p>
+          <p className="text-xs mt-1" style={{ color: '#888888' }}>Este mes</p>
+        </div>
+        <div className="bg-white rounded-xl p-5 shadow-sm" style={{ border: '1px solid #e8e8ec', borderLeft: '4px solid #27ae60' }}>
+          <p className="text-xs font-medium uppercase tracking-wide mb-2" style={{ color: '#888888', fontFamily: "'Inter', sans-serif" }}>Materias</p>
+          <p className="text-3xl font-bold" style={{ color: '#27ae60', fontFamily: "'Barlow Condensed', sans-serif" }}>{misMaterias.length}</p>
+          <p className="text-xs mt-1" style={{ color: '#888888' }}>1er Año A</p>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Mis materias */}
-        <div className="bg-white rounded-xl border border-[#d8e0ee] p-5 shadow-sm">
-          <h2 className="font-semibold text-[#1a2444] mb-4">Mis Materias</h2>
+        <div className="bg-white rounded-xl p-5 shadow-sm" style={{ border: '1px solid #e8e8ec' }}>
+          <h2 className="font-semibold mb-4" style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: '1.2rem', color: '#111111' }}>Mis Materias</h2>
           <div className="space-y-2">
             {misMaterias.map(materia => {
               const cals = misCalificaciones.filter(c => c.materiaId === materia.id);
               const prom = cals.length > 0 ? (cals.reduce((s, c) => s + c.nota, 0) / cals.length).toFixed(1) : '-';
               const promNum = cals.length > 0 ? cals.reduce((s, c) => s + c.nota, 0) / cals.length : null;
-              const notaBg = promNum === null ? 'bg-[#eef1f8] text-[#5a6a8a]' : promNum >= 7 ? 'bg-[#dcfce7] text-[#15803d]' : promNum >= 4 ? 'bg-[#fef3c7] text-[#d97706]' : 'bg-red-100 text-[#e53935]';
+              const notaBg = promNum === null ? '#f4f4f6' : promNum >= 7 ? '#d4edda' : promNum >= 4 ? '#fef3c7' : '#fde8e8';
+              const notaColor = promNum === null ? '#888888' : promNum >= 7 ? '#155724' : promNum >= 4 ? '#856404' : '#c62828';
               return (
-                <div key={materia.id} className="flex items-center justify-between p-3 rounded-lg bg-[#f8f9fc] hover:bg-[#e8f0fb] transition-colors">
+                <div key={materia.id} className="flex items-center justify-between p-3 rounded-lg transition-colors" style={{ backgroundColor: '#f4f4f6' }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.backgroundColor = '#d6eaf8'; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.backgroundColor = '#f4f4f6'; }}
+                >
                   <div>
-                    <p className="text-sm font-medium text-[#1a2444]">{materia.nombre}</p>
-                    <p className="text-xs text-[#5a6a8a]">{materia.horasSemanal}hs semanales</p>
+                    <p className="text-sm font-medium" style={{ color: '#3a3a3a' }}>{materia.nombre}</p>
+                    <p className="text-xs" style={{ color: '#888888' }}>{materia.horasSemanal}hs semanales</p>
                   </div>
-                  <div className={`text-sm font-bold px-2.5 py-1 rounded-lg ${notaBg}`}>{prom}</div>
+                  <div className="text-sm font-bold px-2.5 py-1 rounded-lg" style={{ backgroundColor: notaBg, color: notaColor }}>{prom}</div>
                 </div>
               );
             })}
           </div>
-          <Link href="/estudiante/calificaciones" className="mt-4 text-sm text-[#2d4a8a] hover:text-[#1a2f5e] font-medium hover:underline block">
+          <Link href="/estudiante/calificaciones" className="mt-4 text-sm font-medium hover:underline block" style={{ color: '#c62828' }}>
             Ver todas las calificaciones →
           </Link>
         </div>
 
         {/* Próximos eventos */}
-        <div className="bg-white rounded-xl border border-[#d8e0ee] p-5 shadow-sm">
-          <h2 className="font-semibold text-[#1a2444] mb-4">Próximos Eventos</h2>
+        <div className="bg-white rounded-xl p-5 shadow-sm" style={{ border: '1px solid #e8e8ec' }}>
+          <h2 className="font-semibold mb-4" style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: '1.2rem', color: '#111111' }}>Próximos Eventos</h2>
           <div className="space-y-2">
             {proximosEventos.map(evento => (
-              <div key={evento.id} className="flex items-start gap-3 p-3 rounded-lg bg-[#f8f9fc]">
+              <div key={evento.id} className="flex items-start gap-3 p-3 rounded-lg" style={{ backgroundColor: '#f4f4f6' }}>
                 <div className="w-2.5 h-2.5 rounded-full mt-1.5 flex-shrink-0" style={{ backgroundColor: evento.color }} />
                 <div>
-                  <p className="text-sm font-medium text-[#1a2444]">{evento.titulo}</p>
-                  <p className="text-xs text-[#5a6a8a]">{new Date(evento.fecha).toLocaleDateString('es-AR', { day: 'numeric', month: 'long' })}</p>
+                  <p className="text-sm font-medium" style={{ color: '#3a3a3a' }}>{evento.titulo}</p>
+                  <p className="text-xs" style={{ color: '#888888' }}>{new Date(evento.fecha).toLocaleDateString('es-AR', { day: 'numeric', month: 'long' })}</p>
                 </div>
               </div>
             ))}
           </div>
-          <Link href="/estudiante/calendario" className="mt-4 text-sm text-[#2d4a8a] hover:text-[#1a2f5e] font-medium hover:underline block">
+          <Link href="/estudiante/calendario" className="mt-4 text-sm font-medium hover:underline block" style={{ color: '#c62828' }}>
             Ver calendario completo →
           </Link>
         </div>
 
         {/* Últimas calificaciones */}
-        <div className="bg-white rounded-xl border border-[#d8e0ee] p-5 shadow-sm">
-          <h2 className="font-semibold text-[#1a2444] mb-4">Últimas Calificaciones</h2>
+        <div className="bg-white rounded-xl p-5 shadow-sm" style={{ border: '1px solid #e8e8ec' }}>
+          <h2 className="font-semibold mb-4" style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: '1.2rem', color: '#111111' }}>Últimas Calificaciones</h2>
           <div className="space-y-1">
             {misCalificaciones.slice(-4).reverse().map(cal => {
               const materia = misMaterias.find(m => m.id === cal.materiaId);
-              const notaBg = cal.nota >= 7 ? 'bg-[#dcfce7] text-[#15803d]' : cal.nota >= 4 ? 'bg-[#fef3c7] text-[#d97706]' : 'bg-red-100 text-[#e53935]';
+              const notaBg = cal.nota >= 7 ? '#d4edda' : cal.nota >= 4 ? '#fef3c7' : '#fde8e8';
+              const notaColor = cal.nota >= 7 ? '#155724' : cal.nota >= 4 ? '#856404' : '#c62828';
               return (
-                <div key={cal.id} className="flex items-center justify-between py-2.5 border-b border-[#eef1f8] last:border-0">
+                <div key={cal.id} className="flex items-center justify-between py-2.5 border-b last:border-0" style={{ borderColor: '#e8e8ec' }}>
                   <div>
-                    <p className="text-sm font-medium text-[#1a2444]">{cal.descripcion}</p>
-                    <p className="text-xs text-[#5a6a8a]">{materia?.nombre} • {new Date(cal.fecha).toLocaleDateString('es-AR')}</p>
+                    <p className="text-sm font-medium" style={{ color: '#3a3a3a' }}>{cal.descripcion}</p>
+                    <p className="text-xs" style={{ color: '#888888' }}>{materia?.nombre} · {new Date(cal.fecha).toLocaleDateString('es-AR')}</p>
                   </div>
-                  <span className={`text-sm font-bold px-2.5 py-1 rounded-lg ${notaBg}`}>{cal.nota}</span>
+                  <span className="text-sm font-bold px-2.5 py-1 rounded-lg" style={{ backgroundColor: notaBg, color: notaColor }}>{cal.nota}</span>
                 </div>
               );
             })}
@@ -115,31 +150,31 @@ export default function EstudianteDashboard() {
         </div>
 
         {/* Asistencia */}
-        <div className="bg-white rounded-xl border border-[#d8e0ee] p-5 shadow-sm">
-          <h2 className="font-semibold text-[#1a2444] mb-4">Resumen de Asistencia</h2>
+        <div className="bg-white rounded-xl p-5 shadow-sm" style={{ border: '1px solid #e8e8ec' }}>
+          <h2 className="font-semibold mb-4" style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: '1.2rem', color: '#111111' }}>Resumen de Asistencia</h2>
           <div className="mb-4">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-sm text-[#5a6a8a]">Porcentaje de asistencia</span>
-              <span className={`text-sm font-bold ${pctAsistencia >= 75 ? 'text-[#34a853]' : pctAsistencia >= 50 ? 'text-[#f59e0b]' : 'text-[#e53935]'}`}>{pctAsistencia}%</span>
+              <span className="text-sm" style={{ color: '#888888' }}>Porcentaje de asistencia</span>
+              <span className="text-sm font-bold" style={{ color: pctAsistencia >= 75 ? '#27ae60' : pctAsistencia >= 50 ? '#c9a227' : '#c62828' }}>{pctAsistencia}%</span>
             </div>
-            <div className="w-full bg-[#eef1f8] rounded-full h-2.5">
+            <div className="w-full rounded-full h-2.5" style={{ backgroundColor: '#e8e8ec' }}>
               <div
-                className={`h-2.5 rounded-full transition-all ${pctAsistencia >= 75 ? 'bg-[#34a853]' : pctAsistencia >= 50 ? 'bg-[#f59e0b]' : 'bg-[#e53935]'}`}
-                style={{ width: `${pctAsistencia}%` }}
+                className="h-2.5 rounded-full transition-all"
+                style={{ width: `${pctAsistencia}%`, backgroundColor: pctAsistencia >= 75 ? '#27ae60' : pctAsistencia >= 50 ? '#c9a227' : '#c62828' }}
               />
             </div>
           </div>
           <div className="grid grid-cols-2 gap-3">
-            <div className="bg-[#dcfce7] rounded-xl p-3 text-center">
-              <p className="text-2xl font-bold text-[#15803d]">{presentes}</p>
-              <p className="text-xs text-[#34a853] font-medium mt-0.5">Presentes</p>
+            <div className="rounded-xl p-3 text-center" style={{ backgroundColor: '#d4edda' }}>
+              <p className="text-2xl font-bold" style={{ color: '#155724', fontFamily: "'Barlow Condensed', sans-serif" }}>{presentes}</p>
+              <p className="text-xs font-medium mt-0.5" style={{ color: '#27ae60' }}>Presentes</p>
             </div>
-            <div className="bg-red-50 rounded-xl p-3 text-center">
-              <p className="text-2xl font-bold text-[#e53935]">{inasistencias}</p>
-              <p className="text-xs text-[#e53935] font-medium mt-0.5">Ausentes</p>
+            <div className="rounded-xl p-3 text-center" style={{ backgroundColor: '#fde8e8' }}>
+              <p className="text-2xl font-bold" style={{ color: '#c62828', fontFamily: "'Barlow Condensed', sans-serif" }}>{inasistencias}</p>
+              <p className="text-xs font-medium mt-0.5" style={{ color: '#c62828' }}>Ausentes</p>
             </div>
           </div>
-          <Link href="/estudiante/inasistencias" className="mt-4 text-sm text-[#2d4a8a] hover:text-[#1a2f5e] font-medium hover:underline block">
+          <Link href="/estudiante/inasistencias" className="mt-4 text-sm font-medium hover:underline block" style={{ color: '#c62828' }}>
             Ver detalle de inasistencias →
           </Link>
         </div>

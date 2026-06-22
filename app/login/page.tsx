@@ -4,10 +4,14 @@ import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/store/useAuthStore';
 
 const DEMO_USERS = [
-  { email: 'admin@escuelanet.edu', password: 'admin123', role: 'Administrador', icon: '⚙️', color: 'border-[#d8e0ee] hover:border-[#f0a500] hover:bg-[#fef9c3]/30 text-[#1a2444]' },
-  { email: 'docente@escuelanet.edu', password: 'docente123', role: 'Docente', icon: '👨‍🏫', color: 'border-[#d8e0ee] hover:border-[#4a90d9] hover:bg-[#e8f0fb] text-[#1a2444]' },
-  { email: 'estudiante@escuelanet.edu', password: 'estudiante123', role: 'Estudiante', icon: '🎒', color: 'border-[#d8e0ee] hover:border-[#34a853] hover:bg-[#dcfce7]/50 text-[#1a2444]' },
-  { email: 'preceptor@escuelanet.edu', password: 'preceptor123', role: 'Preceptor', icon: '📋', color: 'border-[#d8e0ee] hover:border-[#f59e0b] hover:bg-[#fef3c7]/50 text-[#1a2444]' },
+  { email: 'admin@escuelanet.edu', password: 'admin123', role: 'Administrador', icon: '⚙️',
+    color: 'border-[#e8e8ec] hover:border-[#c9a227] hover:bg-[#fef9c3]/30 text-[#111111]' },
+  { email: 'docente@escuelanet.edu', password: 'docente123', role: 'Docente', icon: '👨‍🏫',
+    color: 'border-[#e8e8ec] hover:border-[#1a5276] hover:bg-[#d6eaf8]/40 text-[#111111]' },
+  { email: 'estudiante@escuelanet.edu', password: 'estudiante123', role: 'Estudiante', icon: '🎒',
+    color: 'border-[#e8e8ec] hover:border-[#27ae60] hover:bg-[#d4edda]/50 text-[#111111]' },
+  { email: 'preceptor@escuelanet.edu', password: 'preceptor123', role: 'Preceptor', icon: '📋',
+    color: 'border-[#e8e8ec] hover:border-[#c9a227] hover:bg-[#fef3c7]/50 text-[#111111]' },
 ];
 
 export default function LoginPage() {
@@ -44,18 +48,35 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex">
-      {/* Left panel - branding */}
-      <div className="hidden lg:flex lg:w-3/5 bg-[#1a2f5e] flex-col items-center justify-center p-12 relative overflow-hidden">
+      {/* Left panel — institutional branding */}
+      <div
+        className="hidden lg:flex lg:w-3/5 flex-col items-center justify-center p-12 relative overflow-hidden"
+        style={{ backgroundColor: '#1a5276' }}
+      >
         {/* Decorative circles */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-[#2d4a8a] rounded-full -translate-y-1/2 translate-x-1/2 opacity-40" />
-        <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#2d4a8a] rounded-full translate-y-1/2 -translate-x-1/2 opacity-30" />
-        <div className="absolute top-1/3 left-1/4 w-32 h-32 bg-[#f0a500] rounded-full opacity-10" />
+        <div className="absolute top-0 right-0 w-96 h-96 rounded-full -translate-y-1/2 translate-x-1/2 opacity-20" style={{ backgroundColor: '#c62828' }} />
+        <div className="absolute bottom-0 left-0 w-64 h-64 rounded-full translate-y-1/2 -translate-x-1/2 opacity-15" style={{ backgroundColor: '#c9a227' }} />
+        <div className="absolute top-1/3 left-1/4 w-32 h-32 rounded-full opacity-10" style={{ backgroundColor: '#c9a227' }} />
 
         <div className="relative z-10 text-center max-w-md">
-          <div className="w-20 h-20 bg-[#f0a500] rounded-2xl flex items-center justify-center text-4xl mb-6 mx-auto shadow-xl">🎓</div>
-          <h1 className="text-5xl font-bold text-white mb-3 tracking-tight">EscuelaNet</h1>
-          <p className="text-[#4a90d9] text-xl font-medium mb-2">Plataforma Educativa Digital</p>
-          <p className="text-white/50 text-sm mb-10">Sistema integral de gestión escolar</p>
+          <img
+            src="https://novasystems32.github.io/Cajal-Web/logo.jpeg"
+            alt="Instituto Santiago Ramón y Cajal"
+            className="w-24 h-24 rounded-full object-cover mx-auto mb-6 shadow-2xl"
+            style={{ border: '4px solid #c9a227' }}
+          />
+          <h1
+            className="text-4xl font-bold text-white mb-3 leading-tight"
+            style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 800 }}
+          >
+            Instituto Santiago Ramón y Cajal
+          </h1>
+          <p className="text-xl italic mb-4" style={{ color: '#c9a227', fontFamily: "'Inter', sans-serif" }}>
+            &ldquo;Educamos hoy, formamos el mañana&rdquo;
+          </p>
+          <div className="inline-block px-4 py-1.5 rounded-full text-sm font-semibold text-white mb-10" style={{ backgroundColor: 'rgba(255,255,255,0.2)' }}>
+            Escuela Precursora 2026
+          </div>
 
           <div className="space-y-4 text-left">
             {[
@@ -64,54 +85,77 @@ export default function LoginPage() {
               { icon: '👥', text: 'Panel multi-rol para toda la comunidad' },
               { icon: '🗓️', text: 'Calendario de eventos y actividades' },
             ].map(item => (
-              <div key={item.text} className="flex items-center gap-4 bg-white/5 rounded-xl px-4 py-3">
+              <div key={item.text} className="flex items-center gap-4 rounded-xl px-4 py-3" style={{ backgroundColor: 'rgba(255,255,255,0.07)' }}>
                 <span className="text-2xl">{item.icon}</span>
-                <span className="text-white/80 text-sm">{item.text}</span>
+                <span className="text-sm" style={{ color: 'rgba(255,255,255,0.80)' }}>{item.text}</span>
               </div>
             ))}
           </div>
         </div>
+
+        <p className="absolute bottom-6 text-xs" style={{ color: 'rgba(255,255,255,0.40)' }}>
+          Plataforma Educativa Digital · EscuelaNet
+        </p>
       </div>
 
-      {/* Right panel - form */}
+      {/* Right panel — login form */}
       <div className="flex-1 flex items-center justify-center p-8 bg-white">
         <div className="w-full max-w-md">
           {/* Mobile logo */}
           <div className="lg:hidden text-center mb-8">
-            <div className="w-14 h-14 bg-[#1a2f5e] rounded-2xl flex items-center justify-center text-3xl mx-auto mb-3">🎓</div>
-            <h1 className="text-2xl font-bold text-[#1a2444]">EscuelaNet</h1>
-            <p className="text-[#5a6a8a] text-sm">Plataforma Educativa Digital</p>
+            <img
+              src="https://novasystems32.github.io/Cajal-Web/logo.jpeg"
+              alt="Instituto Cajal"
+              className="w-16 h-16 rounded-full object-cover mx-auto mb-3 shadow-md"
+              style={{ border: '3px solid #c9a227' }}
+            />
+            <h1 className="text-xl font-bold" style={{ fontFamily: "'Barlow Condensed', sans-serif", color: '#111111' }}>
+              Instituto Santiago Ramón y Cajal
+            </h1>
+            <p className="text-sm mt-1" style={{ color: '#888888' }}>Plataforma Educativa Digital</p>
           </div>
 
-          <h2 className="text-2xl font-bold text-[#1a2444] mb-1">Bienvenido</h2>
-          <p className="text-[#5a6a8a] text-sm mb-8">Ingresá tus credenciales para acceder</p>
+          <h2 className="text-3xl font-bold mb-1" style={{ fontFamily: "'Barlow Condensed', sans-serif", color: '#111111' }}>
+            Iniciar Sesión
+          </h2>
+          <p className="text-sm mb-8" style={{ color: '#888888' }}>Ingresá tus credenciales para acceder al sistema</p>
 
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label className="block text-sm font-semibold text-[#1a2444] mb-1.5">Correo electrónico</label>
+              <label className="block text-sm font-semibold mb-1.5" style={{ color: '#3a3a3a' }}>
+                Correo electrónico
+              </label>
               <input
                 type="email"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
-                className="w-full px-4 py-3 border border-[#d8e0ee] rounded-xl text-sm text-[#1a2444] bg-[#f8f9fc] focus:outline-none focus:ring-2 focus:ring-[#2d4a8a] focus:border-transparent placeholder-[#5a6a8a]/60 transition-all"
+                className="w-full px-4 py-3 border rounded-xl text-sm bg-[#f4f4f6] transition-all outline-none"
+                style={{ borderColor: '#e8e8ec', color: '#3a3a3a' }}
+                onFocus={e => { e.currentTarget.style.borderColor = '#c62828'; e.currentTarget.style.boxShadow = '0 0 0 2px rgba(198,40,40,0.15)'; }}
+                onBlur={e => { e.currentTarget.style.borderColor = '#e8e8ec'; e.currentTarget.style.boxShadow = 'none'; }}
                 placeholder="tu@email.com"
                 required
               />
             </div>
             <div>
-              <label className="block text-sm font-semibold text-[#1a2444] mb-1.5">Contraseña</label>
+              <label className="block text-sm font-semibold mb-1.5" style={{ color: '#3a3a3a' }}>
+                Contraseña
+              </label>
               <input
                 type="password"
                 value={password}
                 onChange={e => setPassword(e.target.value)}
-                className="w-full px-4 py-3 border border-[#d8e0ee] rounded-xl text-sm text-[#1a2444] bg-[#f8f9fc] focus:outline-none focus:ring-2 focus:ring-[#2d4a8a] focus:border-transparent placeholder-[#5a6a8a]/60 transition-all"
+                className="w-full px-4 py-3 border rounded-xl text-sm bg-[#f4f4f6] transition-all outline-none"
+                style={{ borderColor: '#e8e8ec', color: '#3a3a3a' }}
+                onFocus={e => { e.currentTarget.style.borderColor = '#c62828'; e.currentTarget.style.boxShadow = '0 0 0 2px rgba(198,40,40,0.15)'; }}
+                onBlur={e => { e.currentTarget.style.borderColor = '#e8e8ec'; e.currentTarget.style.boxShadow = 'none'; }}
                 placeholder="••••••••"
                 required
               />
             </div>
 
             {error && (
-              <div className="bg-red-50 border border-red-200 rounded-xl px-4 py-3 text-sm text-[#e53935]">
+              <div className="rounded-xl px-4 py-3 text-sm" style={{ backgroundColor: '#fde8e8', borderColor: '#f5c6cb', border: '1px solid', color: '#c62828' }}>
                 {error}
               </div>
             )}
@@ -119,14 +163,19 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-[#2d4a8a] text-white py-3 rounded-xl font-semibold text-sm hover:bg-[#1a2f5e] disabled:opacity-50 transition-all duration-200 shadow-sm hover:shadow-md"
+              className="w-full text-white py-3 rounded-xl font-semibold text-sm disabled:opacity-50 transition-all duration-200 shadow-sm hover:shadow-md"
+              style={{ backgroundColor: '#c62828' }}
+              onMouseEnter={e => { if (!loading) (e.currentTarget as HTMLElement).style.backgroundColor = '#7a1515'; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.backgroundColor = '#c62828'; }}
             >
               {loading ? 'Ingresando...' : 'Ingresar al sistema'}
             </button>
           </form>
 
           <div className="mt-8">
-            <p className="text-xs text-[#5a6a8a] font-semibold mb-3 text-center uppercase tracking-widest">Accesos de demostración</p>
+            <p className="text-xs font-semibold mb-3 text-center uppercase tracking-widest" style={{ color: '#888888' }}>
+              Accesos de demostración
+            </p>
             <div className="grid grid-cols-2 gap-2">
               {DEMO_USERS.map((u) => (
                 <button
@@ -138,7 +187,7 @@ export default function LoginPage() {
                     <span className="text-base">{u.icon}</span>
                     <p className="text-xs font-bold">{u.role}</p>
                   </div>
-                  <p className="text-xs text-[#5a6a8a] truncate ml-6">{u.email}</p>
+                  <p className="text-xs truncate ml-6" style={{ color: '#888888' }}>{u.email}</p>
                 </button>
               ))}
             </div>

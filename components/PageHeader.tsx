@@ -8,8 +8,8 @@ export default function PageHeader({ title, description, action }: PageHeaderPro
   return (
     <div className="flex items-start justify-between mb-6">
       <div>
-        <h1 className="text-2xl font-bold text-[#1a2444]">{title}</h1>
-        {description && <p className="text-sm text-[#5a6a8a] mt-1">{description}</p>}
+        <h1 className="text-3xl font-bold" style={{ fontFamily: "'Barlow Condensed', sans-serif", color: '#111111', fontWeight: 700 }}>{title}</h1>
+        {description && <p className="text-sm mt-1" style={{ color: '#888888' }}>{description}</p>}
       </div>
       {action && <div>{action}</div>}
     </div>

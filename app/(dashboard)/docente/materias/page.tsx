@@ -21,9 +21,9 @@ export default function DocenteMateriasPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         {/* Sidebar */}
-        <div className="bg-white rounded-xl border border-[#d8e0ee] overflow-hidden h-fit">
-          <div className="p-3 border-b border-[#d8e0ee]">
-            <p className="text-xs font-semibold text-[#5a6a8a] uppercase">Materias</p>
+        <div className="bg-white rounded-xl border border-[#e8e8ec] overflow-hidden h-fit">
+          <div className="p-3 border-b border-[#e8e8ec]">
+            <p className="text-xs font-semibold text-[#888888] uppercase">Materias</p>
           </div>
           {misMaterias.map(m => {
             const c = cursos.find(c => c.id === m.cursoId);
@@ -31,10 +31,10 @@ export default function DocenteMateriasPage() {
               <button
                 key={m.id}
                 onClick={() => setSelected(m.id)}
-                className={`w-full text-left p-4 border-b border-[#eef1f8] last:border-0 transition-colors ${selected === m.id ? 'bg-[#e8f0fb]' : 'hover:bg-[#f8f9fc]'}`}
+                className={`w-full text-left p-4 border-b border-[#e8e8ec] last:border-0 transition-colors ${selected === m.id ? 'bg-[#d6eaf8]' : 'hover:bg-[#f4f4f6]'}`}
               >
-                <p className={`text-sm font-medium ${selected === m.id ? 'text-[#2d4a8a]' : 'text-[#1a2444]'}`}>{m.nombre}</p>
-                <p className="text-xs text-[#5a6a8a]">{c ? `${c.nombre} ${c.division}` : ''}</p>
+                <p className={`text-sm font-medium ${selected === m.id ? 'text-[#1a5276]' : 'text-[#111111]'}`}>{m.nombre}</p>
+                <p className="text-xs text-[#888888]">{c ? `${c.nombre} ${c.division}` : ''}</p>
               </button>
             );
           })}
@@ -55,21 +55,21 @@ export default function DocenteMateriasPage() {
               </div>
 
               {/* Students */}
-              <div className="bg-white rounded-xl border border-[#d8e0ee] p-5">
-                <h3 className="font-semibold text-[#1a2444] mb-3">Estudiantes del Curso</h3>
+              <div className="bg-white rounded-xl border border-[#e8e8ec] p-5">
+                <h3 className="font-semibold text-[#111111] mb-3">Estudiantes del Curso</h3>
                 <div className="space-y-2">
                   {estudiantesCurso.map(est => {
                     const cals = calsMateria.filter(c => c.estudianteId === est.id);
                     const prom = cals.length > 0 ? (cals.reduce((s, c) => s + c.nota, 0) / cals.length).toFixed(1) : '-';
                     const promNum = cals.length > 0 ? cals.reduce((s, c) => s + c.nota, 0) / cals.length : null;
-                    const color = promNum === null ? 'text-[#5a6a8a]' : promNum >= 7 ? 'text-green-600' : promNum >= 4 ? 'text-yellow-600' : 'text-[#e53935]';
+                    const color = promNum === null ? 'text-[#888888]' : promNum >= 7 ? 'text-green-600' : promNum >= 4 ? 'text-yellow-600' : 'text-[#c62828]';
                     return (
-                      <div key={est.id} className="flex items-center justify-between p-2.5 rounded-lg hover:bg-[#f8f9fc]">
+                      <div key={est.id} className="flex items-center justify-between p-2.5 rounded-lg hover:bg-[#f4f4f6]">
                         <div className="flex items-center gap-2">
-                          <div className="w-7 h-7 rounded-full bg-[#eef1f8] flex items-center justify-center text-xs font-semibold text-[#5a6a8a]">
+                          <div className="w-7 h-7 rounded-full bg-[#e8e8ec] flex items-center justify-center text-xs font-semibold text-[#888888]">
                             {est.nombre.charAt(0)}
                           </div>
-                          <span className="text-sm text-[#1a2444]">{est.apellido}, {est.nombre}</span>
+                          <span className="text-sm text-[#111111]">{est.apellido}, {est.nombre}</span>
                         </div>
                         <span className={`text-sm font-bold ${color}`}>{prom}</span>
                       </div>
@@ -79,16 +79,16 @@ export default function DocenteMateriasPage() {
               </div>
 
               {/* Actividades */}
-              <div className="bg-white rounded-xl border border-[#d8e0ee] p-5">
-                <h3 className="font-semibold text-[#1a2444] mb-3">Actividades y Materiales</h3>
+              <div className="bg-white rounded-xl border border-[#e8e8ec] p-5">
+                <h3 className="font-semibold text-[#111111] mb-3">Actividades y Materiales</h3>
                 {actsMateria.length === 0 ? (
-                  <p className="text-sm text-[#5a6a8a]">Sin actividades publicadas</p>
+                  <p className="text-sm text-[#888888]">Sin actividades publicadas</p>
                 ) : (
                   <div className="space-y-2">
                     {actsMateria.map(a => (
-                      <div key={a.id} className="p-3 rounded-lg bg-[#f8f9fc] text-sm">
-                        <p className="font-medium text-[#1a2444]">{a.titulo}</p>
-                        <p className="text-[#5a6a8a] text-xs mt-0.5">{a.tipo} {a.fechaEntrega && `• Entrega: ${new Date(a.fechaEntrega).toLocaleDateString('es-AR')}`}</p>
+                      <div key={a.id} className="p-3 rounded-lg bg-[#f4f4f6] text-sm">
+                        <p className="font-medium text-[#111111]">{a.titulo}</p>
+                        <p className="text-[#888888] text-xs mt-0.5">{a.tipo} {a.fechaEntrega && `• Entrega: ${new Date(a.fechaEntrega).toLocaleDateString('es-AR')}`}</p>
                       </div>
                     ))}
                   </div>

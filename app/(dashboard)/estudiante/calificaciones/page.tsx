@@ -10,6 +10,13 @@ const tipoLabels: Record<string, string> = {
   oral: 'Oral',
 };
 
+const tipoBadge: Record<string, { bg: string; color: string }> = {
+  parcial: { bg: '#d6eaf8', color: '#1a5276' },
+  trabajo_practico: { bg: '#d4edda', color: '#155724' },
+  oral: { bg: '#fef9c3', color: '#856404' },
+  examen_final: { bg: '#cce5ff', color: '#0d47a1' },
+};
+
 export default function CalificacionesPage() {
   const { calificaciones, materias } = useAppStore();
   const [selectedTrimestre, setSelectedTrimestre] = useState<1|2|3|'todos'>('todos');
@@ -26,11 +33,8 @@ export default function CalificacionesPage() {
     ? (misCalificaciones.reduce((s, c) => s + c.nota, 0) / misCalificaciones.length).toFixed(1)
     : '-';
 
-  const getNotaColor = (nota: number) => {
-    if (nota >= 7) return 'bg-[#dcfce7] text-[#15803d]';
-    if (nota >= 4) return 'bg-[#fef3c7] text-[#d97706]';
-    return 'bg-red-100 text-[#e53935]';
-  };
+  const getNotaBg = (nota: number) => nota >= 7 ? '#d4edda' : nota >= 4 ? '#fef3c7' : '#fde8e8';
+  const getNotaColor = (nota: number) => nota >= 7 ? '#155724' : nota >= 4 ? '#856404' : '#c62828';
 
   return (
     <div>
@@ -38,18 +42,18 @@ export default function CalificacionesPage() {
 
       {/* Summary */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-        <div className="bg-gradient-to-br from-[#1a2f5e] to-[#2d4a8a] text-white rounded-xl p-4 shadow-md">
+        <div className="text-white rounded-xl p-4 shadow-md" style={{ background: 'linear-gradient(135deg, #1a5276 0%, #154360 100%)' }}>
           <p className="text-white/60 text-xs mb-1 font-medium uppercase tracking-wide">Promedio General</p>
-          <p className="text-3xl font-bold">{promedioGeneral}</p>
+          <p className="text-3xl font-bold" style={{ fontFamily: "'Barlow Condensed', sans-serif" }}>{promedioGeneral}</p>
         </div>
         {[1, 2, 3].map(t => {
           const cals = misCalificaciones.filter(c => c.trimestre === t);
           const prom = cals.length > 0 ? (cals.reduce((s, c) => s + c.nota, 0) / cals.length).toFixed(1) : '-';
           const promNum = cals.length > 0 ? cals.reduce((s, c) => s + c.nota, 0) / cals.length : null;
           return (
-            <div key={t} className="bg-white rounded-xl border border-[#d8e0ee] p-4 shadow-sm">
-              <p className="text-[#5a6a8a] text-xs mb-1 font-medium">{t}° Trimestre</p>
-              <p className={`text-2xl font-bold ${promNum !== null ? (promNum >= 7 ? 'text-[#34a853]' : promNum >= 4 ? 'text-[#f59e0b]' : 'text-[#e53935]') : 'text-[#1a2444]'}`}>{prom}</p>
+            <div key={t} className="bg-white rounded-xl p-4 shadow-sm" style={{ border: '1px solid #e8e8ec' }}>
+              <p className="text-xs mb-1 font-medium" style={{ color: '#888888' }}>{t}° Trimestre</p>
+              <p className="text-2xl font-bold" style={{ fontFamily: "'Barlow Condensed', sans-serif", color: promNum !== null ? (promNum >= 7 ? '#27ae60' : promNum >= 4 ? '#c9a227' : '#c62828') : '#111111' }}>{prom}</p>
             </div>
           );
         })}
@@ -61,11 +65,11 @@ export default function CalificacionesPage() {
           <button
             key={t}
             onClick={() => setSelectedTrimestre(t)}
-            className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 ${
-              selectedTrimestre === t
-                ? 'bg-[#2d4a8a] text-white shadow-sm'
-                : 'bg-white border border-[#d8e0ee] text-[#5a6a8a] hover:bg-[#e8f0fb] hover:text-[#2d4a8a]'
-            }`}
+            className="px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200"
+            style={selectedTrimestre === t
+              ? { backgroundColor: '#c62828', color: '#ffffff', boxShadow: '0 1px 3px rgba(198,40,40,0.3)' }
+              : { backgroundColor: '#ffffff', border: '1px solid #e8e8ec', color: '#888888' }
+            }
           >
             {t === 'todos' ? 'Todos' : `${t}° Trimestre`}
           </button>
@@ -80,37 +84,30 @@ export default function CalificacionesPage() {
           const promMateria = cals.length > 0 ? (cals.reduce((s, c) => s + c.nota, 0) / cals.length).toFixed(1) : '-';
           const promNum = cals.length > 0 ? cals.reduce((s, c) => s + c.nota, 0) / cals.length : null;
 
-          const tipoBadge: Record<string, string> = {
-            parcial: 'bg-[#e8f0fb] text-[#2d4a8a]',
-            trabajo_practico: 'bg-[#ccfbf1] text-[#0f766e]',
-            oral: 'bg-[#f3e8ff] text-[#7e22ce]',
-            examen_final: 'bg-[#e0e7ff] text-[#3730a3]',
-          };
-
           return (
-            <div key={materia.id} className="bg-white rounded-xl border border-[#d8e0ee] shadow-sm overflow-hidden">
-              <div className="flex items-center justify-between p-4 border-b border-[#eef1f8] bg-[#f8f9fc]">
-                <h3 className="font-semibold text-[#1a2444]">{materia.nombre}</h3>
-                <div className={`text-lg font-bold px-3 py-1 rounded-lg ${promNum !== null ? getNotaColor(promNum) : 'bg-[#eef1f8] text-[#5a6a8a]'}`}>
+            <div key={materia.id} className="bg-white rounded-xl shadow-sm overflow-hidden" style={{ border: '1px solid #e8e8ec' }}>
+              <div className="flex items-center justify-between p-4 border-b" style={{ borderColor: '#e8e8ec', backgroundColor: '#f4f4f6' }}>
+                <h3 className="font-semibold" style={{ fontFamily: "'Barlow Condensed', sans-serif', fontSize: '1.1rem", color: '#111111' }}>{materia.nombre}</h3>
+                <div className="text-lg font-bold px-3 py-1 rounded-lg" style={{ backgroundColor: promNum !== null ? getNotaBg(promNum) : '#f4f4f6', color: promNum !== null ? getNotaColor(promNum) : '#888888', fontFamily: "'Barlow Condensed', sans-serif" }}>
                   {promMateria}
                 </div>
               </div>
               {cals.length === 0 ? (
-                <p className="text-sm text-[#5a6a8a] p-4">Sin calificaciones registradas</p>
+                <p className="text-sm p-4" style={{ color: '#888888' }}>Sin calificaciones registradas</p>
               ) : (
-                <div className="divide-y divide-[#eef1f8]">
+                <div className="divide-y" style={{ borderColor: '#e8e8ec' }}>
                   {cals.map((cal, idx) => (
-                    <div key={cal.id} className={`flex items-center justify-between px-4 py-3 ${idx % 2 === 0 ? '' : 'bg-[#f8f9fc]'}`}>
+                    <div key={cal.id} className="flex items-center justify-between px-4 py-3" style={{ backgroundColor: idx % 2 !== 0 ? '#f4f4f6' : '#ffffff' }}>
                       <div>
-                        <p className="text-sm text-[#1a2444] font-medium">{cal.descripcion}</p>
+                        <p className="text-sm font-medium" style={{ color: '#3a3a3a' }}>{cal.descripcion}</p>
                         <div className="flex items-center gap-2 mt-1">
-                          <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${tipoBadge[cal.tipo] || 'bg-[#eef1f8] text-[#5a6a8a]'}`}>
+                          <span className="text-xs px-2 py-0.5 rounded-full font-medium" style={{ backgroundColor: tipoBadge[cal.tipo]?.bg || '#f4f4f6', color: tipoBadge[cal.tipo]?.color || '#888888' }}>
                             {tipoLabels[cal.tipo]}
                           </span>
-                          <span className="text-xs text-[#5a6a8a]">{new Date(cal.fecha).toLocaleDateString('es-AR')} • {cal.trimestre}° trimestre</span>
+                          <span className="text-xs" style={{ color: '#888888' }}>{new Date(cal.fecha).toLocaleDateString('es-AR')} · {cal.trimestre}° trimestre</span>
                         </div>
                       </div>
-                      <span className={`text-sm font-bold px-2.5 py-1 rounded-lg ${getNotaColor(cal.nota)}`}>
+                      <span className="text-sm font-bold px-2.5 py-1 rounded-lg" style={{ backgroundColor: getNotaBg(cal.nota), color: getNotaColor(cal.nota) }}>
                         {cal.nota}
                       </span>
                     </div>
