@@ -4,8 +4,8 @@ import { useAppStore } from '@/store/useAppStore';
 import PageHeader from '@/components/PageHeader';
 
 const tipoColors: Record<string, string> = {
-  tarea: 'bg-blue-100 text-blue-700',
-  material: 'bg-green-100 text-green-700',
+  tarea: 'bg-[#e8f0fb] text-[#2d4a8a]',
+  material: 'bg-[#dcfce7] text-[#15803d]',
   actividad: 'bg-purple-100 text-purple-700',
 };
 
@@ -34,11 +34,11 @@ export default function AulasPage() {
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         {/* Sidebar materias */}
         <div className="lg:col-span-1">
-          <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
-            <div className="p-4 border-b border-slate-200">
-              <h2 className="font-semibold text-slate-900 text-sm">Mis Materias</h2>
+          <div className="bg-white rounded-xl border border-[#d8e0ee] overflow-hidden">
+            <div className="p-4 border-b border-[#d8e0ee]">
+              <h2 className="font-semibold text-[#1a2444] text-sm">Mis Materias</h2>
             </div>
-            <div className="divide-y divide-slate-100">
+            <div className="divide-y divide-[#eef1f8]">
               {misMaterias.map(materia => {
                 const docente = docentes.find(d => d.id === materia.docenteId);
                 const cnt = actividades.filter(a => a.materiaId === materia.id).length;
@@ -47,11 +47,11 @@ export default function AulasPage() {
                   <button
                     key={materia.id}
                     onClick={() => setSelectedMateria(materia.id)}
-                    className={`w-full text-left p-4 transition-colors ${isActive ? 'bg-blue-50' : 'hover:bg-slate-50'}`}
+                    className={`w-full text-left p-4 transition-colors ${isActive ? 'bg-[#e8f0fb]' : 'hover:bg-[#f8f9fc]'}`}
                   >
-                    <p className={`text-sm font-medium ${isActive ? 'text-blue-700' : 'text-slate-900'}`}>{materia.nombre}</p>
-                    <p className="text-xs text-slate-500 mt-0.5">Prof. {docente?.apellido}</p>
-                    <p className="text-xs text-slate-400 mt-0.5">{cnt} actividades</p>
+                    <p className={`text-sm font-medium ${isActive ? 'text-[#2d4a8a]' : 'text-[#1a2444]'}`}>{materia.nombre}</p>
+                    <p className="text-xs text-[#5a6a8a] mt-0.5">Prof. {docente?.apellido}</p>
+                    <p className="text-xs text-[#5a6a8a] mt-0.5">{cnt} actividades</p>
                   </button>
                 );
               })}
@@ -70,7 +70,7 @@ export default function AulasPage() {
               </div>
 
               {actividadesMateria.length === 0 ? (
-                <div className="bg-white rounded-xl border border-slate-200 p-8 text-center text-slate-400">
+                <div className="bg-white rounded-xl border border-[#d8e0ee] p-8 text-center text-[#5a6a8a]">
                   No hay actividades publicadas para esta materia
                 </div>
               ) : (
@@ -78,7 +78,7 @@ export default function AulasPage() {
                   {actividadesMateria.map(actividad => {
                     const docente = docentes.find(d => d.id === actividad.docenteId);
                     return (
-                      <div key={actividad.id} className="bg-white rounded-xl border border-slate-200 p-5 hover:shadow-sm transition-shadow">
+                      <div key={actividad.id} className="bg-white rounded-xl border border-[#d8e0ee] p-5 hover:shadow-sm transition-shadow">
                         <div className="flex items-start justify-between">
                           <div className="flex-1">
                             <div className="flex items-center gap-2 mb-1">
@@ -86,14 +86,14 @@ export default function AulasPage() {
                                 {tipoLabels[actividad.tipo]}
                               </span>
                               {actividad.fechaEntrega && (
-                                <span className="text-xs text-orange-600 bg-orange-50 px-2 py-0.5 rounded-full">
+                                <span className="text-xs text-[#d97706] bg-orange-50 px-2 py-0.5 rounded-full">
                                   Entrega: {new Date(actividad.fechaEntrega).toLocaleDateString('es-AR')}
                                 </span>
                               )}
                             </div>
-                            <h3 className="font-semibold text-slate-900">{actividad.titulo}</h3>
-                            <p className="text-sm text-slate-600 mt-1">{actividad.descripcion}</p>
-                            <p className="text-xs text-slate-400 mt-2">
+                            <h3 className="font-semibold text-[#1a2444]">{actividad.titulo}</h3>
+                            <p className="text-sm text-[#5a6a8a] mt-1">{actividad.descripcion}</p>
+                            <p className="text-xs text-[#5a6a8a] mt-2">
                               Publicado por Prof. {docente?.apellido} • {new Date(actividad.fechaPublicacion).toLocaleDateString('es-AR')}
                             </p>
                           </div>

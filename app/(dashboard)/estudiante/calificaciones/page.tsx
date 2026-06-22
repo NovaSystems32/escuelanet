@@ -27,9 +27,9 @@ export default function CalificacionesPage() {
     : '-';
 
   const getNotaColor = (nota: number) => {
-    if (nota >= 7) return 'bg-green-100 text-green-700';
-    if (nota >= 4) return 'bg-yellow-100 text-yellow-700';
-    return 'bg-red-100 text-red-700';
+    if (nota >= 7) return 'bg-[#dcfce7] text-[#15803d]';
+    if (nota >= 4) return 'bg-[#fef3c7] text-[#d97706]';
+    return 'bg-red-100 text-[#e53935]';
   };
 
   return (
@@ -38,32 +38,33 @@ export default function CalificacionesPage() {
 
       {/* Summary */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-        <div className="bg-blue-600 text-white rounded-xl p-4">
-          <p className="text-blue-200 text-xs mb-1">Promedio General</p>
+        <div className="bg-gradient-to-br from-[#1a2f5e] to-[#2d4a8a] text-white rounded-xl p-4 shadow-md">
+          <p className="text-white/60 text-xs mb-1 font-medium uppercase tracking-wide">Promedio General</p>
           <p className="text-3xl font-bold">{promedioGeneral}</p>
         </div>
         {[1, 2, 3].map(t => {
           const cals = misCalificaciones.filter(c => c.trimestre === t);
           const prom = cals.length > 0 ? (cals.reduce((s, c) => s + c.nota, 0) / cals.length).toFixed(1) : '-';
+          const promNum = cals.length > 0 ? cals.reduce((s, c) => s + c.nota, 0) / cals.length : null;
           return (
-            <div key={t} className="bg-white rounded-xl border border-slate-200 p-4">
-              <p className="text-slate-500 text-xs mb-1">{t}° Trimestre</p>
-              <p className="text-2xl font-bold text-slate-900">{prom}</p>
+            <div key={t} className="bg-white rounded-xl border border-[#d8e0ee] p-4 shadow-sm">
+              <p className="text-[#5a6a8a] text-xs mb-1 font-medium">{t}° Trimestre</p>
+              <p className={`text-2xl font-bold ${promNum !== null ? (promNum >= 7 ? 'text-[#34a853]' : promNum >= 4 ? 'text-[#f59e0b]' : 'text-[#e53935]') : 'text-[#1a2444]'}`}>{prom}</p>
             </div>
           );
         })}
       </div>
 
       {/* Filter */}
-      <div className="flex gap-2 mb-4">
+      <div className="flex gap-2 mb-5">
         {(['todos', 1, 2, 3] as const).map(t => (
           <button
             key={t}
             onClick={() => setSelectedTrimestre(t)}
-            className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
+            className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 ${
               selectedTrimestre === t
-                ? 'bg-blue-600 text-white'
-                : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-50'
+                ? 'bg-[#2d4a8a] text-white shadow-sm'
+                : 'bg-white border border-[#d8e0ee] text-[#5a6a8a] hover:bg-[#e8f0fb] hover:text-[#2d4a8a]'
             }`}
           >
             {t === 'todos' ? 'Todos' : `${t}° Trimestre`}
@@ -79,25 +80,35 @@ export default function CalificacionesPage() {
           const promMateria = cals.length > 0 ? (cals.reduce((s, c) => s + c.nota, 0) / cals.length).toFixed(1) : '-';
           const promNum = cals.length > 0 ? cals.reduce((s, c) => s + c.nota, 0) / cals.length : null;
 
+          const tipoBadge: Record<string, string> = {
+            parcial: 'bg-[#e8f0fb] text-[#2d4a8a]',
+            trabajo_practico: 'bg-[#ccfbf1] text-[#0f766e]',
+            oral: 'bg-[#f3e8ff] text-[#7e22ce]',
+            examen_final: 'bg-[#e0e7ff] text-[#3730a3]',
+          };
+
           return (
-            <div key={materia.id} className="bg-white rounded-xl border border-slate-200">
-              <div className="flex items-center justify-between p-4 border-b border-slate-100">
-                <h3 className="font-semibold text-slate-900">{materia.nombre}</h3>
-                <div className={`text-lg font-bold px-3 py-1 rounded-lg ${promNum !== null ? getNotaColor(promNum) : 'bg-slate-100 text-slate-500'}`}>
+            <div key={materia.id} className="bg-white rounded-xl border border-[#d8e0ee] shadow-sm overflow-hidden">
+              <div className="flex items-center justify-between p-4 border-b border-[#eef1f8] bg-[#f8f9fc]">
+                <h3 className="font-semibold text-[#1a2444]">{materia.nombre}</h3>
+                <div className={`text-lg font-bold px-3 py-1 rounded-lg ${promNum !== null ? getNotaColor(promNum) : 'bg-[#eef1f8] text-[#5a6a8a]'}`}>
                   {promMateria}
                 </div>
               </div>
               {cals.length === 0 ? (
-                <p className="text-sm text-slate-400 p-4">Sin calificaciones registradas</p>
+                <p className="text-sm text-[#5a6a8a] p-4">Sin calificaciones registradas</p>
               ) : (
-                <div className="divide-y divide-slate-100">
-                  {cals.map(cal => (
-                    <div key={cal.id} className="flex items-center justify-between px-4 py-3">
+                <div className="divide-y divide-[#eef1f8]">
+                  {cals.map((cal, idx) => (
+                    <div key={cal.id} className={`flex items-center justify-between px-4 py-3 ${idx % 2 === 0 ? '' : 'bg-[#f8f9fc]'}`}>
                       <div>
-                        <p className="text-sm text-slate-900">{cal.descripcion}</p>
-                        <p className="text-xs text-slate-500">
-                          {tipoLabels[cal.tipo]} • {new Date(cal.fecha).toLocaleDateString('es-AR')} • {cal.trimestre}° trimestre
-                        </p>
+                        <p className="text-sm text-[#1a2444] font-medium">{cal.descripcion}</p>
+                        <div className="flex items-center gap-2 mt-1">
+                          <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${tipoBadge[cal.tipo] || 'bg-[#eef1f8] text-[#5a6a8a]'}`}>
+                            {tipoLabels[cal.tipo]}
+                          </span>
+                          <span className="text-xs text-[#5a6a8a]">{new Date(cal.fecha).toLocaleDateString('es-AR')} • {cal.trimestre}° trimestre</span>
+                        </div>
                       </div>
                       <span className={`text-sm font-bold px-2.5 py-1 rounded-lg ${getNotaColor(cal.nota)}`}>
                         {cal.nota}

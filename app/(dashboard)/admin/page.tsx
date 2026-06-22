@@ -12,26 +12,26 @@ export default function AdminDashboard() {
   const sanciones = disciplina.filter(d => d.tipo !== 'felicitacion' && !d.resuelto).length;
 
   const quickLinks = [
-    { href: '/admin/estudiantes', label: 'Gestionar Estudiantes', icon: '👥', color: 'bg-blue-50 hover:bg-blue-100 border-blue-200' },
-    { href: '/admin/docentes', label: 'Gestionar Docentes', icon: '👨‍🏫', color: 'bg-purple-50 hover:bg-purple-100 border-purple-200' },
-    { href: '/admin/cursos', label: 'Gestionar Cursos', icon: '🏫', color: 'bg-green-50 hover:bg-green-100 border-green-200' },
-    { href: '/admin/calificaciones', label: 'Ver Calificaciones', icon: '📊', color: 'bg-orange-50 hover:bg-orange-100 border-orange-200' },
-    { href: '/admin/asistencias', label: 'Control Asistencias', icon: '📅', color: 'bg-yellow-50 hover:bg-yellow-100 border-yellow-200' },
-    { href: '/admin/eventos', label: 'Gestionar Eventos', icon: '🗓️', color: 'bg-pink-50 hover:bg-pink-100 border-pink-200' },
+    { href: '/admin/estudiantes', label: 'Gestionar Estudiantes', icon: '👥', color: 'bg-[#e8f0fb] hover:bg-[#d0e4f7] border-[#d8e0ee] text-[#1a2444]' },
+    { href: '/admin/docentes', label: 'Gestionar Docentes', icon: '👨‍🏫', color: 'bg-[#f3e8ff] hover:bg-[#ede0fc] border-[#d8e0ee] text-[#1a2444]' },
+    { href: '/admin/cursos', label: 'Gestionar Cursos', icon: '🏫', color: 'bg-[#dcfce7] hover:bg-[#c6f7d7] border-[#d8e0ee] text-[#1a2444]' },
+    { href: '/admin/calificaciones', label: 'Ver Calificaciones', icon: '📊', color: 'bg-[#fef9c3] hover:bg-[#fef08a] border-[#d8e0ee] text-[#1a2444]' },
+    { href: '/admin/asistencias', label: 'Control Asistencias', icon: '📅', color: 'bg-[#ccfbf1] hover:bg-[#b0f4e9] border-[#d8e0ee] text-[#1a2444]' },
+    { href: '/admin/eventos', label: 'Gestionar Eventos', icon: '🗓️', color: 'bg-[#fce7f3] hover:bg-[#f8d0e8] border-[#d8e0ee] text-[#1a2444]' },
   ];
 
   return (
     <div>
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold text-slate-900">Panel Administrativo</h1>
-        <p className="text-slate-500 text-sm mt-1">Resumen general del sistema escolar</p>
+      <div className="mb-6 bg-gradient-to-r from-[#1a2f5e] to-[#2d4a8a] rounded-2xl p-6 text-white shadow-md">
+        <h1 className="text-2xl font-bold">Panel Administrativo</h1>
+        <p className="text-white/70 text-sm mt-1">Resumen general del sistema escolar</p>
       </div>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        <StatCard title="Estudiantes activos" value={estudiantesActivos} icon="👥" color="bg-blue-50 text-blue-600" subtitle={`${estudiantes.length} total`} />
-        <StatCard title="Docentes" value={docentesActivos} icon="👨‍🏫" color="bg-purple-50 text-purple-600" subtitle={`${cursos.length} cursos`} />
-        <StatCard title="Inasistencias" value={inasistencias} icon="📅" color="bg-orange-50 text-orange-600" subtitle="Registradas" />
-        <StatCard title="Sanciones pendientes" value={sanciones} icon="⚠️" color="bg-red-50 text-red-600" subtitle="Sin resolver" />
+        <StatCard title="Estudiantes activos" value={estudiantesActivos} icon="👥" color="bg-[#e8f0fb] text-[#2d4a8a]" subtitle={`${estudiantes.length} total`} />
+        <StatCard title="Docentes" value={docentesActivos} icon="👨‍🏫" color="bg-[#f3e8ff] text-[#7e22ce]" subtitle={`${cursos.length} cursos`} />
+        <StatCard title="Inasistencias" value={inasistencias} icon="📅" color="bg-[#fef3c7] text-[#d97706]" subtitle="Registradas" />
+        <StatCard title="Sanciones pendientes" value={sanciones} icon="⚠️" color="bg-red-50 text-[#e53935]" subtitle="Sin resolver" />
       </div>
 
       <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 mb-8">
@@ -39,29 +39,29 @@ export default function AdminDashboard() {
           <Link
             key={link.href}
             href={link.href}
-            className={`flex items-center gap-3 p-4 rounded-xl border transition-colors ${link.color}`}
+            className={`flex items-center gap-3 p-4 rounded-xl border transition-all duration-200 hover:shadow-sm ${link.color}`}
           >
             <span className="text-2xl">{link.icon}</span>
-            <span className="font-medium text-slate-800 text-sm">{link.label}</span>
+            <span className="font-semibold text-sm">{link.label}</span>
           </Link>
         ))}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Cursos overview */}
-        <div className="bg-white rounded-xl border border-slate-200 p-5">
-          <h2 className="font-semibold text-slate-900 mb-4">Cursos</h2>
-          <div className="space-y-3">
+        <div className="bg-white rounded-xl border border-[#d8e0ee] p-5 shadow-sm">
+          <h2 className="font-semibold text-[#1a2444] mb-4">Cursos</h2>
+          <div className="space-y-2">
             {cursos.map(curso => {
               const docenteCurso = docentes.find(d => d.id === curso.docenteId);
               return (
-                <div key={curso.id} className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
+                <div key={curso.id} className="flex items-center justify-between p-3 bg-[#f8f9fc] rounded-lg hover:bg-[#e8f0fb] transition-colors">
                   <div>
-                    <p className="text-sm font-medium text-slate-900">{curso.nombre} - División {curso.division}</p>
-                    <p className="text-xs text-slate-500">{curso.turno} • {curso.estudiantesIds.length} estudiantes</p>
-                    {docenteCurso && <p className="text-xs text-slate-400">Prof. {docenteCurso.apellido}</p>}
+                    <p className="text-sm font-medium text-[#1a2444]">{curso.nombre} - División {curso.division}</p>
+                    <p className="text-xs text-[#5a6a8a]">{curso.turno} • {curso.estudiantesIds.length} estudiantes</p>
+                    {docenteCurso && <p className="text-xs text-[#5a6a8a]/70">Prof. {docenteCurso.apellido}</p>}
                   </div>
-                  <span className="text-xs bg-slate-200 text-slate-600 px-2 py-1 rounded-full">{curso.nivel}</span>
+                  <span className="text-xs bg-[#e8f0fb] text-[#2d4a8a] px-2.5 py-1 rounded-full font-medium">{curso.nivel}</span>
                 </div>
               );
             })}
@@ -69,19 +69,19 @@ export default function AdminDashboard() {
         </div>
 
         {/* Materias overview */}
-        <div className="bg-white rounded-xl border border-slate-200 p-5">
-          <h2 className="font-semibold text-slate-900 mb-4">Materias ({materias.length})</h2>
-          <div className="space-y-2">
-            {materias.map(materia => {
+        <div className="bg-white rounded-xl border border-[#d8e0ee] p-5 shadow-sm">
+          <h2 className="font-semibold text-[#1a2444] mb-4">Materias ({materias.length})</h2>
+          <div className="space-y-1">
+            {materias.map((materia, idx) => {
               const docenteM = docentes.find(d => d.id === materia.docenteId);
               const curso = cursos.find(c => c.id === materia.cursoId);
               return (
-                <div key={materia.id} className="flex items-center justify-between py-2 border-b border-slate-100 last:border-0">
+                <div key={materia.id} className={`flex items-center justify-between py-2.5 px-3 rounded-lg ${idx % 2 === 0 ? '' : 'bg-[#f8f9fc]'}`}>
                   <div>
-                    <p className="text-sm text-slate-900">{materia.nombre}</p>
-                    <p className="text-xs text-slate-500">{curso?.nombre} {curso?.division} • Prof. {docenteM?.apellido}</p>
+                    <p className="text-sm text-[#1a2444] font-medium">{materia.nombre}</p>
+                    <p className="text-xs text-[#5a6a8a]">{curso?.nombre} {curso?.division} • Prof. {docenteM?.apellido}</p>
                   </div>
-                  <span className="text-xs text-slate-500">{materia.horasSemanal}h/sem</span>
+                  <span className="text-xs text-[#5a6a8a] font-medium">{materia.horasSemanal}h/sem</span>
                 </div>
               );
             })}

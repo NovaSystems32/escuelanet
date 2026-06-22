@@ -50,11 +50,11 @@ const roleLabels: Record<Role, string> = {
   preceptor: 'Preceptor',
 };
 
-const roleColors: Record<Role, string> = {
-  admin: 'bg-purple-100 text-purple-700',
-  docente: 'bg-blue-100 text-blue-700',
-  estudiante: 'bg-green-100 text-green-700',
-  preceptor: 'bg-orange-100 text-orange-700',
+const roleAccents: Record<Role, string> = {
+  admin: 'bg-[#f0a500] text-[#1a2444]',
+  docente: 'bg-[#4a90d9] text-white',
+  estudiante: 'bg-[#34a853] text-white',
+  preceptor: 'bg-[#f59e0b] text-[#1a2444]',
 };
 
 export default function Sidebar() {
@@ -66,49 +66,39 @@ export default function Sidebar() {
   const items = navItems[user.rol] || [];
 
   return (
-    <aside className="w-64 flex-shrink-0 bg-white border-r border-slate-200 flex flex-col h-screen sticky top-0">
+    <aside className="w-64 flex-shrink-0 flex flex-col h-screen sticky top-0 bg-[#1a2f5e]">
       {/* Logo */}
-      <div className="p-6 border-b border-slate-200">
+      <div className="p-5 border-b border-white/10">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-lg">E</div>
+          <div className="w-10 h-10 bg-[#f0a500] rounded-xl flex items-center justify-center text-[#1a2444] font-bold text-xl shadow-md">
+            🎓
+          </div>
           <div>
-            <h1 className="text-base font-bold text-slate-900">EscuelaNet</h1>
-            <p className="text-xs text-slate-500">Sistema Escolar</p>
-          </div>
-        </div>
-      </div>
-
-      {/* User info */}
-      <div className="p-4 border-b border-slate-200">
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-full bg-slate-200 flex items-center justify-center text-slate-600 font-semibold text-sm">
-            {user.nombre.charAt(0)}
-          </div>
-          <div className="flex-1 min-w-0">
-            <p className="text-sm font-semibold text-slate-900 truncate">{user.nombre}</p>
-            <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${roleColors[user.rol]}`}>
-              {roleLabels[user.rol]}
-            </span>
+            <h1 className="text-base font-bold text-white tracking-tight">EscuelaNet</h1>
+            <p className="text-xs text-white/50">Plataforma Educativa</p>
           </div>
         </div>
       </div>
 
       {/* Nav */}
       <nav className="flex-1 p-3 overflow-y-auto">
-        <ul className="space-y-1">
+        <ul className="space-y-0.5">
           {items.map((item) => {
             const isActive = pathname === item.href || (item.href !== `/${user.rol}` && pathname.startsWith(item.href));
             return (
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                  className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 relative ${
                     isActive
-                      ? 'bg-blue-50 text-blue-700'
-                      : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
+                      ? 'bg-[#e8f0fb] text-[#2d4a8a] font-semibold'
+                      : 'text-white/75 hover:bg-white/10 hover:text-white'
                   }`}
                 >
-                  <span className="text-base leading-none">{item.icon}</span>
+                  {isActive && (
+                    <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-[#f0a500] rounded-r-full" />
+                  )}
+                  <span className="text-base leading-none ml-1">{item.icon}</span>
                   <span>{item.label}</span>
                 </Link>
               </li>
@@ -117,13 +107,24 @@ export default function Sidebar() {
         </ul>
       </nav>
 
-      {/* Logout */}
-      <div className="p-3 border-t border-slate-200">
+      {/* User info */}
+      <div className="p-4 border-t border-white/10">
+        <div className="flex items-center gap-3 mb-3">
+          <div className="w-9 h-9 rounded-full bg-[#2d4a8a] flex items-center justify-center text-white font-bold text-sm flex-shrink-0 ring-2 ring-white/20">
+            {user.nombre.charAt(0).toUpperCase()}
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="text-sm font-semibold text-white truncate">{user.nombre}</p>
+            <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${roleAccents[user.rol]}`}>
+              {roleLabels[user.rol]}
+            </span>
+          </div>
+        </div>
         <button
           onClick={logout}
-          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-red-600 hover:bg-red-50 transition-colors"
+          className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-medium text-white/60 hover:bg-[#e53935]/20 hover:text-red-300 transition-all duration-200"
         >
-          <span className="text-base leading-none">🚪</span>
+          <span className="text-sm">🚪</span>
           <span>Cerrar sesión</span>
         </button>
       </div>

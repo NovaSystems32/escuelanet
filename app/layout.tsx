@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "EscuelaNet",
-  description: "Sistema de gestión escolar",
+  title: "EscuelaNet — Plataforma Educativa Digital",
+  description: "Sistema de gestión escolar integral",
 };
 
 export default function RootLayout({
@@ -13,7 +13,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className="h-full">
-      <body className="min-h-full">{children}</body>
+      <body className="min-h-full antialiased">{children}</body>
     </html>
   );
 }

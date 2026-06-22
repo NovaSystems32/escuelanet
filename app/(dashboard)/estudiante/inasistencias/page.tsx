@@ -16,8 +16,8 @@ export default function InasistenciasPage() {
   const injustificadas = misAsistencias.filter(a => !a.presente && !a.justificada).length;
   const pct = misAsistencias.length > 0 ? Math.round((presentes / misAsistencias.length) * 100) : 100;
 
-  const statusColor = pct >= 75 ? 'text-green-600' : pct >= 60 ? 'text-yellow-600' : 'text-red-600';
-  const barColor = pct >= 75 ? 'bg-green-500' : pct >= 60 ? 'bg-yellow-500' : 'bg-red-500';
+  const statusColor = pct >= 75 ? 'text-[#34a853]' : pct >= 60 ? 'text-[#f59e0b]' : 'text-[#e53935]';
+  const barColor = pct >= 75 ? 'bg-[#34a853]' : pct >= 60 ? 'bg-[#f59e0b]' : 'bg-[#e53935]';
 
   return (
     <div>
@@ -25,34 +25,34 @@ export default function InasistenciasPage() {
 
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-        <div className="bg-white rounded-xl border border-slate-200 p-4">
-          <p className="text-xs text-slate-500 mb-1">Total días</p>
-          <p className="text-2xl font-bold text-slate-900">{misAsistencias.length}</p>
+        <div className="bg-white rounded-xl border border-[#d8e0ee] p-4 shadow-sm">
+          <p className="text-xs text-[#5a6a8a] mb-1 font-medium">Total días</p>
+          <p className="text-2xl font-bold text-[#1a2444]">{misAsistencias.length}</p>
         </div>
-        <div className="bg-green-50 rounded-xl border border-green-200 p-4">
-          <p className="text-xs text-green-600 mb-1">Presentes</p>
-          <p className="text-2xl font-bold text-green-700">{presentes}</p>
+        <div className="bg-[#dcfce7] rounded-xl border border-green-200 p-4">
+          <p className="text-xs text-[#34a853] mb-1 font-medium">Presentes</p>
+          <p className="text-2xl font-bold text-[#15803d]">{presentes}</p>
         </div>
-        <div className="bg-orange-50 rounded-xl border border-orange-200 p-4">
-          <p className="text-xs text-orange-600 mb-1">Justificadas</p>
-          <p className="text-2xl font-bold text-orange-700">{justificadas}</p>
+        <div className="bg-[#e8f0fb] rounded-xl border border-[#d8e0ee] p-4">
+          <p className="text-xs text-[#2d4a8a] mb-1 font-medium">Justificadas</p>
+          <p className="text-2xl font-bold text-[#2d4a8a]">{justificadas}</p>
         </div>
         <div className="bg-red-50 rounded-xl border border-red-200 p-4">
-          <p className="text-xs text-red-600 mb-1">Injustificadas</p>
-          <p className="text-2xl font-bold text-red-700">{injustificadas}</p>
+          <p className="text-xs text-[#e53935] mb-1 font-medium">Injustificadas</p>
+          <p className="text-2xl font-bold text-[#e53935]">{injustificadas}</p>
         </div>
       </div>
 
       {/* Progress */}
-      <div className="bg-white rounded-xl border border-slate-200 p-5 mb-6">
+      <div className="bg-white rounded-xl border border-[#d8e0ee] p-5 mb-6 shadow-sm">
         <div className="flex items-center justify-between mb-3">
-          <h2 className="font-semibold text-slate-900">Porcentaje de Asistencia</h2>
+          <h2 className="font-semibold text-[#1a2444]">Porcentaje de Asistencia</h2>
           <span className={`text-2xl font-bold ${statusColor}`}>{pct}%</span>
         </div>
-        <div className="w-full bg-slate-100 rounded-full h-3 mb-2">
+        <div className="w-full bg-[#eef1f8] rounded-full h-3 mb-2">
           <div className={`h-3 rounded-full transition-all ${barColor}`} style={{ width: `${pct}%` }} />
         </div>
-        <p className="text-xs text-slate-500">
+        <p className="text-xs text-[#5a6a8a]">
           {pct >= 75
             ? '✅ Buen nivel de asistencia. Seguí así.'
             : pct >= 60
@@ -62,41 +62,41 @@ export default function InasistenciasPage() {
       </div>
 
       {/* Tabla */}
-      <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
-        <div className="p-4 border-b border-slate-200">
-          <h2 className="font-semibold text-slate-900">Historial Detallado</h2>
+      <div className="bg-white rounded-xl border border-[#d8e0ee] overflow-hidden shadow-sm">
+        <div className="p-4 border-b border-[#eef1f8] bg-[#f8f9fc]">
+          <h2 className="font-semibold text-[#1a2444]">Historial Detallado</h2>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="bg-slate-50">
-                <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase">Fecha</th>
-                <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase">Estado</th>
-                <th className="text-left px-4 py-3 text-xs font-semibold text-slate-500 uppercase">Observación</th>
+              <tr className="bg-[#f8f9fc]">
+                <th className="text-left px-4 py-3 text-xs font-semibold text-[#5a6a8a] uppercase tracking-wide">Fecha</th>
+                <th className="text-left px-4 py-3 text-xs font-semibold text-[#5a6a8a] uppercase tracking-wide">Estado</th>
+                <th className="text-left px-4 py-3 text-xs font-semibold text-[#5a6a8a] uppercase tracking-wide">Observación</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
-              {misAsistencias.map(a => (
-                <tr key={a.id} className="hover:bg-slate-50">
-                  <td className="px-4 py-3 text-sm text-slate-900">
+            <tbody className="divide-y divide-[#eef1f8]">
+              {misAsistencias.map((a, idx) => (
+                <tr key={a.id} className={`hover:bg-[#e8f0fb] transition-colors ${idx % 2 === 0 ? '' : 'bg-[#f8f9fc]'}`}>
+                  <td className="px-4 py-3 text-sm text-[#1a2444] capitalize">
                     {new Date(a.fecha).toLocaleDateString('es-AR', { weekday: 'long', day: 'numeric', month: 'long' })}
                   </td>
                   <td className="px-4 py-3">
                     {a.presente ? (
-                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">
+                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-[#dcfce7] text-[#15803d]">
                         ✓ Presente
                       </span>
                     ) : a.justificada ? (
-                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-orange-100 text-orange-700">
+                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-[#e8f0fb] text-[#2d4a8a]">
                         ~ Justificada
                       </span>
                     ) : (
-                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-red-100 text-red-700">
+                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-red-100 text-[#e53935]">
                         ✗ Ausente
                       </span>
                     )}
                   </td>
-                  <td className="px-4 py-3 text-sm text-slate-500">{a.observacion || '-'}</td>
+                  <td className="px-4 py-3 text-sm text-[#5a6a8a]">{a.observacion || '-'}</td>
                 </tr>
               ))}
             </tbody>

@@ -53,15 +53,15 @@ export default function CalendarioPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Calendar */}
-        <div className="lg:col-span-2 bg-white rounded-xl border border-slate-200 p-5">
+        <div className="lg:col-span-2 bg-white rounded-xl border border-[#d8e0ee] p-5 shadow-sm">
           <div className="flex items-center justify-between mb-4">
-            <button onClick={prevMonth} className="p-2 hover:bg-slate-100 rounded-lg text-slate-600">◀</button>
-            <h2 className="font-semibold text-slate-900">{MONTHS[currentMonth]} {currentYear}</h2>
-            <button onClick={nextMonth} className="p-2 hover:bg-slate-100 rounded-lg text-slate-600">▶</button>
+            <button onClick={prevMonth} className="p-2 hover:bg-[#e8f0fb] rounded-lg text-[#2d4a8a] transition-colors">◀</button>
+            <h2 className="font-semibold text-[#1a2444]">{MONTHS[currentMonth]} {currentYear}</h2>
+            <button onClick={nextMonth} className="p-2 hover:bg-[#e8f0fb] rounded-lg text-[#2d4a8a] transition-colors">▶</button>
           </div>
           <div className="grid grid-cols-7 mb-2">
             {DAYS.map(d => (
-              <div key={d} className="text-center text-xs font-medium text-slate-500 py-2">{d}</div>
+              <div key={d} className="text-center text-xs font-semibold text-[#5a6a8a] py-2 uppercase tracking-wide">{d}</div>
             ))}
           </div>
           <div className="grid grid-cols-7 gap-1">
@@ -70,15 +70,15 @@ export default function CalendarioPage() {
               const dayEvents = getEventosForDay(day);
               const isToday = day === now.getDate() && currentMonth === now.getMonth() && currentYear === now.getFullYear();
               return (
-                <div key={idx} className={`min-h-[60px] p-1 rounded-lg border transition-colors ${isToday ? 'border-blue-300 bg-blue-50' : 'border-transparent hover:border-slate-200'}`}>
-                  <div className={`text-xs font-medium mb-1 w-6 h-6 flex items-center justify-center rounded-full ${isToday ? 'bg-blue-600 text-white' : 'text-slate-700'}`}>
+                <div key={idx} className={`min-h-[60px] p-1 rounded-lg border transition-colors ${isToday ? 'border-[#2d4a8a] bg-[#e8f0fb]' : 'border-transparent hover:border-[#d8e0ee] hover:bg-[#f8f9fc]'}`}>
+                  <div className={`text-xs font-medium mb-1 w-6 h-6 flex items-center justify-center rounded-full ${isToday ? 'bg-[#2d4a8a] text-white' : 'text-[#1a2444]'}`}>
                     {day}
                   </div>
                   <div className="space-y-0.5">
                     {dayEvents.map(e => (
                       <div
                         key={e.id}
-                        className="text-xs px-1 py-0.5 rounded truncate text-white"
+                        className="text-xs px-1 py-0.5 rounded truncate text-white font-medium"
                         style={{ backgroundColor: e.color }}
                         title={e.titulo}
                       >
@@ -94,19 +94,19 @@ export default function CalendarioPage() {
 
         {/* Upcoming events */}
         <div>
-          <div className="bg-white rounded-xl border border-slate-200 p-5 mb-4">
-            <h2 className="font-semibold text-slate-900 mb-4">Próximos Eventos</h2>
+          <div className="bg-white rounded-xl border border-[#d8e0ee] p-5 mb-4 shadow-sm">
+            <h2 className="font-semibold text-[#1a2444] mb-4">Próximos Eventos</h2>
             {upcomingEvents.length === 0 ? (
-              <p className="text-sm text-slate-400">No hay eventos próximos</p>
+              <p className="text-sm text-[#5a6a8a]">No hay eventos próximos</p>
             ) : (
               <div className="space-y-3">
                 {upcomingEvents.map(e => (
-                  <div key={e.id} className="flex gap-3 items-start">
+                  <div key={e.id} className="flex gap-3 items-start p-3 rounded-lg bg-[#f8f9fc] hover:bg-[#e8f0fb] transition-colors">
                     <div className="w-3 h-3 rounded-full mt-1.5 flex-shrink-0" style={{ backgroundColor: e.color }} />
                     <div>
-                      <p className="text-sm font-medium text-slate-900">{e.titulo}</p>
-                      <p className="text-xs text-slate-500">{new Date(e.fecha).toLocaleDateString('es-AR', { day: 'numeric', month: 'long' })}</p>
-                      <p className="text-xs text-slate-400">{tipoLabels[e.tipo]}</p>
+                      <p className="text-sm font-medium text-[#1a2444]">{e.titulo}</p>
+                      <p className="text-xs text-[#5a6a8a]">{new Date(e.fecha).toLocaleDateString('es-AR', { day: 'numeric', month: 'long' })}</p>
+                      <p className="text-xs text-[#5a6a8a]/60">{tipoLabels[e.tipo]}</p>
                     </div>
                   </div>
                 ))}
@@ -115,19 +115,19 @@ export default function CalendarioPage() {
           </div>
 
           {/* Legend */}
-          <div className="bg-white rounded-xl border border-slate-200 p-5">
-            <h2 className="font-semibold text-slate-900 mb-3">Leyenda</h2>
+          <div className="bg-white rounded-xl border border-[#d8e0ee] p-5 shadow-sm">
+            <h2 className="font-semibold text-[#1a2444] mb-3">Leyenda</h2>
             <div className="space-y-2">
               {[
-                { color: '#ef4444', label: 'Examen' },
-                { color: '#3b82f6', label: 'Reunión' },
-                { color: '#6b7280', label: 'Feriado' },
-                { color: '#10b981', label: 'Entrega' },
-                { color: '#f59e0b', label: 'Actividad' },
+                { color: '#4a90d9', label: 'Evaluación' },
+                { color: '#f59e0b', label: 'Entrega' },
+                { color: '#f0a500', label: 'Acto' },
+                { color: '#0f766e', label: 'Reunión' },
+                { color: '#9ca3af', label: 'Feriado' },
               ].map(item => (
                 <div key={item.label} className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full" style={{ backgroundColor: item.color }} />
-                  <span className="text-sm text-slate-600">{item.label}</span>
+                  <div className="w-3 h-3 rounded-full flex-shrink-0" style={{ backgroundColor: item.color }} />
+                  <span className="text-sm text-[#5a6a8a]">{item.label}</span>
                 </div>
               ))}
             </div>
