@@ -54,13 +54,13 @@ export default function LoginPage() {
         style={{
           backgroundImage: "url('/imagen1.png')",
           backgroundSize: 'cover',
-          backgroundPosition: 'center',
+          backgroundPosition: '18% center',
           backgroundRepeat: 'no-repeat',
           backgroundColor: '#1a5276',
         }}
       >
-        {/* Overlay for readability */}
-        <div className="absolute inset-0" style={{ backgroundColor: 'rgba(26, 82, 118, 0.78)' }} />
+        {/* Overlay for readability — suave para que se vea el escudo del fondo */}
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, rgba(16,82,119,0.55), rgba(16,82,119,0.35))' }} />
 
         <div className="relative z-10 text-center max-w-md">
           <img
@@ -70,8 +70,16 @@ export default function LoginPage() {
             style={{ border: '4px solid #c9a227' }}
           />
           <h1
-            className="text-4xl font-bold mb-3 leading-tight"
-            style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 800, color: '#C9252D' }}
+            className="text-4xl font-bold mb-3 leading-tight px-5 py-2 rounded-2xl"
+            style={{
+              fontFamily: "'Barlow Condensed', sans-serif",
+              fontWeight: 800,
+              color: '#B8202A',
+              textShadow: '0 2px 8px rgba(255,255,255,0.45)',
+              letterSpacing: '-0.5px',
+              background: 'rgba(255,255,255,0.16)',
+              backdropFilter: 'blur(6px)',
+            }}
           >
             Instituto Santiago Ramón y Cajal
           </h1>
