@@ -1,7 +1,8 @@
 import {
   Estudiante, Docente, Curso, Materia, Calificacion,
   Asistencia, Disciplina, Evento, Actividad, User, Post, AppUser,
-  LearningCore, Evaluation, EvaluationGrade, PriorityContent, WorkedLearning
+  LearningCore, Evaluation, EvaluationGrade, PriorityContent, WorkedLearning,
+  SimpleGrade
 } from '@/types';
 
 export const MOCK_USERS: User[] = [
@@ -178,6 +179,19 @@ export const MOCK_WORKED_LEARNINGS: WorkedLearning[] = [
   { id: 'wl-5', priorityContentId: 'pc-3', courseId: 'c1', subjectId: 'm2', teacherId: 'd2', description: 'Identifica la estructura narrativa en textos literarios.', order: 1, isActive: true, createdAt: '2026-03-10' },
   { id: 'wl-6', priorityContentId: 'pc-4', courseId: 'c2', subjectId: 'm4', teacherId: 'd3', description: 'Distingue los componentes de la célula eucariota y procariota.', order: 1, isActive: true, createdAt: '2026-03-12' },
   { id: 'wl-7', priorityContentId: 'pc-4', courseId: 'c2', subjectId: 'm4', teacherId: 'd3', description: 'Comprende el proceso de mitosis y su importancia biológica.', order: 2, isActive: true, createdAt: '2026-03-12' },
+];
+
+export const MOCK_SIMPLE_GRADES: SimpleGrade[] = [
+  // e1 (Lucas Rodríguez), c1, m1 (Matemática), d1
+  { id: 'sg-1', studentId: 'e1', courseId: 'c1', subjectId: 'm1', teacherId: 'd1', schoolYear: 2026, evaluationNumber: 1, grade: '5', recoveryOneGrade: '7', recoveryTwoGrade: '', observation: 'Aprobó en recuperatorio', updatedAt: '2026-06-20' },
+  { id: 'sg-2', studentId: 'e1', courseId: 'c1', subjectId: 'm1', teacherId: 'd1', schoolYear: 2026, evaluationNumber: 2, grade: '8', recoveryOneGrade: '', recoveryTwoGrade: '', observation: '', updatedAt: '2026-06-20' },
+  { id: 'sg-3', studentId: 'e1', courseId: 'c1', subjectId: 'm1', teacherId: 'd1', schoolYear: 2026, evaluationNumber: 3, grade: '7', recoveryOneGrade: '', recoveryTwoGrade: '', observation: '', updatedAt: '2026-06-20' },
+  // e2 (Valentina López), c1, m1 (Matemática), d1
+  { id: 'sg-4', studentId: 'e2', courseId: 'c1', subjectId: 'm1', teacherId: 'd1', schoolYear: 2026, evaluationNumber: 1, grade: '4', recoveryOneGrade: '4', recoveryTwoGrade: '7', observation: 'Aprobó en segundo recuperatorio', updatedAt: '2026-06-20' },
+  { id: 'sg-5', studentId: 'e2', courseId: 'c1', subjectId: 'm1', teacherId: 'd1', schoolYear: 2026, evaluationNumber: 2, grade: '3', recoveryOneGrade: '', recoveryTwoGrade: '', observation: '', updatedAt: '2026-06-20' },
+  // e3 (Mateo Fernández), c1, m1 (Matemática), d1
+  { id: 'sg-6', studentId: 'e3', courseId: 'c1', subjectId: 'm1', teacherId: 'd1', schoolYear: 2026, evaluationNumber: 1, grade: '9', recoveryOneGrade: '', recoveryTwoGrade: '', observation: '', updatedAt: '2026-06-20' },
+  { id: 'sg-7', studentId: 'e3', courseId: 'c1', subjectId: 'm1', teacherId: 'd1', schoolYear: 2026, evaluationNumber: 2, grade: '6', recoveryOneGrade: '', recoveryTwoGrade: '', observation: '', updatedAt: '2026-06-20' },
 ];
 
 export const MOCK_ACTIVIDADES: Actividad[] = [

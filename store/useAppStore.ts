@@ -4,14 +4,14 @@ import {
   Estudiante, Docente, Curso, Materia, Calificacion,
   Asistencia, Disciplina, Evento, Actividad, Post, AppUser,
   LearningCore, Evaluation, EvaluationGrade, CoreStatus,
-  PriorityContent, WorkedLearning
+  PriorityContent, WorkedLearning, SimpleGrade
 } from '@/types';
 import {
   MOCK_ESTUDIANTES, MOCK_DOCENTES, MOCK_CURSOS, MOCK_MATERIAS,
   MOCK_CALIFICACIONES, MOCK_ASISTENCIAS, MOCK_DISCIPLINA,
   MOCK_EVENTOS, MOCK_ACTIVIDADES, MOCK_POSTS, MOCK_APP_USERS,
   MOCK_LEARNING_CORES, MOCK_EVALUATIONS, MOCK_EVALUATION_GRADES,
-  MOCK_PRIORITY_CONTENTS, MOCK_WORKED_LEARNINGS
+  MOCK_PRIORITY_CONTENTS, MOCK_WORKED_LEARNINGS, MOCK_SIMPLE_GRADES
 } from '@/lib/mockData';
 
 interface AppState {
@@ -110,6 +110,10 @@ interface AppState {
   updateWorkedLearning: (id: string, data: Partial<WorkedLearning>) => void;
   deleteWorkedLearning: (id: string) => void;
 
+  // SimpleGrades
+  simpleGrades: SimpleGrade[];
+  upsertSimpleGrade: (grade: SimpleGrade) => void;
+
   // Selector helpers
   getStudentPosts: (studentId: string) => Post[];
   getStudentGrades: (studentId: string) => Calificacion[];
@@ -141,6 +145,7 @@ export const useAppStore = create<AppState>()(
       evaluationGrades: MOCK_EVALUATION_GRADES,
       priorityContents: MOCK_PRIORITY_CONTENTS,
       workedLearnings: MOCK_WORKED_LEARNINGS,
+      simpleGrades: MOCK_SIMPLE_GRADES,
 
       addEstudiante: (e) => set((s) => ({ estudiantes: [...s.estudiantes, { ...e, id: genId() }] })),
       updateEstudiante: (id, e) => set((s) => ({ estudiantes: s.estudiantes.map(x => x.id === id ? { ...x, ...e } : x) })),
@@ -203,6 +208,22 @@ export const useAppStore = create<AppState>()(
       addWorkedLearning: (l) => set((s) => ({ workedLearnings: [...s.workedLearnings, l] })),
       updateWorkedLearning: (id, data) => set((s) => ({ workedLearnings: s.workedLearnings.map(x => x.id === id ? { ...x, ...data } : x) })),
       deleteWorkedLearning: (id) => set((s) => ({ workedLearnings: s.workedLearnings.filter(x => x.id !== id) })),
+
+      upsertSimpleGrade: (grade) => set((s) => {
+        const idx = s.simpleGrades.findIndex(g =>
+          g.studentId === grade.studentId &&
+          g.courseId === grade.courseId &&
+          g.subjectId === grade.subjectId &&
+          g.schoolYear === grade.schoolYear &&
+          g.evaluationNumber === grade.evaluationNumber
+        );
+        if (idx >= 0) {
+          const updated = [...s.simpleGrades];
+          updated[idx] = grade;
+          return { simpleGrades: updated };
+        }
+        return { simpleGrades: [...s.simpleGrades, grade] };
+      }),
 
       // Selectors
       getStudentPosts: (studentId: string) => {

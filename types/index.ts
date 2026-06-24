@@ -213,3 +213,18 @@ export interface WorkedLearning {
   isActive: boolean;
   createdAt: string;
 }
+
+export interface SimpleGrade {
+  id: string;
+  studentId: string;
+  courseId: string;
+  subjectId: string;
+  teacherId: string;
+  schoolYear: number;
+  evaluationNumber: number;   // 1 through 8
+  grade: string;              // '1'-'10', 'ausente', or '' (empty = sin cargar)
+  recoveryOneGrade: string;   // same values
+  recoveryTwoGrade: string;   // same values
+  observation: string;
+  updatedAt: string;
+}

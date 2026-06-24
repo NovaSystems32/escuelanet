@@ -52,7 +52,7 @@ function StatusBadge({ statusKey }: { statusKey: StatusKey }) {
 
 export default function EstudianteSeguimientoPage() {
   const { user } = useAuthStore();
-  const { estudiantes, materias, learningCores, evaluationGrades, appUsers } = useAppStore();
+  const { estudiantes, materias, learningCores, evaluationGrades, appUsers, simpleGrades } = useAppStore();
 
   const appUser = appUsers.find(u => u.username === user?.email?.split('@')[0]) ||
     appUsers.find(u => u.role === 'estudiante' && user?.email?.includes('estudiante'));
@@ -101,11 +101,23 @@ export default function EstudianteSeguimientoPage() {
   const pendingCores = allCores.filter(c => c.statusKey === 'DebeRecuperar' || c.statusKey === 'R2Pendiente').length;
   const failedCores = allCores.filter(c => c.statusKey === 'NoAprobado').length;
 
+  // SimpleGrades summary
+  const mySimpleGrades = simpleGrades.filter(g => g.studentId === studentId);
+  const simpleApproved = mySimpleGrades.filter(g => {
+    if (!g.grade || g.grade === 'ausente') return false;
+    if (parseInt(g.grade) >= 6) return true;
+    if (g.recoveryOneGrade && g.recoveryOneGrade !== 'ausente' && parseInt(g.recoveryOneGrade) >= 6) return true;
+    if (g.recoveryTwoGrade && g.recoveryTwoGrade !== 'ausente' && parseInt(g.recoveryTwoGrade) >= 6) return true;
+    return false;
+  }).length;
+  const simpleTotal = mySimpleGrades.filter(g => g.grade).length;
+
   const summaryCards = [
     { label: 'Espacios curriculares', value: totalSubjects, bg: 'linear-gradient(135deg, #1a5276, #154360)', textColor: '#fff' },
     { label: 'Núcleos aprobados', value: approvedCores, bg: 'linear-gradient(135deg, #1e8449, #145a32)', textColor: '#fff' },
     { label: 'Núcleos pendientes', value: pendingCores, bg: 'linear-gradient(135deg, #c9a227, #9a7d0a)', textColor: '#fff' },
     { label: 'No aprobados', value: failedCores, bg: 'linear-gradient(135deg, #c62828, #922020)', textColor: '#fff' },
+    { label: `Evaluaciones aprobadas`, value: `${simpleApproved}/${simpleTotal}`, bg: 'linear-gradient(135deg, #2e86ab, #1a5276)', textColor: '#fff' },
   ];
 
   const gradeDisplay = (g: number | null) => g !== null ? String(g) : '-';

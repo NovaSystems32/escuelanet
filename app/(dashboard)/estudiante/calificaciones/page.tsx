@@ -1,6 +1,7 @@
 'use client';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useAppStore } from '@/store/useAppStore';
+import { useAuthStore } from '@/store/useAuthStore';
 import PageHeader from '@/components/PageHeader';
 
 const tipoLabels: Record<string, string> = {
@@ -25,12 +26,40 @@ const tipoBadge: Record<string, { bg: string; color: string }> = {
   'Coloquio': { bg: '#cce5ff', color: '#0d47a1' },
 };
 
+function computeEvalStatus(grade: string, r1: string, r2: string): string {
+  if (!grade) return 'Sin calificar';
+  if (grade === 'ausente') return 'Ausente';
+  const n = parseInt(grade);
+  if (n >= 6) return 'Aprobado';
+  if (!r1) return 'Debe recuperar';
+  if (r1 === 'ausente') return 'Ausente en R1';
+  const r = parseInt(r1);
+  if (r >= 6) return 'Aprobado en R1';
+  if (!r2) return 'R2 pendiente';
+  if (r2 === 'ausente') return 'Ausente en R2';
+  const r2v = parseInt(r2);
+  if (r2v >= 6) return 'Aprobado en R2';
+  return 'No aprobado';
+}
+
+function evalStatusStyle(status: string): React.CSSProperties {
+  if (status.startsWith('Aprobado')) return { background: '#d4edda', color: '#27ae60', border: '1px solid #c3e6cb' };
+  if (status === 'Debe recuperar' || status === 'R2 pendiente') return { background: '#fff3cd', color: '#856404', border: '1px solid #ffeeba' };
+  if (status === 'No aprobado') return { background: '#f8d7da', color: '#c62828', border: '1px solid #f5c6cb' };
+  if (status === 'Sin calificar') return { background: '#e8e8ec', color: '#888', border: '1px solid #d8d8dc' };
+  return { background: '#e8f0fb', color: '#1a5276', border: '1px solid #d6e4f0' };
+}
+
 export default function CalificacionesPage() {
-  const { calificaciones, materias } = useAppStore();
+  const { user } = useAuthStore();
+  const { calificaciones, materias, simpleGrades, estudiantes, appUsers } = useAppStore();
   const [selectedTrimestre, setSelectedTrimestre] = useState<1|2|3|'todos'>('todos');
 
-  const estudianteId = 'e1';
-  const misMaterias = materias.filter(m => m.cursoId === 'c1');
+  const appUser = appUsers.find(u => u.username === user?.email?.split('@')[0]) ||
+    appUsers.find(u => u.role === 'estudiante' && user?.email?.includes('estudiante'));
+  const estudianteId = appUser?.linkedProfileId || 'e1';
+  const student = estudiantes.find(e => e.id === estudianteId);
+  const misMaterias = materias.filter(m => m.cursoId === (student?.curso || 'c1'));
   const misCalificaciones = calificaciones.filter(c => c.estudianteId === estudianteId);
 
   const filtered = selectedTrimestre === 'todos'
@@ -83,6 +112,73 @@ export default function CalificacionesPage() {
           </button>
         ))}
       </div>
+
+      {/* SimpleGrades - Evaluaciones 1-8 */}
+      {(() => {
+        const mySimpleGrades = simpleGrades.filter(g => g.studentId === estudianteId);
+        if (mySimpleGrades.length === 0) return null;
+        const subjectIds = [...new Set(mySimpleGrades.map(g => g.subjectId))];
+        return (
+          <div style={{ marginBottom: '24px' }}>
+            <h2 style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: '20px', fontWeight: 700, color: '#1a5276', marginBottom: '12px' }}>
+              Calificaciones por evaluación
+            </h2>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              {subjectIds.map(subjectId => {
+                const materia = misMaterias.find(m => m.id === subjectId);
+                if (!materia) return null;
+                const subjectGrades = mySimpleGrades.filter(g => g.subjectId === subjectId);
+                const rows = subjectGrades.filter(g => g.grade || g.recoveryOneGrade || g.recoveryTwoGrade);
+                if (rows.length === 0) return null;
+                return (
+                  <div key={subjectId} className="bg-white rounded-xl shadow-sm overflow-hidden" style={{ border: '1px solid #e8e8ec' }}>
+                    <div style={{ backgroundColor: '#f4f4f6', padding: '12px 16px', borderBottom: '1px solid #e8e8ec' }}>
+                      <h3 style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: '16px', fontWeight: 700, color: '#111', margin: 0 }}>{materia.nombre}</h3>
+                    </div>
+                    <div style={{ overflowX: 'auto' }}>
+                      <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
+                        <thead>
+                          <tr style={{ backgroundColor: '#1a5276', color: 'white' }}>
+                            <th style={{ padding: '8px 12px', textAlign: 'left', fontWeight: 600 }}>Evaluación</th>
+                            <th style={{ padding: '8px 12px', textAlign: 'center', fontWeight: 600 }}>Nota</th>
+                            <th style={{ padding: '8px 12px', textAlign: 'center', fontWeight: 600 }}>R1</th>
+                            <th style={{ padding: '8px 12px', textAlign: 'center', fontWeight: 600 }}>R2</th>
+                            <th style={{ padding: '8px 12px', textAlign: 'center', fontWeight: 600 }}>Estado</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {rows.sort((a, b) => a.evaluationNumber - b.evaluationNumber).map((g, i) => {
+                            const status = computeEvalStatus(g.grade, g.recoveryOneGrade, g.recoveryTwoGrade);
+                            return (
+                              <tr key={g.id} style={{ backgroundColor: i % 2 === 0 ? 'white' : '#f4f4f6', borderBottom: '1px solid #f0f0f0' }}>
+                                <td style={{ padding: '8px 12px', fontWeight: 500, color: '#1a2940' }}>Evaluación {g.evaluationNumber}</td>
+                                <td style={{ padding: '8px 12px', textAlign: 'center', fontWeight: 700, color: g.grade ? (g.grade === 'ausente' ? '#1a5276' : parseInt(g.grade) >= 6 ? '#27ae60' : '#c62828') : '#bbb' }}>
+                                  {g.grade ? (g.grade === 'ausente' ? 'Aus.' : g.grade) : '-'}
+                                </td>
+                                <td style={{ padding: '8px 12px', textAlign: 'center', fontWeight: 700, color: g.recoveryOneGrade ? (g.recoveryOneGrade === 'ausente' ? '#1a5276' : parseInt(g.recoveryOneGrade) >= 6 ? '#27ae60' : '#c62828') : '#bbb' }}>
+                                  {g.recoveryOneGrade ? (g.recoveryOneGrade === 'ausente' ? 'Aus.' : g.recoveryOneGrade) : '-'}
+                                </td>
+                                <td style={{ padding: '8px 12px', textAlign: 'center', fontWeight: 700, color: g.recoveryTwoGrade ? (g.recoveryTwoGrade === 'ausente' ? '#1a5276' : parseInt(g.recoveryTwoGrade) >= 6 ? '#27ae60' : '#c62828') : '#bbb' }}>
+                                  {g.recoveryTwoGrade ? (g.recoveryTwoGrade === 'ausente' ? 'Aus.' : g.recoveryTwoGrade) : '-'}
+                                </td>
+                                <td style={{ padding: '8px 12px', textAlign: 'center' }}>
+                                  <span style={{ ...evalStatusStyle(status), padding: '3px 10px', borderRadius: '20px', fontSize: '11px', fontWeight: 600 }}>
+                                    {status}
+                                  </span>
+                                </td>
+                              </tr>
+                            );
+                          })}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        );
+      })()}
 
       {/* Por materia */}
       <div className="space-y-4">
