@@ -3,13 +3,15 @@ import { persist } from 'zustand/middleware';
 import {
   Estudiante, Docente, Curso, Materia, Calificacion,
   Asistencia, Disciplina, Evento, Actividad, Post, AppUser,
-  LearningCore, Evaluation, EvaluationGrade, CoreStatus
+  LearningCore, Evaluation, EvaluationGrade, CoreStatus,
+  PriorityContent, WorkedLearning
 } from '@/types';
 import {
   MOCK_ESTUDIANTES, MOCK_DOCENTES, MOCK_CURSOS, MOCK_MATERIAS,
   MOCK_CALIFICACIONES, MOCK_ASISTENCIAS, MOCK_DISCIPLINA,
   MOCK_EVENTOS, MOCK_ACTIVIDADES, MOCK_POSTS, MOCK_APP_USERS,
-  MOCK_LEARNING_CORES, MOCK_EVALUATIONS, MOCK_EVALUATION_GRADES
+  MOCK_LEARNING_CORES, MOCK_EVALUATIONS, MOCK_EVALUATION_GRADES,
+  MOCK_PRIORITY_CONTENTS, MOCK_WORKED_LEARNINGS
 } from '@/lib/mockData';
 
 interface AppState {
@@ -96,6 +98,18 @@ interface AppState {
   addEvaluationGrade: (eg: Omit<EvaluationGrade, 'id'>) => void;
   updateEvaluationGrade: (id: string, eg: Partial<EvaluationGrade>) => void;
 
+  // PriorityContents
+  priorityContents: PriorityContent[];
+  addPriorityContent: (c: PriorityContent) => void;
+  updatePriorityContent: (id: string, data: Partial<PriorityContent>) => void;
+  deletePriorityContent: (id: string) => void;
+
+  // WorkedLearnings
+  workedLearnings: WorkedLearning[];
+  addWorkedLearning: (l: WorkedLearning) => void;
+  updateWorkedLearning: (id: string, data: Partial<WorkedLearning>) => void;
+  deleteWorkedLearning: (id: string) => void;
+
   // Selector helpers
   getStudentPosts: (studentId: string) => Post[];
   getStudentGrades: (studentId: string) => Calificacion[];
@@ -125,6 +139,8 @@ export const useAppStore = create<AppState>()(
       learningCores: MOCK_LEARNING_CORES,
       evaluations: MOCK_EVALUATIONS,
       evaluationGrades: MOCK_EVALUATION_GRADES,
+      priorityContents: MOCK_PRIORITY_CONTENTS,
+      workedLearnings: MOCK_WORKED_LEARNINGS,
 
       addEstudiante: (e) => set((s) => ({ estudiantes: [...s.estudiantes, { ...e, id: genId() }] })),
       updateEstudiante: (id, e) => set((s) => ({ estudiantes: s.estudiantes.map(x => x.id === id ? { ...x, ...e } : x) })),
@@ -179,6 +195,14 @@ export const useAppStore = create<AppState>()(
 
       addEvaluationGrade: (eg) => set((s) => ({ evaluationGrades: [...s.evaluationGrades, { ...eg, id: genId() }] })),
       updateEvaluationGrade: (id, eg) => set((s) => ({ evaluationGrades: s.evaluationGrades.map(x => x.id === id ? { ...x, ...eg } : x) })),
+
+      addPriorityContent: (c) => set((s) => ({ priorityContents: [...s.priorityContents, c] })),
+      updatePriorityContent: (id, data) => set((s) => ({ priorityContents: s.priorityContents.map(x => x.id === id ? { ...x, ...data } : x) })),
+      deletePriorityContent: (id) => set((s) => ({ priorityContents: s.priorityContents.filter(x => x.id !== id) })),
+
+      addWorkedLearning: (l) => set((s) => ({ workedLearnings: [...s.workedLearnings, l] })),
+      updateWorkedLearning: (id, data) => set((s) => ({ workedLearnings: s.workedLearnings.map(x => x.id === id ? { ...x, ...data } : x) })),
+      deleteWorkedLearning: (id) => set((s) => ({ workedLearnings: s.workedLearnings.filter(x => x.id !== id) })),
 
       // Selectors
       getStudentPosts: (studentId: string) => {

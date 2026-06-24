@@ -1,7 +1,7 @@
 import {
   Estudiante, Docente, Curso, Materia, Calificacion,
   Asistencia, Disciplina, Evento, Actividad, User, Post, AppUser,
-  LearningCore, Evaluation, EvaluationGrade
+  LearningCore, Evaluation, EvaluationGrade, PriorityContent, WorkedLearning
 } from '@/types';
 
 export const MOCK_USERS: User[] = [
@@ -161,6 +161,23 @@ export const MOCK_EVALUATION_GRADES: EvaluationGrade[] = [
   { id: 'eg-4', studentId: 'e2', subjectId: 'm2', courseId: 'c1', learningCoreId: 'nc-m2-1', evaluationId: 'ev-nc-m2-1', instanceType: 'evaluacion_principal', grade: 9, date: '2026-07-08', observation: 'Excelente análisis textual.', teacherId: 'd2', visibleForStudent: true },
   { id: 'eg-5', studentId: 'e3', subjectId: 'm2', courseId: 'c1', learningCoreId: 'nc-m2-1', evaluationId: 'ev-nc-m2-1', instanceType: 'evaluacion_principal', grade: 4, date: '2026-07-08', observation: 'Debe recuperar el núcleo.', teacherId: 'd2', visibleForStudent: true },
   { id: 'eg-6', studentId: 'e4', subjectId: 'm4', courseId: 'c2', learningCoreId: 'nc-m4-1', evaluationId: 'ev-nc-m4-1', instanceType: 'evaluacion_principal', grade: 6, date: '2026-07-09', observation: 'Aprobado con conocimientos suficientes.', teacherId: 'd3', visibleForStudent: true },
+];
+
+export const MOCK_PRIORITY_CONTENTS: PriorityContent[] = [
+  { id: 'pc-1', courseId: 'c1', subjectId: 'm1', teacherId: 'd1', schoolYear: 2026, period: 'Primer cuatrimestre', learningCoreId: 'nc-m1-1', title: 'Sistema de Numeración Decimal y Romano', order: 1, isActive: true, createdAt: '2026-03-10' },
+  { id: 'pc-2', courseId: 'c1', subjectId: 'm1', teacherId: 'd1', schoolYear: 2026, period: 'Primer cuatrimestre', learningCoreId: 'nc-m1-2', title: 'Funciones lineales y cuadráticas', order: 2, isActive: true, createdAt: '2026-03-10' },
+  { id: 'pc-3', courseId: 'c1', subjectId: 'm2', teacherId: 'd2', schoolYear: 2026, period: 'Primer cuatrimestre', title: 'Comprensión de textos narrativos', order: 1, isActive: true, createdAt: '2026-03-10' },
+  { id: 'pc-4', courseId: 'c2', subjectId: 'm4', teacherId: 'd3', schoolYear: 2026, period: 'Primer cuatrimestre', learningCoreId: 'nc-m4-1', title: 'Célula: estructura y funciones', order: 1, isActive: true, createdAt: '2026-03-12' },
+];
+
+export const MOCK_WORKED_LEARNINGS: WorkedLearning[] = [
+  { id: 'wl-1', priorityContentId: 'pc-1', courseId: 'c1', subjectId: 'm1', teacherId: 'd1', description: 'Identifica y expresa coloquialmente la regla de formación de regularidades numéricas.', order: 1, isActive: true, createdAt: '2026-03-10' },
+  { id: 'wl-2', priorityContentId: 'pc-1', courseId: 'c1', subjectId: 'm1', teacherId: 'd1', description: 'Comprende las características principales del sistema decimal.', order: 2, isActive: true, createdAt: '2026-03-10' },
+  { id: 'wl-3', priorityContentId: 'pc-1', courseId: 'c1', subjectId: 'm1', teacherId: 'd1', description: 'Diferencia características del sistema romano respecto al decimal.', order: 3, isActive: true, createdAt: '2026-03-10' },
+  { id: 'wl-4', priorityContentId: 'pc-2', courseId: 'c1', subjectId: 'm1', teacherId: 'd1', description: 'Reconoce y grafica funciones lineales en el plano cartesiano.', order: 1, isActive: true, createdAt: '2026-03-10' },
+  { id: 'wl-5', priorityContentId: 'pc-3', courseId: 'c1', subjectId: 'm2', teacherId: 'd2', description: 'Identifica la estructura narrativa en textos literarios.', order: 1, isActive: true, createdAt: '2026-03-10' },
+  { id: 'wl-6', priorityContentId: 'pc-4', courseId: 'c2', subjectId: 'm4', teacherId: 'd3', description: 'Distingue los componentes de la célula eucariota y procariota.', order: 1, isActive: true, createdAt: '2026-03-12' },
+  { id: 'wl-7', priorityContentId: 'pc-4', courseId: 'c2', subjectId: 'm4', teacherId: 'd3', description: 'Comprende el proceso de mitosis y su importancia biológica.', order: 2, isActive: true, createdAt: '2026-03-12' },
 ];
 
 export const MOCK_ACTIVIDADES: Actividad[] = [

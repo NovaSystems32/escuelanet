@@ -187,3 +187,29 @@ export interface AulaVirtual {
   descripcion: string;
   actividades: Actividad[];
 }
+
+export interface PriorityContent {
+  id: string;
+  courseId: string;
+  subjectId: string;
+  teacherId: string;
+  schoolYear: number;
+  period: 'Primer cuatrimestre' | 'Segundo cuatrimestre' | 'Anual';
+  learningCoreId?: string;
+  title: string;
+  order: number;
+  isActive: boolean;
+  createdAt: string;
+}
+
+export interface WorkedLearning {
+  id: string;
+  priorityContentId: string;
+  courseId: string;
+  subjectId: string;
+  teacherId: string;
+  description: string;
+  order: number;
+  isActive: boolean;
+  createdAt: string;
+}

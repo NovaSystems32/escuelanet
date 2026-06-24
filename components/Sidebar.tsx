@@ -22,6 +22,7 @@ const navItems: Record<Role, NavItem[]> = {
     { href: '/estudiante/aulas', label: 'Mis espacios curriculares', icon: '📚' },
     { href: '/estudiante/calificaciones', label: 'Mis calificaciones', icon: '📊' },
     { href: '/estudiante/evaluaciones', label: 'Mis evaluaciones', icon: '📋' },
+    { href: '/estudiante/seguimiento', label: 'Mi seguimiento académico', icon: '📈' },
     { href: '/estudiante/inasistencias', label: 'Mis inasistencias', icon: '📅' },
     { href: '/estudiante/disciplina', label: 'Observaciones e intervenciones', icon: '⚖️' },
     { href: '/estudiante/calendario', label: 'Mi calendario institucional', icon: '🗓️' },
@@ -38,18 +39,21 @@ const navItems: Record<Role, NavItem[]> = {
     { href: '/admin/disciplina', label: 'Observaciones e intervenciones', icon: '⚖️' },
     { href: '/admin/eventos', label: 'Calendario institucional', icon: '🗓️' },
     { href: '/admin/usuarios', label: 'Accesos al sistema', icon: '🔑' },
+    { href: '/admin/contenidos', label: 'Contenidos priorizados', icon: '📋' },
   ],
   docente: [
     { href: '/docente', label: 'Inicio', icon: '🏠' },
     { href: '/docente/materias', label: 'Mis espacios curriculares', icon: '📖' },
     { href: '/docente/calificaciones', label: 'Carga de calificaciones', icon: '📊' },
     { href: '/docente/actividades', label: 'Actividades y entregas', icon: '📝' },
+    { href: '/docente/contenidos', label: 'Contenidos y aprendizajes', icon: '📋' },
   ],
   preceptor: [
     { href: '/preceptor', label: 'Inicio', icon: '🏠' },
     { href: '/preceptor/estudiantes', label: 'Gestión de estudiantes', icon: '👥' },
     { href: '/preceptor/asistencias', label: 'Registro de inasistencias', icon: '📅' },
     { href: '/preceptor/disciplina', label: 'Observaciones e intervenciones', icon: '⚖️' },
+    { href: '/preceptor/seguimiento', label: 'Trayectorias escolares', icon: '📈' },
   ],
 };
 
