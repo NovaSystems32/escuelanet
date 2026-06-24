@@ -167,11 +167,11 @@ export default function DocenteContenidosPage() {
   const selectedCursoData = cursos.find(c => c.id === selectedCurso);
 
   return (
-    <div style={{ backgroundColor: '#f4f4f6', minHeight: '100vh', padding: '2rem' }}>
+    <div style={{ backgroundColor: '#f4f4f6', minHeight: '100vh', padding: '1rem' }}>
       <div style={{ maxWidth: 1100, margin: '0 auto' }}>
         {/* Header */}
         <div style={{ marginBottom: '1.5rem' }}>
-          <h1 style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 800, fontSize: '2rem', color: '#1a2940', marginBottom: 4 }}>
+          <h1 style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 800, fontSize: 'clamp(20px, 4vw, 32px)', color: '#1a2940', marginBottom: 4 }}>
             Contenidos priorizados y aprendizajes trabajados
           </h1>
           <p style={{ color: '#555', fontSize: '0.95rem' }}>Gestión del seguimiento pedagógico por espacio curricular</p>
@@ -263,7 +263,7 @@ export default function DocenteContenidosPage() {
         {searched && (
           <div>
             {/* List header */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem', marginBottom: '1rem' }}>
               <div>
                 <h2 style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 700, fontSize: '1.3rem', color: '#1a2940' }}>
                   {selectedMateriaName} — {selectedCursoData?.nombre} {selectedCursoData?.division}

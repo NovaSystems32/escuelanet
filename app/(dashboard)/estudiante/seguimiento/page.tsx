@@ -123,10 +123,10 @@ export default function EstudianteSeguimientoPage() {
   const gradeDisplay = (g: number | null) => g !== null ? String(g) : '-';
 
   return (
-    <div style={{ backgroundColor: '#f4f4f6', minHeight: '100vh', padding: '2rem' }}>
+    <div style={{ backgroundColor: '#f4f4f6', minHeight: '100vh', padding: '1rem' }}>
       <div style={{ maxWidth: 1100, margin: '0 auto' }}>
         <div style={{ marginBottom: '1.5rem' }}>
-          <h1 style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 800, fontSize: '2rem', color: '#1a2940', marginBottom: 4 }}>
+          <h1 style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 800, fontSize: 'clamp(22px, 5vw, 32px)', color: '#1a2940', marginBottom: 4 }}>
             Mi seguimiento académico
           </h1>
           <p style={{ color: '#555', fontSize: '0.95rem' }}>Estado de tus aprendizajes y evaluaciones por espacio curricular</p>

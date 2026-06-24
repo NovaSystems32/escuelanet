@@ -154,7 +154,7 @@ export default function EstudiantesPage() {
             size="lg"
           />
         </div>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium text-[#111111] mb-1">Nombre *</label>
             <input className="w-full px-3 py-2 border border-[#e8e8ec] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#1a5276]" value={form.nombre} onChange={e => setForm(f => ({ ...f, nombre: e.target.value }))} />
@@ -211,7 +211,7 @@ export default function EstudiantesPage() {
             </label>
           </div>
         </div>
-        <div className="flex gap-3 mt-6 justify-end">
+        <div className="flex flex-col sm:flex-row gap-3 mt-6 justify-end">
           <button onClick={() => setIsOpen(false)} className="px-4 py-2 rounded-lg border border-[#e8e8ec] text-sm text-[#111111] hover:bg-[#f4f4f6]">Cancelar</button>
           <button onClick={handleSave} className="px-4 py-2 rounded-lg text-white text-sm" style={{ backgroundColor: '#1a5276' }}>Guardar</button>
         </div>

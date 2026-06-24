@@ -97,7 +97,7 @@ export default function CalificacionesPage() {
       </div>
 
       {/* Filter */}
-      <div className="flex gap-2 mb-5">
+      <div className="flex flex-wrap gap-2 mb-5">
         {(['todos', 1, 2, 3] as const).map(t => (
           <button
             key={t}
@@ -179,6 +179,8 @@ export default function CalificacionesPage() {
           </div>
         );
       })()}
+
+      <p className="scroll-hint">Deslizá para ver todas las calificaciones</p>
 
       {/* Por materia */}
       <div className="space-y-4">

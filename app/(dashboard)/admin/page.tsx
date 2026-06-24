@@ -34,7 +34,7 @@ export default function AdminDashboard() {
             Instituto Santiago Ramón y Cajal
           </p>
         </div>
-        <h1 className="text-3xl font-bold" style={{ fontFamily: "'Barlow Condensed', sans-serif" }}>Inicio institucional — Instituto Santiago Ramón y Cajal</h1>
+        <h1 className="font-bold" style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: 'clamp(20px, 4vw, 32px)' }}>Inicio institucional — Instituto Santiago Ramón y Cajal</h1>
         <p className="text-white/70 text-sm mt-1">Resumen general del sistema escolar</p>
       </div>
 

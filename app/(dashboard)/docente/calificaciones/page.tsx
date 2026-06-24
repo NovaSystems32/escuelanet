@@ -200,7 +200,7 @@ export default function DocenteCalificacionesPage() {
         <h2 style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: '18px', fontWeight: 700, color: '#1a5276', marginBottom: '16px', marginTop: 0 }}>
           Selección de curso y espacio curricular
         </h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '12px', marginBottom: '16px' }}>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3" style={{ marginBottom: '16px' }}>
           <div>
             <label style={labelStyle}>Curso</label>
             <select
@@ -269,12 +269,12 @@ export default function DocenteCalificacionesPage() {
       {searched && filteredStudents.length > 0 && (
         <div>
           {/* Tabs */}
-          <div style={{ display: 'flex', gap: '4px', borderBottom: '2px solid #e8e8ec' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px', borderBottom: '2px solid #e8e8ec' }}>
             {(['eval1-4', 'eval5-8', 'estado'] as const).map(tab => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                style={{ padding: '10px 20px', fontWeight: 600, fontSize: '14px', border: 'none', cursor: 'pointer', borderBottom: activeTab === tab ? '2px solid #c62828' : '2px solid transparent', marginBottom: '-2px', backgroundColor: 'transparent', color: activeTab === tab ? '#c62828' : '#888' }}
+                style={{ padding: '8px 14px', fontWeight: 600, fontSize: '13px', border: 'none', cursor: 'pointer', borderBottom: activeTab === tab ? '2px solid #c62828' : '2px solid transparent', marginBottom: '-2px', backgroundColor: 'transparent', color: activeTab === tab ? '#c62828' : '#888' }}
               >
                 {tab === 'eval1-4' ? 'Evaluaciones 1–4' : tab === 'eval5-8' ? 'Evaluaciones 5–8' : 'Estado académico'}
               </button>
@@ -284,7 +284,8 @@ export default function DocenteCalificacionesPage() {
           {/* Grade table (eval1-4 and eval5-8 tabs) */}
           {(activeTab === 'eval1-4' || activeTab === 'eval5-8') && (
             <div style={{ overflowX: 'auto', background: 'white', borderRadius: '0 0 16px 16px', boxShadow: '0 1px 4px rgba(0,0,0,0.08)' }}>
-              <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
+              <p className="scroll-hint">Deslizá la tabla para ver todas las evaluaciones.</p>
+              <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px', minWidth: '900px' }}>
                 <thead>
                   <tr style={{ backgroundColor: '#1a5276', color: 'white' }}>
                     <th rowSpan={2} style={{ padding: '10px 12px', textAlign: 'left', whiteSpace: 'nowrap', borderRight: '1px solid rgba(255,255,255,0.2)' }}>N° Doc.</th>
@@ -390,7 +391,7 @@ export default function DocenteCalificacionesPage() {
           )}
 
           {/* Save section */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '16px', padding: '16px', background: 'white', borderRadius: '12px', boxShadow: '0 1px 4px rgba(0,0,0,0.06)' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '12px', marginTop: '16px', padding: '16px', background: 'white', borderRadius: '12px', boxShadow: '0 1px 4px rgba(0,0,0,0.06)' }}>
             <div>
               {saveSuccess ? (
                 <span style={{ color: '#27ae60', fontWeight: 600, fontSize: '14px' }}>✓ Calificaciones guardadas correctamente</span>

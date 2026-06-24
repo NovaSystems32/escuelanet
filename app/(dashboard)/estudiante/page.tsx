@@ -51,7 +51,7 @@ export default function EstudianteDashboard() {
           </div>
         </div>
         <p className="text-white/60 text-sm mb-1">{todayCapitalized}</p>
-        <h1 className="text-3xl font-bold" style={{ fontFamily: "'Barlow Condensed', sans-serif" }}>Mi trayectoria escolar — {user?.nombre}</h1>
+        <h1 className="font-bold" style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: 'clamp(22px, 5vw, 32px)' }}>Mi trayectoria escolar — {user?.nombre}</h1>
         <p className="text-white/70 text-sm mt-1">Aquí está el resumen de tu actividad académica</p>
       </div>
 

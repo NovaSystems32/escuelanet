@@ -112,7 +112,7 @@ export default function LoginPage() {
       </div>
 
       {/* Right panel — login form */}
-      <div className="flex-1 flex items-center justify-center p-8 bg-white">
+      <div className="flex-1 flex items-center justify-center p-5 sm:p-8 bg-white min-h-screen lg:min-h-0">
         <div className="w-full max-w-md">
           {/* Mobile logo */}
           <div className="lg:hidden text-center mb-8">
@@ -128,7 +128,7 @@ export default function LoginPage() {
             <p className="text-sm mt-1" style={{ color: '#888888' }}>Plataforma Educativa Digital</p>
           </div>
 
-          <h2 className="text-3xl font-bold mb-1" style={{ fontFamily: "'Barlow Condensed', sans-serif", color: '#111111' }}>
+          <h2 className="text-2xl sm:text-3xl font-bold mb-1" style={{ fontFamily: "'Barlow Condensed', sans-serif", color: '#111111' }}>
             Iniciar Sesión
           </h2>
           <p className="text-sm mb-8" style={{ color: '#888888' }}>Ingresá tus credenciales para acceder al sistema</p>
@@ -189,7 +189,7 @@ export default function LoginPage() {
             <p className="text-xs font-semibold mb-3 text-center uppercase tracking-widest" style={{ color: '#888888' }}>
               Accesos de demostración
             </p>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {DEMO_USERS.map((u) => (
                 <button
                   key={u.email}

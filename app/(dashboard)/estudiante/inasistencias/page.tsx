@@ -66,7 +66,8 @@ export default function InasistenciasPage() {
           <h2 className="font-semibold" style={{ fontFamily: "'Barlow Condensed', sans-serif", color: '#111111' }}>Historial Detallado</h2>
         </div>
         <div className="overflow-x-auto">
-          <table className="w-full">
+          <p className="scroll-hint">Deslizá para ver el historial completo</p>
+          <table className="w-full" style={{ minWidth: '500px' }}>
             <thead>
               <tr style={{ backgroundColor: '#f4f4f6' }}>
                 <th className="text-left px-4 py-3 text-xs font-semibold uppercase tracking-wide" style={{ color: '#888888' }}>Fecha</th>
