@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import AppDataProvider from "@/components/AppDataProvider";
 
 export const metadata: Metadata = {
   title: "Instituto Santiago Ramón y Cajal — EscuelaNet",
@@ -13,7 +14,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className="h-full">
-      <body className="min-h-full antialiased">{children}</body>
+      <body className="min-h-full antialiased">
+        <AppDataProvider>{children}</AppDataProvider>
+      </body>
     </html>
   );
 }

@@ -32,8 +32,7 @@ export default function LoginPage() {
     e.preventDefault();
     setError('');
     setLoading(true);
-    await new Promise(r => setTimeout(r, 400));
-    const result = login(email, password);
+    const result = await login(email, password);
     if (!result.success) {
       setError(result.error || 'Error de inicio de sesión');
     }
